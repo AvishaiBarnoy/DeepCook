@@ -1,10 +1,10 @@
 
 # To Do:
-1. Remove "break" option as this happens automatically when someones enters an invalid value.
-2. look at recipe book for more ideas and add them
-3. implement TA flag for choose_random
-4. find better way to choose a random meal
-5. build a generic function to work with a subgroup of meals
+1. look at recipe book for more ideas and add them
+2. implement TA flag for choose_random
+3. find better way to choose a random meal - df.sample!
+4. build a generic function to work with a subgroup of meals
+5. create a logfile format for prepared meals, implement as function and add to auxillary.choose_random() 
 
 # Things to Add to functions:
 

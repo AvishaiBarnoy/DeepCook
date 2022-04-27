@@ -1,9 +1,14 @@
-
+'''
+Auxillary functions
+'''
 import pandas as pd
 import random as rnd
 
-def choose_random(ideas,rank=False, times=False, last_made=False):
+def choose_random(meals, rank=False, times=False, last_made=False, TA=None):
     '''
+    Changes to make:
+    1. test time stamping
+
     makes either a fully (pseudo) random choice from all meal options
         or a weighted choice based on rank.
     Future:
@@ -12,18 +17,36 @@ def choose_random(ideas,rank=False, times=False, last_made=False):
         3. Give k-choices ranked by ease and/or rank
         4. make choice by kosher type
         5. if last_made don't make choice made in last 5 days or if last_made==int then that amount of days
+    meals     ::: DataFrame with meal information
+    rank      ::: if True gives weights to meals based on rank
+    last_made ::: *NOT IMPLEMENTED* should take into account when last made, maybe combine with times?
+    TA        ::: True - choose only from takeawy, False - choose only from homecooking, None - anything may come
     '''
+    use_rank = None
+    if rank == True:
+        use_rank = choice["Rank"]
+
+    if TA == "True": 
+        choice = meals[meals["TA"] == 1].sample(n=1, weights=use_rank)
+    if TA == "False":
+        choice = meals[meals["TA"] == 0].sample(n=1, weights=use_rank)
+    else:
+        choice = meals.sample(n=1, weights=use_rank)
+    #print(choice.get(["Name"]))
+    return choice
+
     if rank == False:
-        choice = rnd.choices(population=list(range(len(ideas))),k=1)
+        choice = rnd.choices(population=list(range(len(meals))),k=1)
     elif rank == True:
-        choice = rnd.choices(population=list(range(len(ideas))),weights=ideas["Rank"],k=1)
-    print(ideas.Name[choice[0]]) #ideas.Rank[choice[0]]
+        choice = rnd.choices(population=list(range(len(meals))),weights=meals["Rank"],k=1)
+    print(meals.Name[choice[0]]) #meals.Rank[choice[0]]
     make_it = input("Are you going to make this meal? (y/n)")
     while True:
         if make_it.lower() == "y":
-            ideas.loc[choice[0],'times_made'] += 1
-            ideas.loc[choice[0],'Timestamp'] = pd.Timestamp.now()
-            save_data(ideas,filename="meal_list.csv")
+            meals.loc[choice[0],'times_made'] += 1
+            meals.loc[choice[0],'Timestamp'] = pd.Timestamp.now()
+            save_data(meals,filename="meal_list.csv")
+            #save_data(choice,filename="meals_made.log") # logger file for prepared meals
             break
         elif make_it.lower() == "n":
             print("meal not logged.")
@@ -31,16 +54,7 @@ def choose_random(ideas,rank=False, times=False, last_made=False):
         else:
             print("Please enter a valid answer.")
             make_it = input("Are you going to make this meal? (y/n)")
-    return ideas.Name[choice[0]] #ideas.Rank[choice[0]]
-
-def choose_TA(meal_data,rank=False,times=False,last_made=False):
-    '''
-    randomly makes a choice from the meals marked as take aways 
-    '''
-    ideas = meal_data
-    print(ideas.loc[ideas["TA"] == 1])
-    choice = rnd.choices(population=list(range(len(ideas))),weights=ideas["TA"],k=1)
-    print(ideas.Name[choice[0]])
+    return meals.Name[choice[0]] #meals.Rank[choice[0]]
 
 def add_meal(ideas,name,kosher,ease,rank,TA=0,times_made=0):
     '''
@@ -81,7 +95,7 @@ if __name__ == "__main__":
     data = pd.read_csv(FILENAME,index_col=0)
     
     #choose_random(data, rank=False, times=False)
-    choose_TA(data)
+    #choose_TA(data)
     #data = add_meal(data,["Pasta tomato","Stir Fried Veggies Frozen Bag"],[1,1],[4,4],[3,7])
     #save_data(data)
     #print(data)
