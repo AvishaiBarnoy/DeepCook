@@ -1,0 +1,10 @@
+#################
+# LOG 26.4.2022 #
+#################
+
+#################
+# LOG 25.4.2022 #
+#################
+1. added timestamp column, being overwritten every time meal is prepared.
+2. implemented choose_TA function allowing for random choice of a take-away
+meal.

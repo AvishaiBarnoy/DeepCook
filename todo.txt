@@ -1,0 +1,29 @@
+
+# To Do:
+1. Remove "break" option as this happens automatically when someones enters an invalid value.
+2. look at recipe book for more ideas and add them
+3. implement TA flag for choose_random
+4. find better way to choose a random meal
+5. build a generic function to work with a subgroup of meals
+
+# Things to Add to functions:
+
+## Data organization:
+	1. add time_stamp column for better choice making, maybe keep timestamp as a list for statistics?
+	2. Do not remove times_made so statistics can be made
+	3. implement many timestamps tracking - maybe add a meal creation logfile where timestamps can be stored
+
+## Random choice:
+	build a linear function for weights calculations, flags should be specified which weights to add
+		with default settings: last_made timestamp, rank, no TA
+
+	1. Adjust weights according to times made - maybe timestamp and then weight adjustment
+			is only made if meal was prepared in the last n days.
+    2. Adjust weights by ease
+    3. Give k-choices ordered by ease and/or rank
+    4. make choice by kosher type
+
+## Choose TA:
+	1. random choice
+	2. choice by type
+

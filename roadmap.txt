@@ -1,0 +1,14 @@
+
+Ideas for extra features, directions of development, etc.
+
+# Roadmap
+## Extra features
+1. divide meals to subuntis and generate combinations, i.e., main course + side dish + salad.
+2. make it smart, not just random based on rank/timestamp/etc. so that meals combine logically.
+3. specific meal ideas, e.g., pasta sauce ideas
+4. scaling factor for meals, i.e., how easy is to make more from the meal. E.g., soups and bread scale good while schnitzel scales bad.
+5. making time: fast, medium, slow. Maybe good for Shabbat meals, can be combined with multitasking with other cooking, soup making takes couple of hours to be ready but one can make other things in the meantime.
+6. Add class ranking, so one can maximize class for 0 strain.
+7. Add recipe suggestions from vetted bloggers
+8. twitter bot or whatsapp bot
+9. GUI website for suggestions
