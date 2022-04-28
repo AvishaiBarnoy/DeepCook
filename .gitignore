@@ -6,7 +6,7 @@
 *.log
 
 # ignore __pycache__
-__pyache__/
+__pycache__/
 
 # ignore all .swp files, these are temporary files when using vim
 *.swp
