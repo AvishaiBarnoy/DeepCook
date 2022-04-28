@@ -1,6 +1,13 @@
 #################
-# LOG 26.4.2022 #
+# LOG 27.4.2022 #
 #################
+1. imporved choose_random:
+	1.a combined with choose_TA and now it works using a TA flag
+	1.b removed random.choices
+2. uploaded project to github
+3. added more meals to meal_list.csv
+4. added requierments file, gitignore, readme.md (although the latter is still
+empty)
 
 #################
 # LOG 25.4.2022 #

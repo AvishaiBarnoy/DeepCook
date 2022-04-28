@@ -1,6 +1,12 @@
 # ignore all csv files
-*.csv
+#*.csv
 
 # ignore all log file
 # current logfiles: meals prepared
 *.log
+
+# ignore __pycache__
+__pyache__/
+
+# ignore all .swp files, these are temporary files when using vim
+*.swp

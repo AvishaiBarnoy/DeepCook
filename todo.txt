@@ -1,10 +1,10 @@
 
 # To Do:
-1. look at recipe book for more ideas and add them
-2. implement TA flag for choose_random
-3. find better way to choose a random meal - df.sample!
+1. add some stuff to README.md
+2. remove .csv files from gitignore 
 4. build a generic function to work with a subgroup of meals
-5. create a logfile format for prepared meals, implement as function and add to auxillary.choose_random() 
+5. create a logfile format for prepared meals, implement as function and add to auxillary.choose_random()
+6. add command line options to main.py
 
 # Things to Add to functions:
 
@@ -12,6 +12,14 @@
 	1. add time_stamp column for better choice making, maybe keep timestamp as a list for statistics?
 	2. Do not remove times_made so statistics can be made
 	3. implement many timestamps tracking - maybe add a meal creation logfile where timestamps can be stored
+
+## Features:
+	1. meal scaling factor - can be used for weekly meal planning
+	2. preparation time and cooking time (short, medium, long), write an example: soup takes a short time to make but cooks for a long time, while salad is medium to make but once done it is ready.
+	3. cooking time	(short, medium, long), this should be "free time" with no extra work from cook
+	4. recipe suggestion - Krutit, Kitchencoach
+	5. add another option for "Kosher" 4 - Vegan.
+	6. Meal name in Hebrew
 
 ## Random choice:
 	build a linear function for weights calculations, flags should be specified which weights to add
@@ -24,6 +32,5 @@
     4. make choice by kosher type
 
 ## Choose TA:
-	1. random choice
-	2. choice by type
+	1. choice by type
 
