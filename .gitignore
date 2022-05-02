@@ -10,3 +10,9 @@ __pycache__/
 
 # ignore all .swp files, these are temporary files when using vim
 *.swp
+
+# file used for initiallizing meal list at beginning of project.
+initialize_data.py
+
+# ignor venv folder
+venv/

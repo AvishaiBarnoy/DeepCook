@@ -24,21 +24,25 @@ def add_meal_questions(meal_data):
     '''
     Ask user to enter information about meal, then stores in the data model,  
     '''
+    # Here add a description of all relevant data
+    data = meal_data
+    inp = {key:"NaN" for key in data}
+    # loop over keys, maybe skip times_made, timestamp, and recipe suggestion
+
+
     print("Manual new meals entry function.")
     print("At any point write break to enter the function midway without \
             saving the entry, or the novel method of Ctrl+C")
     new_meal = {}
     name = input("Enter meal name:\n")
     while True:
-        kosher = input("Enter kosher type (0-Milchik, 1-Parve, 2-Fleish):")
-        if kosher == "break":
-            break
-        elif int(kosher)== 0 or int(kosher) == 1 or int(kosher) == 2:
+        kosher = input("Enter kosher type (0-Milchik, 1-Parve, 2-Fleish, 3-Vegan):")
+        if kosher== "0" or kosher == "1" or kosher == "2" or kosher == "3" :
             kosher = int(kosher)
             break
         else:
             print("Please enter a valid input")
-            kosher = input("Enter kosher type (0-Milchik, 1-Parve, 2-Fleish):")
+            kosher = input("Enter kosher type (0-Milchik, 1-Parve, 2-Fleish, 3-Vegan):")
     
     while True:
         ease = input("Enter ease of preparation between 0-10 lower is easier:")
@@ -78,6 +82,29 @@ def add_meal_questions(meal_data):
     meal_data = add_meal(meal_data,[name],[kosher],[ease],[rank],[TA])
     #print(meal_data)
     save_data(meal_data)
+
+def check_meal_inp(inp):
+    '''
+    check meal input if values are correct
+    '''
+    pass
+
+def write_to_log(choice):
+    now = str(pd.Timestamp.now())
+    choice = str(choice["Name"].iloc[0])
+    log = "{},{}\n".format(choice,now)
+    with open("meal.log","a") as f:
+        f.writelines(log)
+        return 0
+
+def update_column(data,column):
+    '''
+    data    ::: df to update
+    column  ::: str, column name to update
+    '''
+    for idx,row in data.iterrows():
+        print(idx,row.iloc[0],column)
+        data.loc[idx,column] = input("Enter new value")
 
 def update_rank():
     '''

@@ -1,10 +1,12 @@
 
 # To Do:
-1. add some stuff to README.md
-2. remove .csv files from gitignore 
-4. build a generic function to work with a subgroup of meals
-5. create a logfile format for prepared meals, implement as function and add to auxillary.choose_random()
-6. add command line options to main.py
+1. add command line options to main.py
+2. restructure folders, add folder for functions
+3. look at license options
+4. add prep time to data
+5. reform add_meal_questions() in io_data to be more general and versatile  
+	5.1 add description printed before everything to explain what's going on.
+	5.2 creat a "def check_input(inp)" function to test if the input is correct
 
 # Things to Add to functions:
 
@@ -32,5 +34,6 @@
     4. make choice by kosher type
 
 ## Choose TA:
-	1. choice by type
+	1. choice by type.
+	2. Time dilation - TA is only availabe in random if TA was not ordered in the past X days. 
 

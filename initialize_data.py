@@ -4,7 +4,6 @@ This is depracted and was only used to make the inital DataFrame and save it as 
 
 
 import pandas as pd
-import random as rnd
 
 meal_names = ["Pasta Rose", "Stir Fried Vegetables", "Hot Salad", "Hamburger and Fries"]
 

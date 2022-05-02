@@ -2,9 +2,9 @@
 Auxillary functions
 '''
 import pandas as pd
-import random as rnd
+import io_data as iod
 
-def choose_random(meals, rank=False, times=False, last_made=False, TA=None):
+def choose_random(meals, rank=False, times=False, last_made=False, TA=None, k=1):
     '''
     Changes to make:
     1. test time stamping
@@ -25,28 +25,22 @@ def choose_random(meals, rank=False, times=False, last_made=False, TA=None):
     use_rank = None
     if rank == True:
         use_rank = choice["Rank"]
-
     if TA == "True": 
-        choice = meals[meals["TA"] == 1].sample(n=1, weights=use_rank)
+        choice = meals[meals["TA"] == 1].sample(n=k, weights=use_rank)
     if TA == "False":
-        choice = meals[meals["TA"] == 0].sample(n=1, weights=use_rank)
+        choice = meals[meals["TA"] == 0].sample(n=k, weights=use_rank)
     else:
-        choice = meals.sample(n=1, weights=use_rank)
-    #print(choice.get(["Name"]))
-    return choice
-
-    if rank == False:
-        choice = rnd.choices(population=list(range(len(meals))),k=1)
-    elif rank == True:
-        choice = rnd.choices(population=list(range(len(meals))),weights=meals["Rank"],k=1)
-    print(meals.Name[choice[0]]) #meals.Rank[choice[0]]
+        choice = meals.sample(n=k, weights=use_rank)
+    # check if user wants to make meal and if yes log the meal.
+    print(choice["Name"].iloc[0])
     make_it = input("Are you going to make this meal? (y/n)")
     while True:
         if make_it.lower() == "y":
-            meals.loc[choice[0],'times_made'] += 1
-            meals.loc[choice[0],'Timestamp'] = pd.Timestamp.now()
-            save_data(meals,filename="meal_list.csv")
-            #save_data(choice,filename="meals_made.log") # logger file for prepared meals
+            meals.loc[choice.index[0],"times_made"] += 1
+            meals.loc[choice.index[0],"Timestamp"] = pd.Timestamp.now()
+            iod.save_data(meals,filename="meal_list.csv")
+            iod.write_to_log(choice) 
+            print("meal logged.")
             break
         elif make_it.lower() == "n":
             print("meal not logged.")
@@ -54,46 +48,46 @@ def choose_random(meals, rank=False, times=False, last_made=False, TA=None):
         else:
             print("Please enter a valid answer.")
             make_it = input("Are you going to make this meal? (y/n)")
-    return meals.Name[choice[0]] #meals.Rank[choice[0]]
+    return choice["Name"].iloc[0]
 
-def add_meal(ideas,name,kosher,ease,rank,TA=0,times_made=0):
+def is_too_late_to_cook(cutoff = 20):
     '''
-    ideas ::: pandas dataframe of meal ideas
-    name ::: list of meal names
-    kosher ::: 0 - Milchik, 1 - Parve, 2 - Fleish
-    ease ::: [0,10] how easy is it to make, lower is better
-    rank ::: how much do we like [0,10], higher is better
-    TA ::: is Take Away, 0 - NO, 1 - YES
-    times_made ::: default is 0
+    Checks actual time and returns if choose_random should skip ideas with long preparation time.
+        After 20:00 only short and medium durations will be considered.
+    1. Needs cooking duration feature implemnted.
+    2. Option: ask user how long does he plan to prepare the meal
+    
+    IMPORTANT: only takes into account that the time is less than 20:00, if you start cooking after midnight this function will fail to work properly.
     '''
-    new_data = pd.DataFrame({"Name":name,"KosherType":kosher,"Ease":ease,"Rank":rank,"TA":TA,"times_made":times_made,\
-            "Timestamp":'nan'})
-    new_ideas = pd.concat([ideas,new_data], ignore_index = True, axis = 0)
-    return new_ideas
+    hour = pd.Timestamp.now().hour
+    if hour < cutoff:
+        return False
+    else:
+        return True
 
-def update_rank():
+def reboot_time_timestamps(data):
     '''
-    update rank of one meal
+    Resets all times made to 0 and removes all time stamps.
+    This is currently designed only testing and developing.
     '''
-    pass
-
-def update_ranks():
-    '''
-    update rank of many many meals
-    '''
-    pass
-
-def save_data(data,filename="meal_list.csv"):
-    '''
-    maybe add an overwrite warning?
-    '''
-    data.drop_duplicates()
-    data.to_csv(filename)
+    while True:
+        just_checking = input("Are you sure you want to reset *ALL* timestamps and all times_made? (y/n)")
+        if just_checking.lower() == "n":
+            print("data was not reset")
+            return 0
+        elif just_checking.lower() == "y":
+            data["Timestamp"] = "NaN"
+            data["times_made"] = 0
+            iod.save_data(data)
+            print("Data was reset and saved")
+            return 0
 
 if __name__ == "__main__":
     FILENAME = "meal_list.csv"
     data = pd.read_csv(FILENAME,index_col=0)
-    
+    print(data.head(n=5))
+    reboot_time_timestamps(data)
+    print(data.head(n=5))
     #choose_random(data, rank=False, times=False)
     #choose_TA(data)
     #data = add_meal(data,["Pasta tomato","Stir Fried Veggies Frozen Bag"],[1,1],[4,4],[3,7])

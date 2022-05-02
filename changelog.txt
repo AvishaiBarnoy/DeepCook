@@ -1,5 +1,37 @@
+
 #################
-# LOG 27.4.2022 #
+# LOG 02.05.2022 #
+#################
+1. finished check_time function for meal prep, didn't update values in
+meal_list.csv yet so this  feature is not implemented yet.
+2. removed redundant functions in auxillary
+3. started reforming meal input in io_data to be more autonomous
+
+#################
+# LOG 01.05.2022 #
+#################
+1. added option for Vegan under kosher
+2. added more features, non of them with values for meals
+3. updated KosherType to have vegan option and changed numbering for easier
+slicing
+4. added update feature function to io_data.py
+5. implemneted meal and date logging if user answers he's going to make the
+meal  
+
+#################
+# LOG 30.04.2022 #
+#################
+1. added timestamp and times_made reboot function for testing functionallity
+and future "reset" option for users.
+
+#################
+# LOG 28.04.2022 #
+#################
+1. wrote stuff in README.md
+2. deleted obsolete code using the random library
+
+#################
+# LOG 27.04.2022 #
 #################
 1. imporved choose_random:
 	1.a combined with choose_TA and now it works using a TA flag
@@ -10,7 +42,7 @@
 empty)
 
 #################
-# LOG 25.4.2022 #
+# LOG 25.04.2022 #
 #################
 1. added timestamp column, being overwritten every time meal is prepared.
 2. implemented choose_TA function allowing for random choice of a take-away

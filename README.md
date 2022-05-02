@@ -21,7 +21,7 @@ python main.py
 In the future there will be more options except the single random meal generator.
 
 ## Help
-There are not known issues, but the program is not really in any mature phase.
+There are no known issues, but the program is not really in any mature phase.
 
 ## Author
 Contributors names and contact info
