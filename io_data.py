@@ -4,7 +4,7 @@ Functions for data input/ouput and update of data
 
 import pandas as pd
 
-def add_meal(ideas,name,kosher,ease,rank,TA=0,times_made=0):
+def add_meal(data,new_data):
     '''
     ideas ::: pandas dataframe of meal ideas
     name ::: list of meal names
@@ -15,9 +15,9 @@ def add_meal(ideas,name,kosher,ease,rank,TA=0,times_made=0):
     times_made ::: default is 0
     Timestamp ::: nan by default, when meal is prepared this updates to a the latest date prepared
     '''
-    new_data = pd.DataFrame({"Name":name,"KosherType":kosher,"Ease":ease,"Rank":rank,"TA":TA,"times_made":times_made,\
-            "Timestamp":""})
-    new_ideas = pd.concat([ideas,new_data], ignore_index = True, axis = 0)
+    #new_data = pd.DataFrame({"Name":name,"KosherType":kosher,"Ease":ease,"Rank":rank,"TA":TA,"times_made":times_made,\
+            #"Timestamp":""})
+    new_ideas = pd.concat([data,new_data], ignore_index = True, axis = 0)
     return new_ideas
 
 def add_meal_questions(meal_data):
@@ -28,6 +28,19 @@ def add_meal_questions(meal_data):
     data = meal_data
     inp = {key:"NaN" for key in data}
     # loop over keys, maybe skip times_made, timestamp, and recipe suggestion
+    inp_inst = {}
+    for i in data:
+        print(f"Input instructions for {i}:")
+        #print(inp_inst[i])
+        inp[i] = input("Enter value for {i}:")
+    inp["Timestamp"] = "NaN"
+    inp["times_made"] = "NaN"
+    print(inp)
+
+    #while check_values(inp) == False:
+        #break
+    
+    return pd.DataFrame(inp,index=[0])
 
 
     print("Manual new meals entry function.")
@@ -80,13 +93,16 @@ def add_meal_questions(meal_data):
             print("Please enter a valid input")
             TA = input("Is meal a take away? (Yes/yes/Y/y/No/no/N/n)")
     meal_data = add_meal(meal_data,[name],[kosher],[ease],[rank],[TA])
-    #print(meal_data)
-    save_data(meal_data)
+    print(meal_data)
+    #save_data(meal_data)
 
 def check_meal_inp(inp):
     '''
     check meal input if values are correct
     '''
+    invalid_inp = []
+    for i in invalid_inp:
+        pass
     pass
 
 def write_to_log(choice):
@@ -104,17 +120,18 @@ def update_column(data,column):
     '''
     for idx,row in data.iterrows():
         print(idx,row.iloc[0],column)
-        data.loc[idx,column] = input("Enter new value")
+        data.loc[idx,column] = input("Enter new value: ")
 
-def update_rank():
+def update_column_nan(data,column):
     '''
-    update rank of one meal
+    same as update_column() but won't update rows with values
     '''
     pass
 
-def update_ranks():
+def update_values_meal():
     '''
-    update rank of many many meals
+    modification of specific meal's attributes
+    maybe print all meal names, ask for user numeric input by also showing their index.
     '''
     pass
 
@@ -130,4 +147,4 @@ if __name__ == "__main__":
     data = pd.read_csv(FILENAME,index_col=0)
     add_meal_questions(data)
     data = pd.read_csv(FILENAME,index_col=0)
-    print(data)
+    print(data.tail(5))

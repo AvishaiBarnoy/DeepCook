@@ -1,15 +1,29 @@
 
-#################
+##################
+# LOG 09.05.2022 #
+##################
+1. added prep_time data
+2. added cook_time data
+3. added hebrew name to meals
+4. implemented to_late() function for choose_random(), when asking for a meal after 20:00 will not suggest long preparation time
+5. timestamp only saves date and not hh:mm:ss anymore
+
+##################
+# LOG 03.05.2022 #
+##################
+1. changed license GPLv3 to MIT
+
+##################
 # LOG 02.05.2022 #
-#################
+##################
 1. finished check_time function for meal prep, didn't update values in
 meal_list.csv yet so this  feature is not implemented yet.
 2. removed redundant functions in auxillary
 3. started reforming meal input in io_data to be more autonomous
 
-#################
+##################
 # LOG 01.05.2022 #
-#################
+##################
 1. added option for Vegan under kosher
 2. added more features, non of them with values for meals
 3. updated KosherType to have vegan option and changed numbering for easier
@@ -18,21 +32,21 @@ slicing
 5. implemneted meal and date logging if user answers he's going to make the
 meal  
 
-#################
+##################
 # LOG 30.04.2022 #
-#################
+##################
 1. added timestamp and times_made reboot function for testing functionallity
 and future "reset" option for users.
 
-#################
+##################
 # LOG 28.04.2022 #
-#################
+##################
 1. wrote stuff in README.md
 2. deleted obsolete code using the random library
 
-#################
+##################
 # LOG 27.04.2022 #
-#################
+##################
 1. imporved choose_random:
 	1.a combined with choose_TA and now it works using a TA flag
 	1.b removed random.choices
@@ -41,9 +55,9 @@ and future "reset" option for users.
 4. added requierments file, gitignore, readme.md (although the latter is still
 empty)
 
-#################
+##################
 # LOG 25.04.2022 #
-#################
+##################
 1. added timestamp column, being overwritten every time meal is prepared.
 2. implemented choose_TA function allowing for random choice of a take-away
 meal.

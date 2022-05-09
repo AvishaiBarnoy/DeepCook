@@ -2,11 +2,12 @@
 # To Do:
 1. add command line options to main.py
 2. restructure folders, add folder for functions
-3. look at license options
-4. add prep time to data
 5. reform add_meal_questions() in io_data to be more general and versatile  
 	5.1 add description printed before everything to explain what's going on.
 	5.2 creat a "def check_input(inp)" function to test if the input is correct
+6. check convention for column naming with pandas.
+7. in choose_random() add data slicing so that the random choice will be from a sliced DB and not tested if it goes for all the flags.
+8. add enumerative classes
 
 # Things to Add to functions:
 

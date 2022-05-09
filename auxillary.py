@@ -23,21 +23,37 @@ def choose_random(meals, rank=False, times=False, last_made=False, TA=None, k=1)
     TA        ::: True - choose only from takeawy, False - choose only from homecooking, None - anything may come
     '''
     use_rank = None
+    
+    meals_copy = meals.copy()
+    
+    # filter meals prepared in the past 4 days
+    # NOT IMPLEMENTED YET
+
+    # use a weighted choice, by rank
     if rank == True:
         use_rank = choice["Rank"]
-    if TA == "True": 
-        choice = meals[meals["TA"] == 1].sample(n=k, weights=use_rank)
-    if TA == "False":
-        choice = meals[meals["TA"] == 0].sample(n=k, weights=use_rank)
-    else:
-        choice = meals.sample(n=k, weights=use_rank)
+    
+    # include or choose only take-away, default is to random from everythin
+    if TA == False:
+        meals_copy = meals_copy[meals_copy["TA"] == 0]
+    elif TA == True:
+        meals = meals_copy[meals_copy["TA"] == 1]
+    
+    is_late = is_too_late_to_cook()
+    translate_time = {"short":0, "medium":1, "long": 2}
+    if is_late == True:
+        meals_copy.replace({"Prep_Time":translate_time},inplace=True)
+        meals_copy = meals_copy[meals_copy["Prep_Time"] < 2]
+
+    choice = meals.sample(n=k, weights=use_rank)
+
     # check if user wants to make meal and if yes log the meal.
     print(choice["Name"].iloc[0])
     make_it = input("Are you going to make this meal? (y/n)")
     while True:
         if make_it.lower() == "y":
             meals.loc[choice.index[0],"times_made"] += 1
-            meals.loc[choice.index[0],"Timestamp"] = pd.Timestamp.now()
+            meals.loc[choice.index[0],"Timestamp"] = pd.Timestamp.now().date()
             iod.save_data(meals,filename="meal_list.csv")
             iod.write_to_log(choice) 
             print("meal logged.")
@@ -57,11 +73,14 @@ def is_too_late_to_cook(cutoff = 20):
     1. Needs cooking duration feature implemnted.
     2. Option: ask user how long does he plan to prepare the meal
     
-    IMPORTANT: only takes into account that the time is less than 20:00, if you start cooking after midnight this function will fail to work properly.
+    IMPORTANT 1: should be relevant to Cook_Time and Prep_Time, so if any of them is above medium then meal shouldn't be suggested.
+    IMPORTANT 2: only takes into account that the time is less than 20:00, if you start cooking after midnight this function will fail to work properly.
     '''
     hour = pd.Timestamp.now().hour
     if hour < cutoff:
         return False
+    elif hour < 5: # Don't cook in the middle of the night
+        return True
     else:
         return True
 
@@ -85,12 +104,5 @@ def reboot_time_timestamps(data):
 if __name__ == "__main__":
     FILENAME = "meal_list.csv"
     data = pd.read_csv(FILENAME,index_col=0)
-    print(data.head(n=5))
-    reboot_time_timestamps(data)
-    print(data.head(n=5))
-    #choose_random(data, rank=False, times=False)
-    #choose_TA(data)
-    #data = add_meal(data,["Pasta tomato","Stir Fried Veggies Frozen Bag"],[1,1],[4,4],[3,7])
-    #save_data(data)
-    #print(data)
+    #reboot_time_timestamps(data)
 

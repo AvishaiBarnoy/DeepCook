@@ -6,14 +6,14 @@ Dinner Generator is a Python program that randomly suggests ideas to prepare for
 
 # Getting Started
 ## Dependencies
-Python3.6 was used for development, I believe that any Python3 version will be compatible.
+Python3.6 was used for development, I believe that any Python3 version will be compatible.\n
 Pandas==1.4.0
 
 ## Installing
 If all dependencies are installed you should not have any problem.
 
 ## Executing Program
-Currently there is no working "main" function, but one will be implemented to run with command line arguments.
+Currently there is no working "main" function, but one will be implemented to run with command line arguments.\n
 To generate a random meal idea run:
 ```
 python main.py
@@ -29,4 +29,4 @@ Contributors names and contact info
 Avishai Barnoy [@avishai231](https://twitter.com/avishai231)
 
 # License
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details.
+This project is licensed under the GNU General Public License v3.0 License - see the LICENSE.md file for details.
