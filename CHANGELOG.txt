@@ -1,10 +1,15 @@
 
 ##################
-# LOG 09.05.2022 #
+# LOG 10.05.2022 #
 ##################
 1. implemented CLI options using typer. Only rank weighing and takeaway options are implmented
 2. added a csv template file
 3. fixed problems with venv and updated the requirements file
+4. fixed to_late(), sample() method wasn't sampling from the filtered meal list
+5. small restructuring of main folder
+6. updates to README, including description, usage information, installation, etc.
+7. restructure folders
+8. added __init__.py files to the different directories so they will be treated as python libraries.
 
 ##################
 # LOG 09.05.2022 #

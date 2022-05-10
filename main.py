@@ -1,10 +1,10 @@
 '''
-Here I will have the main logic
+Here happens all the magic
 '''
 
 import pandas as pd
-import auxillary as aux
-import io_data as iod
+import scripts.auxillary as aux
+import scripts.iodata as iod
 import typer
 
 #def choose_random(meals, rank=False, times=False, last_made=False, TA=None, k=1):
@@ -19,11 +19,4 @@ def main(data: str, rank: bool = False, TA: bool = False):
     aux.choose_random(meals_db, rank, TA )
 
 if __name__ == "__main__":
-    #print(data)
-    #random_choice = aux.choose_random(data)
-    #print(type(random_choice))
-
-    
     typer.run(main)
-    # uncomment to reset timestamps and times_made
-    #aux.reboot_time_timestamps(data)

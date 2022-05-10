@@ -1,10 +1,11 @@
 '''
 Functions for data input/ouput and update of data
+This whole library needs to undergo a thorough revamp and remodelling, removing redundant and depracted code parts, adding new functionality, descriptions, etc.
 '''
 
 import pandas as pd
 
-def add_meal(data,new_data):
+def add_meal(data, new_data):
     '''
     ideas ::: pandas dataframe of meal ideas
     name ::: list of meal names
@@ -143,7 +144,7 @@ def save_data(data,filename="meal_list.csv"):
     data.to_csv(filename)
 
 if __name__ == "__main__":
-    FILENAME = "meal_list.csv"
+    FILENAME = "./data/meal_list.csv"
     data = pd.read_csv(FILENAME,index_col=0)
     add_meal_questions(data)
     data = pd.read_csv(FILENAME,index_col=0)

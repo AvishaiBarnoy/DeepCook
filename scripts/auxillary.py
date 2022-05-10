@@ -1,10 +1,11 @@
 '''
-Auxillary functions
+main random meal choice function and its tiny helpers
+this is called auxiallary as it is supposed to support the main main.py file
 '''
 import pandas as pd
-import io_data as iod
+import scripts.iodata as iod
 
-def choose_random(meals, rank=False, times=False, last_made=False, TA=None, k=1):
+def choose_random(meals, rank: bool = False, times: bool = False, last_made: bool = False, TA=None, k=1):
     '''
     Changes to make:
     1. test time stamping
@@ -27,7 +28,7 @@ def choose_random(meals, rank=False, times=False, last_made=False, TA=None, k=1)
     meals_copy = meals.copy()
     
     # filter meals prepared in the past 4 days
-    # NOT IMPLEMENTED YET
+    # NOT IMPLEMENTED YET #
 
     # use a weighted choice, by rank
     if rank == True:
@@ -42,10 +43,11 @@ def choose_random(meals, rank=False, times=False, last_made=False, TA=None, k=1)
     is_late = is_too_late_to_cook()
     translate_time = {"short":0, "medium":1, "long": 2}
     if is_late == True:
-        meals_copy.replace({"Prep_Time":translate_time},inplace=True)
+        meals_copy.replace({"Prep_Time":translate_time,"Cook_Time":translate_time},inplace=True)
         meals_copy = meals_copy[meals_copy["Prep_Time"] < 2]
+        meals_copy = meals_copy[meals_copy["Cook_Time"] < 2]
 
-    choice = meals.sample(n=k, weights=use_rank)
+    choice = meals_copy.sample(n=k, weights=use_rank)
 
     # check if user wants to make meal and if yes log the meal.
     print(choice["Name"].iloc[0])
@@ -66,7 +68,7 @@ def choose_random(meals, rank=False, times=False, last_made=False, TA=None, k=1)
             make_it = input("Are you going to make this meal? (y/n)")
     return choice["Name"].iloc[0]
 
-def is_too_late_to_cook(cutoff = 20):
+def is_too_late_to_cook(cutoff: int = 20):
     '''
     Checks actual time and returns if choose_random should skip ideas with long preparation time.
         After 20:00 only short and medium durations will be considered.
@@ -98,11 +100,12 @@ def reboot_time_timestamps(data):
             data["Timestamp"] = "NaN"
             data["times_made"] = 0
             iod.save_data(data)
+            with open("meal.log", "w") as f: pass # empties the meal.log file
             print("Data was reset and saved")
             return 0
 
 if __name__ == "__main__":
-    FILENAME = "meal_list.csv"
+    FILENAME = "./data/meal_list.csv"
     data = pd.read_csv(FILENAME,index_col=0)
     #reboot_time_timestamps(data)
 

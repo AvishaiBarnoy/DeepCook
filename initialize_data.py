@@ -2,7 +2,6 @@
 This is depracted and was only used to make the inital DataFrame and save it as a csv file
 '''
 
-
 import pandas as pd
 
 meal_names = ["Pasta Rose", "Stir Fried Vegetables", "Hot Salad", "Hamburger and Fries"]
