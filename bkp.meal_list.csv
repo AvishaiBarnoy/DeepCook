@@ -1,9 +1,9 @@
 ,Name,KosherType,Prep_Ease,Prep_Time,Cook_Time,Rank,Scaling,TA,times_made,Timestamp,recipe_suggestion,Name_HE
 0,Pasta Rose,2,2,medium,medium,4,,0,0,,,פסטה רוזה
 1,Stir Fried Vegetables,0,6,medium,short,8,,0,0,,,ירקות מוקפצים
-2,Hot Salad,0,7,medium,short,8,,0,1,2022-05-02 20:27:43.984301,,סלט חם
-3,Hamburger and Fries,3,4,medium,medium,7,,0,0,,,המבורגר וצ'יפס
-4,Pizza,2,5,long,medium,7,,0,0,,,פיצה
+2,Hot Salad,0,7,medium,short,8,,0,0,,,סלט חם
+3,Hamburger and Fries,3,4,medium,medium,7,,0,1,2022-05-09,,המבורגר וצ'יפס
+4,Pizza,2,5,long,medium,7,,0,0,2022-05-02,,פיצה
 5,Sushi,1,10,long,medium,7,,0,0,,,סושי
 6,Shushi TA,3,0,short,short,8,,1,0,,,סושי משלוח
 7,Fried Eggs,1,2,short,short,6,,0,0,,,ביצי עין
@@ -19,9 +19,9 @@
 17,Ramen,3,8,long,long,7,,0,0,,,ראמן
 18,Grilled Cheese,2,3,short,short,6,,0,0,,,לחם מטוגן
 19,Salami Sandwich,3,2,short,short,5,,0,0,,,כריך סלאמי
-20,Pasta mashroom cream sauce,2,3,medium,medium,7,,0,0,,,פסטה ברוטב שמנת פטריות
+20,Pasta mashroom cream sauce,2,3,medium,medium,7,,0,1,2022-05-09,,פסטה ברוטב שמנת פטריות
 21,Pasta Bolognese,3,6,medium,medium,7,,0,0,,,ספגטי בולונז
-22,Pasta Cacio e Pepe,2,3,medium,medium,5,,0,1,2022-05-09 22:39:51.699573,,פסטה קצ'ו אה פפה
+22,Pasta Cacio e Pepe,2,3,medium,medium,5,,0,0,,,פסטה קצ'ו אה פפה
 23,Pasta Broccoli and Almonds,0,6,medium,medium,7,,0,0,,,פסטה ברוטב ברוקולי ושקדים
 24,Lasagna,2,6,long,medium,8,,0,0,,,לזניה
 25,Hamburger TA,3,0,short,short,8,,1,0,,,המבורגר משלוח

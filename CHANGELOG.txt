@@ -2,6 +2,13 @@
 ##################
 # LOG 09.05.2022 #
 ##################
+1. implemented CLI options using typer. Only rank weighing and takeaway options are implmented
+2. added a csv template file
+3. fixed problems with venv and updated the requirements file
+
+##################
+# LOG 09.05.2022 #
+##################
 1. added prep_time data
 2. added cook_time data
 3. added hebrew name to meals

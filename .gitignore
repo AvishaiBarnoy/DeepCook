@@ -14,5 +14,8 @@ __pycache__/
 # file used for initiallizing meal list at beginning of project.
 initialize_data.py
 
-# ignor venv folder
+# ignore venv folder
 venv/
+
+# ignore self-tutorial folders
+*_tutorial/
