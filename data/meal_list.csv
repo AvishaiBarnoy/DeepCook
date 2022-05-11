@@ -1,7 +1,7 @@
 ,Name,KosherType,Prep_Ease,Prep_Time,Cook_Time,Rank,Scaling,TA,times_made,Timestamp,recipe_suggestion,Name_HE
 0,Pasta Rose,2,2,medium,medium,4,,0,0,,,פסטה רוזה
 1,Stir Fried Vegetables,0,6,medium,short,8,,0,0,,,ירקות מוקפצים
-2,Hot Salad,0,7,medium,short,8,,0,0,,,סלט חם
+2,Hot Salad,0,7,medium,short,8,,0,1,2022-05-11,,סלט חם
 3,Hamburger and Fries,3,4,medium,medium,7,,0,1,2022-05-09,,המבורגר וצ'יפס
 4,Pizza,2,5,long,medium,7,,0,0,2022-05-02,,פיצה
 5,Sushi,1,10,long,medium,7,,0,0,,,סושי
@@ -25,16 +25,16 @@
 23,Pasta Broccoli and Almonds,0,6,medium,medium,7,,0,0,,,פסטה ברוטב ברוקולי ושקדים
 24,Lasagna,2,6,long,medium,8,,0,0,,,לזניה
 25,Hamburger TA,3,0,short,short,8,,1,0,,,המבורגר משלוח
-26,Pizza TA,2,0,short,short,5,,1,0,,,פיצה משלוח
+26,Pizza TA,2,0,short,short,5,,1,1,2022-05-11,,פיצה משלוח
 27,Potatoes with cheese (myabe cottage),2,4,medium,medium,4,,0,0,,,תפוחי אדמה וגבינהק
-28,Pancakes,1,6,medium,short,7,,0,0,,,פנקייקים
+28,Pancakes,1,6,medium,short,7,,0,1,2022-05-11,,פנקייקים
 29,Pasta Oli Olio,0,6,medium,medium,9,,0,0,,,פסטה אליו אוליו
 30,Bagels,0,7,long,medium,8,,0,0,,,בייגל אמריקאי
 31,Cornflakes,0,0,short,short,1,,0,0,,,קורנפלקס
 32,Pasta Sweetpotato cream sauce,2,5,medium,medium,5,,0,0,,,פסטה ברוטב שמנת בטטה
 33,Bruschetta tomato basil,0,5,medium,short,7,,0,0,,,ברוסקטות עם עגבניות ובזיליקום
 34,Diced baked potato and sweet potato,0,4,medium,medium,5,,0,0,,,תפוחי אדמה ובטטות אפויים
-35,Antipasto,0,4,medium,medium,4,,0,0,,,אנטיפסטי
+35,Antipasto,0,4,medium,medium,4,,0,1,2022-05-11,,אנטיפסטי
 36,Kitchen Coach sweet potato,0,4,medium,medium,6,,0,0,,,בטטות של עז תלם
 37,Garlic bread,0,7,long,medium,9,,0,0,,,לחם שום
 38,Creamed Potatoes,2,7,medium,medium,7,,0,0,,,תפוחי אדמה מוקרמים

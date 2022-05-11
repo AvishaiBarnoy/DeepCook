@@ -15,7 +15,7 @@ Currently ranking is only based on my own preferences for meals, but in the futu
 
 # Getting Started
 ## Dependencies
-Python3.6 was used for development, I believe that any Python3 version will be compatible.\n
+Python3.8 was used for development, I believe that any Python3 version will be compatible.\n
 ```
 numpy==1.22.3
 pandas==1.4.2

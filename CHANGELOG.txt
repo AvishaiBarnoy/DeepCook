@@ -1,5 +1,12 @@
 
 ##################
+# LOG 11.05.2022 #
+##################
+1. changed input file to be meal_list.csv by default but one can add it manually. 
+2. moved meal logger, meal_count update out of choose_random
+3. started updating filename to be an argument (a default one) for functions instead of a hard-coded string inside functions logic.
+
+##################
 # LOG 10.05.2022 #
 ##################
 1. implemented CLI options using typer. Only rank weighing and takeaway options are implmented

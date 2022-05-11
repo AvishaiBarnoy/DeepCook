@@ -56,8 +56,6 @@ def choose_random(meals, rank: bool = False, times: bool = False, last_made: boo
         if make_it.lower() == "y":
             meals.loc[choice.index[0],"times_made"] += 1
             meals.loc[choice.index[0],"Timestamp"] = pd.Timestamp.now().date()
-            iod.save_data(meals,filename="meal_list.csv")
-            iod.write_to_log(choice) 
             print("meal logged.")
             break
         elif make_it.lower() == "n":
@@ -66,7 +64,7 @@ def choose_random(meals, rank: bool = False, times: bool = False, last_made: boo
         else:
             print("Please enter a valid answer.")
             make_it = input("Are you going to make this meal? (y/n)")
-    return choice["Name"].iloc[0]
+    return meals, choice["Name"].iloc[0]
 
 def is_too_late_to_cook(cutoff: int = 20):
     '''
@@ -86,7 +84,7 @@ def is_too_late_to_cook(cutoff: int = 20):
     else:
         return True
 
-def reboot_time_timestamps(data):
+def reboot_time_timestamps(data="meal_list.csv",logfile="meal.log"):
     '''
     Resets all times made to 0 and removes all time stamps.
     This is currently designed only testing and developing.
@@ -100,7 +98,7 @@ def reboot_time_timestamps(data):
             data["Timestamp"] = "NaN"
             data["times_made"] = 0
             iod.save_data(data)
-            with open("meal.log", "w") as f: pass # empties the meal.log file
+            with open(f"./data/{logfile}", "w") as f: pass # empties the meal.log file
             print("Data was reset and saved")
             return 0
 

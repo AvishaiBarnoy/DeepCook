@@ -2,11 +2,15 @@
 # To Do:
 1. reform add_meal_questions() in io_data to be more general and versatile  
 	1.1 add description printed before everything to explain what's going on.
-	1.2 creat a "def check_input(inp)" function to test if the input is correct
+	1.2 create a "def check_input(inp)" function to test if the input is correct
 2. check convention for column naming with pandas.
 3. add enumerative classes
 4. go through TODO.txt and evaluate the different ideas.
 5. go through roadmap and do the same as for TODO.txt.
+6. add description to main.py
+7. think of how to structure main.py to allow the direct use of the iodata module
+8. add a sandwich db
+9 logic of flags should be done in main() in main.py
 
 # Things to Add to functions:
 

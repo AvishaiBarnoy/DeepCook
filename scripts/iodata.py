@@ -106,13 +106,12 @@ def check_meal_inp(inp):
         pass
     pass
 
-def write_to_log(choice):
+def write_to_log(choice,logfile="meal.log"):
     now = str(pd.Timestamp.now())
-    choice = str(choice["Name"].iloc[0])
+    #choice = str(choice["Name"].iloc[0])
     log = "{},{}\n".format(choice,now)
-    with open("meal.log","a") as f:
+    with open(f".data/{logfile}","a") as f:
         f.writelines(log)
-        return 0
 
 def update_column(data,column):
     '''
@@ -136,7 +135,7 @@ def update_values_meal():
     '''
     pass
 
-def save_data(data,filename="meal_list.csv"):
+def save_data(data,filename):
     '''
     maybe add an overwrite warning?
     '''

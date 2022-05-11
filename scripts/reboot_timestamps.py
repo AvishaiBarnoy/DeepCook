@@ -10,7 +10,7 @@ def main(data: str):
     """
     resets all date data in the data file
     """
-    meals_db = pd.read_csv(data, index_col=0)
+    meals_db = pd.read_csv(f"./data/{data}", index_col=0)
     aux.reboot_time_timestamps(meals_db)
 
 if __name__ == "__main__":
