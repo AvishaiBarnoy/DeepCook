@@ -1,5 +1,12 @@
 
 ##################
+# LOG 12.05.2022 #
+##################
+1. updated requierments, mostly to include typer and its helpers.
+2. meal_questions now iterates through columns (except Timestamp and times_made), deleted depracted code segemnts.   
+3. added inp flag for a user to add new meals to db 
+
+##################
 # LOG 11.05.2022 #
 ##################
 1. changed input file to be meal_list.csv by default but one can add it manually. 

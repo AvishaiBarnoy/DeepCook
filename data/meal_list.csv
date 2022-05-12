@@ -1,40 +1,40 @@
 ,Name,KosherType,Prep_Ease,Prep_Time,Cook_Time,Rank,Scaling,TA,times_made,Timestamp,recipe_suggestion,Name_HE
-0,Pasta Rose,2,2,medium,medium,4,,0,0,,,פסטה רוזה
-1,Stir Fried Vegetables,0,6,medium,short,8,,0,0,,,ירקות מוקפצים
-2,Hot Salad,0,7,medium,short,8,,0,1,2022-05-11,,סלט חם
-3,Hamburger and Fries,3,4,medium,medium,7,,0,1,2022-05-09,,המבורגר וצ'יפס
-4,Pizza,2,5,long,medium,7,,0,0,2022-05-02,,פיצה
-5,Sushi,1,10,long,medium,7,,0,0,,,סושי
-6,Shushi TA,3,0,short,short,8,,1,0,,,סושי משלוח
-7,Fried Eggs,1,2,short,short,6,,0,0,,,ביצי עין
-8,Shakshuka,1,4,medium,short,5,,0,0,,,שקשוקה
-9,Pasta tomato,0,4,medium,short,3,,0,0,,,פסטה ברוטב עגבניות
-10,Stir Fried Veggies Frozen Bag,0,4,medium,short,7,,0,0,,,ירקות מוקפצים מיקס קפוא
-11,toasts,2,3,short,short,4,,0,0,,,טוסטים
-12,Eggs Benedict,2,10,long,medium,9,,0,0,,,אגז בנדיקט
-13,Nachos,0,6,medium,short,7,,0,0,,,נאצ'וס
-14,Gnochi,0,9,long,short,8,,0,0,,,ניוקי
-15,Broccoli and Cauliflower,0,0,medium,medium,5,,0,0,,,ברוקולי וכרובית
-16,Baguette,0,8,long,medium,7,,0,0,,,באגט
-17,Ramen,3,8,long,long,7,,0,0,,,ראמן
-18,Grilled Cheese,2,3,short,short,6,,0,0,,,לחם מטוגן
-19,Salami Sandwich,3,2,short,short,5,,0,1,2022-05-10,,כריך סלאמי
-20,Pasta mashroom cream sauce,2,3,medium,medium,7,,0,1,2022-05-09,,פסטה ברוטב שמנת פטריות
-21,Pasta Bolognese,3,6,medium,medium,7,,0,0,,,ספגטי בולונז
-22,Pasta Cacio e Pepe,2,3,medium,medium,5,,0,0,,,פסטה קצ'ו אה פפה
-23,Pasta Broccoli and Almonds,0,6,medium,medium,7,,0,0,,,פסטה ברוטב ברוקולי ושקדים
-24,Lasagna,2,6,long,medium,8,,0,0,,,לזניה
-25,Hamburger TA,3,0,short,short,8,,1,0,,,המבורגר משלוח
-26,Pizza TA,2,0,short,short,5,,1,1,2022-05-11,,פיצה משלוח
-27,Potatoes with cheese (myabe cottage),2,4,medium,medium,4,,0,0,,,תפוחי אדמה וגבינהק
-28,Pancakes,1,6,medium,short,7,,0,1,2022-05-11,,פנקייקים
-29,Pasta Oli Olio,0,6,medium,medium,9,,0,0,,,פסטה אליו אוליו
-30,Bagels,0,7,long,medium,8,,0,0,,,בייגל אמריקאי
-31,Cornflakes,0,0,short,short,1,,0,0,,,קורנפלקס
-32,Pasta Sweetpotato cream sauce,2,5,medium,medium,5,,0,0,,,פסטה ברוטב שמנת בטטה
-33,Bruschetta tomato basil,0,5,medium,short,7,,0,0,,,ברוסקטות עם עגבניות ובזיליקום
-34,Diced baked potato and sweet potato,0,4,medium,medium,5,,0,0,,,תפוחי אדמה ובטטות אפויים
-35,Antipasto,0,4,medium,medium,4,,0,1,2022-05-11,,אנטיפסטי
-36,Kitchen Coach sweet potato,0,4,medium,medium,6,,0,0,,,בטטות של עז תלם
-37,Garlic bread,0,7,long,medium,9,,0,0,,,לחם שום
-38,Creamed Potatoes,2,7,medium,medium,7,,0,0,,,תפוחי אדמה מוקרמים
+0,Pasta Rose,2,2,medium,medium,4,,0,0.0,,,פסטה רוזה
+1,Stir Fried Vegetables,0,6,medium,short,8,,0,0.0,,,ירקות מוקפצים
+2,Hot Salad,0,7,medium,short,8,,0,1.0,2022-05-11,,סלט חם
+3,Hamburger and Fries,3,4,medium,medium,7,,0,1.0,2022-05-09,,המבורגר וצ'יפס
+4,Pizza,2,5,long,medium,7,,0,0.0,2022-05-02,,פיצה
+5,Sushi,1,10,long,medium,7,,0,0.0,,,סושי
+6,Shushi TA,3,0,short,short,8,,1,0.0,,,סושי משלוח
+7,Fried Eggs,1,2,short,short,6,,0,0.0,,,ביצי עין
+8,Shakshuka,1,4,medium,short,5,,0,0.0,,,שקשוקה
+9,Pasta tomato,0,4,medium,short,3,,0,0.0,,,פסטה ברוטב עגבניות
+10,Stir Fried Veggies Frozen Bag,0,4,medium,short,7,,0,0.0,,,ירקות מוקפצים מיקס קפוא
+11,toasts,2,3,short,short,4,,0,0.0,,,טוסטים
+12,Eggs Benedict,2,10,long,medium,9,,0,0.0,,,אגז בנדיקט
+13,Nachos,0,6,medium,short,7,,0,0.0,,,נאצ'וס
+14,Gnochi,0,9,long,short,8,,0,0.0,,,ניוקי
+15,Broccoli and Cauliflower,0,0,medium,medium,5,,0,0.0,,,ברוקולי וכרובית
+16,Baguette,0,8,long,medium,7,,0,0.0,,,באגט
+17,Ramen,3,8,long,long,7,,0,0.0,,,ראמן
+18,Grilled Cheese,2,3,short,short,6,,0,0.0,,,לחם מטוגן
+19,Salami Sandwich,3,2,short,short,5,,0,1.0,2022-05-10,,כריך סלאמי
+20,Pasta mashroom cream sauce,2,3,medium,medium,7,,0,1.0,2022-05-09,,פסטה ברוטב שמנת פטריות
+21,Pasta Bolognese,3,6,medium,medium,7,,0,0.0,,,ספגטי בולונז
+22,Pasta Cacio e Pepe,2,3,medium,medium,5,,0,0.0,,,פסטה קצ'ו אה פפה
+23,Pasta Broccoli and Almonds,0,6,medium,medium,7,,0,0.0,,,פסטה ברוטב ברוקולי ושקדים
+24,Lasagna,2,6,long,medium,8,,0,0.0,,,לזניה
+25,Hamburger TA,3,0,short,short,8,,1,0.0,,,המבורגר משלוח
+26,Pizza TA,2,0,short,short,5,,1,1.0,2022-05-11,,פיצה משלוח
+27,Potatoes with cheese (myabe cottage),2,4,medium,medium,4,,0,0.0,,,תפוחי אדמה וגבינהק
+28,Pancakes,1,6,medium,short,7,,0,1.0,2022-05-11,,פנקייקים
+29,Pasta Oli Olio,0,6,medium,medium,9,,0,0.0,,,פסטה אליו אוליו
+30,Bagels,0,7,long,medium,8,,0,0.0,,,בייגל אמריקאי
+31,Cornflakes,0,0,short,short,1,,0,0.0,,,קורנפלקס
+32,Pasta Sweetpotato cream sauce,2,5,medium,medium,5,,0,0.0,,,פסטה ברוטב שמנת בטטה
+33,Bruschetta tomato basil,0,5,medium,short,7,,0,0.0,,,ברוסקטות עם עגבניות ובזיליקום
+34,Diced baked potato and sweet potato,0,4,medium,medium,5,,0,0.0,,,תפוחי אדמה ובטטות אפויים
+35,Antipasto,0,4,medium,medium,4,,0,1.0,2022-05-11,,אנטיפסטי
+36,Kitchen Coach sweet potato,0,4,medium,medium,6,,0,0.0,,,בטטות של עז תלם
+37,Garlic bread,0,7,long,medium,9,,0,0.0,,,לחם שום
+38,Creamed Potatoes,2,7,medium,medium,7,,0,1.0,2022-05-12,,תפוחי אדמה מוקרמים

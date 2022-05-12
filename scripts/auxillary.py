@@ -103,7 +103,7 @@ def reboot_time_timestamps(data="meal_list.csv",logfile="meal.log"):
             return 0
 
 if __name__ == "__main__":
-    FILENAME = "./data/meal_list.csv"
+    FILENAME = "../data/meal_list.csv"
     data = pd.read_csv(FILENAME,index_col=0)
     #reboot_time_timestamps(data)
 
