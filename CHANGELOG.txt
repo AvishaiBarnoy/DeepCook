@@ -5,6 +5,7 @@
 1. updated requierments, mostly to include typer and its helpers.
 2. meal_questions now iterates through columns (except Timestamp and times_made), deleted depracted code segemnts.   
 3. added inp flag for a user to add new meals to db 
+4. updated README for the new flag method, where no db needs to be declared
 
 ##################
 # LOG 11.05.2022 #

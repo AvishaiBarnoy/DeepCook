@@ -36,12 +36,12 @@ Initially one should run the `reboot_timestamps.py` script to reset all the time
 Currently there is no working "main" function, but one will be implemented to run with command line arguments.\n
 To generate a random meal idea run:
 ```bash
-python main.py meals_list.csv
+python main.py
 ```
 This will promt the user with a suggestion and asking if he will make it, if the user answers `y` then the meal is logged.
 
 ## Help
-In order to read the help section run (which is a fun bonus of implementing a cli)
+In order to read the help section run (which is a fun bonus of implementing a cli), this will also give you current CLI methods implemented.
 ```bash
 python main.py --help
 ```
