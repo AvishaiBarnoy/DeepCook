@@ -4,6 +4,8 @@ This whole library needs to undergo a thorough revamp and remodelling, removing 
 '''
 
 import pandas as pd
+import os
+from pathlib import Path
 
 def add_meal(data, new_data):
     '''
@@ -85,6 +87,10 @@ def save_data(data, filename):
 
 if __name__ == "__main__":
     FILENAME = "../data/meal_list.csv"
+    PATH = os.path.join(os.path.dirname(__file__), f"../data/{FILENAME}")
+    PATH = Path(__file__).parent / FILENAME
+    data = pd.read_csv(PATH, index_col=0)
+    #print(data.head(n=5))
     #data = pd.read_csv(FILENAME,index_col=0)
     #data_new = meal_questions(data)
     #combined_arms = add_meal(data, data_new) 

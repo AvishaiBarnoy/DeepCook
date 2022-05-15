@@ -3,7 +3,12 @@ main random meal choice function and its tiny helpers
 this is called auxiallary as it is supposed to support the main main.py file
 '''
 import pandas as pd
-import scripts.iodata as iod
+import os
+from pathlib import Path
+try:
+    import scripts.iodata as iod
+except:
+    import iodata as iod
 
 def choose_random(meals, rank: bool = False, times: bool = False, last_made: bool = False, TA=None, k=1):
     '''
@@ -98,12 +103,14 @@ def reboot_time_timestamps(data="meal_list.csv",logfile="meal.log"):
             data["Timestamp"] = "NaN"
             data["times_made"] = 0
             iod.save_data(data)
-            with open(f"./data/{logfile}", "w") as f: pass # empties the meal.log file
+            with open(logfile, "w") as f: pass # empties the meal.log file
             print("Data was reset and saved")
             return 0
 
 if __name__ == "__main__":
     FILENAME = "../data/meal_list.csv"
-    data = pd.read_csv(FILENAME,index_col=0)
+    #PATH = os.path.join(os.path.dirname(__file__), f"../data/{FILENAME}")
+    PATH = Path(__file__).parent / FILENAME
+    data = pd.read_csv(PATH, index_col=0)
     #reboot_time_timestamps(data)
 

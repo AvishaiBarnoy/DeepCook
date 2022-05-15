@@ -1,10 +1,12 @@
 # Dinner Generator
-Dinner Generator is a Python program that randomly suggests ideas to prepare for dinner.
+Dinner Generator is a Python program that randomly suggests ideas to prepare for dinner, so you can have [Class with Zero Strain](https://www.youtube.com/watch?v=NpDAFKqeUDw).
 
 # Description
 ## Background
 I love cooking but I also hate deciding what to make for middle-week dinners. Hence, this project was born. It is supposed to randomly give a suggestion for a meal to prepare for dinner.
-I created a meal database (saved in the `meal_list.csv` file) and added some features to each meal. Each meal idea is based on meals I found that worked for me and my family, or something I wanted to try but never had the chance. Every meal is ranked according to my own preferances.
+I created a meal database (saved in the `data/meal_list.csv` file) and added some features to each meal. Each meal idea is based on meals I found that worked for me and my family, or something I wanted to try but never had the chance. Every meal is ranked according to my own preferances.
+
+Fun fact: I am a crazy person who develops in vim...
 
 ## Features
 Currently, the main enegine will randomly choose a meal from the < describe the different options implemented and how the choice is done, too_late() etc. >
@@ -17,11 +19,16 @@ Currently ranking is only based on my own preferences for meals, but in the futu
 ## Dependencies
 Python3.8 was used for development, I believe that any Python3 version will be compatible.\n
 ```
+click==7.1.2
+colorama==0.4.4
 numpy==1.22.3
 pandas==1.4.2
 python-dateutil==2.8.2
 pytz==2022.1
+shellingham==1.4.0
 six==1.16.0
+typer==0.3.2
+typer-cli==0.0.12
 ```
 
 ## Installing

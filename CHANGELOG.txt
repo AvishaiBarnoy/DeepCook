@@ -1,11 +1,18 @@
 
 ##################
+# LOG 15.05.2022 #
+##################
+1. changed absolute to relative path using pathlib.Path for data files
+2. added try/except for scripts for better maintence -> should be removed once I start writing actual tests
+
+##################
 # LOG 12.05.2022 #
 ##################
 1. updated requierments, mostly to include typer and its helpers.
 2. meal_questions now iterates through columns (except Timestamp and times_made), deleted depracted code segemnts.   
 3. added inp flag for a user to add new meals to db 
 4. updated README for the new flag method, where no db needs to be declared
+5. updated requierments in README
 
 ##################
 # LOG 11.05.2022 #

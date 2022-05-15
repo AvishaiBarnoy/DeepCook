@@ -6,13 +6,14 @@ import pandas as pd
 import scripts.auxillary as aux
 import scripts.iodata as iod
 import typer
+import os
+from pathlib import Path
 
+# default absolute pathway
+MEAL_LIST = "data/meal_list.csv"
+#absolute_path = os.path.join(os.path.dirname(__file__), f"../data/{MEAL_LIST}")
+absolute_path = Path(__file__).parent / MEAL_LIST
 
-# default 
-MEAL_LIST = "./data/meal_list.csv"
-
-#def choose_random(meals, rank=False, times=False, last_made=False, TA=None, k=1):
-#def main(name: str = "", lastname: str = "", formal: bool = False):
 def main(data: str = MEAL_LIST, rank: bool = False, TA: bool = None, inp: bool = False):
     """
     data ::: str, csv file with the meal data - default meal_list.csv in the data folder.
@@ -23,7 +24,7 @@ def main(data: str = MEAL_LIST, rank: bool = False, TA: bool = None, inp: bool =
 
     inp  ::: Add a new meal to the meal DB, by questions to the audience. 
     """
-    meals_db = pd.read_csv(MEAL_LIST, index_col=0)
+    meals_db = pd.read_csv(absolute_path, index_col=0)
     
     if inp:
         new_meal = iod.meal_questions(meals_db)
@@ -34,7 +35,7 @@ def main(data: str = MEAL_LIST, rank: bool = False, TA: bool = None, inp: bool =
         iod.write_to_log(chosen_one)
     
     # save changes
-    iod.save_data(meals_db, MEAL_LIST)
+    iod.save_data(meals_db, absolute_path)
 
 if __name__ == "__main__":
     typer.run(main)
