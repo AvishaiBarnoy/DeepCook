@@ -1,0 +1,12 @@
+
+# To Do:
+1. look at roadmap and adjust it for Shabbat meals future needs and growth plan
+
+
+# Things to Add to functions:
+
+## Features:
+	1. add main ingredient
+
+## main.py calls and flags
+	1. add soup/no-soup flag

@@ -107,6 +107,15 @@ def reboot_time_timestamps(data="meal_list.csv",logfile="meal.log"):
             print("Data was reset and saved")
             return 0
 
+def filter_kosher(meal_list, kosher):
+    '''
+    Takes loaded meal_list DF and returns the filtered meals according to specified kosher
+
+    meal_list   ::: pandas DataFrame with meals
+    kosher      ::: kosher type [parve|milchik|fleisch]
+    '''
+    return meal_list
+
 if __name__ == "__main__":
     FILENAME = "../data/meal_list.csv"
     #PATH = os.path.join(os.path.dirname(__file__), f"../data/{FILENAME}")

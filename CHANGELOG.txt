@@ -1,5 +1,14 @@
 
 ##################
+# LOG 16.05.2022 #
+##################
+1. started laying foundation to Shabbat meal planner
+2. change kosher from numeric to string - CLI option not yet implemented
+	2.1 Diet choice was added to TODO.md
+3. added empty function to be filled (TBF) for kosher slicing 
+4. added empty csv files for meal categories
+ 
+##################
 # LOG 15.05.2022 #
 ##################
 1. changed absolute to relative path using pathlib.Path for data files

@@ -29,11 +29,10 @@ def main(data: str = MEAL_LIST, rank: bool = False, TA: bool = None, inp: bool =
     if inp:
         new_meal = iod.meal_questions(meals_db)
         meals_db = iod.add_meal(meals_db, new_meal) 
-    
     else:
         meals_db, chosen_one = aux.choose_random(meals_db, rank, TA)
         iod.write_to_log(chosen_one)
-    
+     
     # save changes
     iod.save_data(meals_db, absolute_path)
 

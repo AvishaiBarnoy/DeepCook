@@ -1,6 +1,8 @@
 # Dinner Generator
 Dinner Generator is a Python program that randomly suggests ideas to prepare for dinner, so you can have [Class with Zero Strain](https://www.youtube.com/watch?v=NpDAFKqeUDw).
 
+Feel free to help in anyway you wish, even adding more meals, recipe suggestions, etc.
+
 # Description
 ## Background
 I love cooking but I also hate deciding what to make for middle-week dinners. Hence, this project was born. It is supposed to randomly give a suggestion for a meal to prepare for dinner.
