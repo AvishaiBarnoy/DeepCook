@@ -5,4 +5,12 @@ None are yet to be defined, but a categorical to numerical conversion for some f
 Affected features: KosherType, cook_time, prep_ease, prep_time, scaling.
 '''
 
-import enum
+from enum import Enum
+
+
+class KosherType(str, Enum):
+    parve = "parve"
+    milchik = "milchik"
+    fleisch = "fleisch"
+    nonkosher = "nonkosher"
+    #kosher      ::: kosher type [parve|milchik|fleisch]

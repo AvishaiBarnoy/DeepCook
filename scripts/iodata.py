@@ -90,9 +90,10 @@ if __name__ == "__main__":
     PATH = os.path.join(os.path.dirname(__file__), f"../data/{FILENAME}")
     PATH = Path(__file__).parent / FILENAME
     data = pd.read_csv(PATH, index_col=0)
-    #print(data.head(n=5))
-    data["KosherType"] = data["KosherType"].replace({0:"parve",1:"parve",2:"milchik",3:"fleisch"})
-    save_data(data, PATH)
+    #data.insert(2, "Diet", "NaN", True)
+    print(data.head(n=5))
+    #data["KosherType"] = data["KosherType"].replace({0:"parve",1:"parve",2:"milchik",3:"fleisch"})
+    #save_data(data, PATH)
     #data = pd.read_csv(FILENAME,index_col=0)
     #data_new = meal_questions(data)
     #combined_arms = add_meal(data, data_new) 

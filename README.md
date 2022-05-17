@@ -1,6 +1,9 @@
 # Dinner Generator
 Dinner Generator is a Python program that randomly suggests ideas to prepare for dinner, so you can have [Class with Zero Strain](https://www.youtube.com/watch?v=NpDAFKqeUDw).
 
+> DeepCook, developed by ABN electronics was the first comouter to defeat in a human competitor in MasterChef.
+> Neria Baris
+ 
 Feel free to help in anyway you wish, even adding more meals, recipe suggestions, etc.
 
 # Description

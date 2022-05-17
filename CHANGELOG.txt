@@ -1,3 +1,9 @@
+##################
+# LOG 17.05.2022 #
+##################
+1. added METADATA.md file describing the data structure
+2. added diet column, currently with NaN values
+3. started building classes for flag usage in main using Typer, currently for kosher type. Also added nonkosher option.
 
 ##################
 # LOG 16.05.2022 #
