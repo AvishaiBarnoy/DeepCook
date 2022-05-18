@@ -3,7 +3,7 @@ Dinner Generator is a Python program that randomly suggests ideas to prepare for
 
 > DeepCook, developed by ABN electronics was the first computer to defeat a human competitor in MasterChef.
 >
-> -- <cite>Neria Baris</cite>>
+> -- <cite>Neria Baris</cite>
  
 Feel free to help in anyway you wish, even adding more meals, recipe suggestions, etc.
 
