@@ -3,7 +3,7 @@ Dinner Generator is a Python program that randomly suggests ideas to prepare for
 
 > DeepCook, developed by ABN electronics was the first computer to defeat a human competitor in MasterChef.
 >
-> -- <cite>Neria Baris</cite>
+> -- [*Neria Baris*](https://twitter.com/NerBaris/status/1526462586266570753)
  
 Feel free to help in anyway you wish, even adding more meals, recipe suggestions, etc.
 
@@ -15,27 +15,17 @@ I created a meal database (saved in the `data/meal_list.csv` file) and added som
 Fun fact: I am a crazy person who develops in vim...
 
 ## Features
-Currently, the main enegine will randomly choose a meal from the < describe the different options implemented and how the choice is done, too_late() etc. >
+Currently, the main enegine will randomly choose a meal from the *< describe the different options implemented and how the choice is done, too_late() etc. >*
 
 Currently ranking is only based on my own preferences for meals, but in the future a quick reranking option will be added, also an easy meal insertion to the db will be implemented.
 
-< one day, here you, brave reader, will find a thorough and in-depth description of this project >
+*< one day, here you, brave reader, will find a thorough and in-depth description of this project >*
 
 # Getting Started
 ## Dependencies
-Python3.8 was used for development, I believe that any Python3 version will be compatible.\n
-```
-click==7.1.2
-colorama==0.4.4
-numpy==1.22.3
-pandas==1.4.2
-python-dateutil==2.8.2
-pytz==2022.1
-shellingham==1.4.0
-six==1.16.0
-typer==0.3.2
-typer-cli==0.0.12
-```
+Python3.8 was used for development, I believe that any Python3 version will be compatible.
+
+See the [`requirements.txt`](./requirements.txt) for the dependencies.
 
 ## Installing
 Just run and all will be good.
@@ -46,8 +36,10 @@ pip install -r requirements.txt
 ## Executing Program
 Initially one should run the `reboot_timestamps.py` script to reset all the timestamp in the folder. 
 
-Currently there is no working "main" function, but one will be implemented to run with command line arguments.\n
+Currently there is no working "main" function, but one will be implemented to run with command line arguments.
+
 To generate a random meal idea run:
+
 ```bash
 python main.py
 ```
@@ -55,6 +47,7 @@ This will promt the user with a suggestion and asking if he will make it, if the
 
 ## Help
 In order to read the help section run (which is a fun bonus of implementing a cli), this will also give you current CLI methods implemented.
+
 ```bash
 python main.py --help
 ```
@@ -66,7 +59,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 Please make sure to write tests as appropriate, I (Avishai) didn't do the proper and appropriate work so there are currently no tests.
 
-Please don't hesitate to open an issue or pull request. You can also send me a message on Twitter.
+Please don't hesitate to open an issue or pull request. You can also [send me a message on Twitter](https://twitter.com/messages/compose?recipient_id=2895652525).
 
 ## Author
 Contributors names and contact info
