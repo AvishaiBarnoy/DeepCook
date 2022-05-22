@@ -2,6 +2,7 @@
 main random meal choice function and its tiny helpers
 this is called auxiallary as it is supposed to support the main main.py file
 '''
+from enum import Enum
 import pandas as pd
 import os
 from pathlib import Path
@@ -9,6 +10,11 @@ try:
     import scripts.iodata as iod
 except:
     import iodata as iod
+
+class Kosher(str, Enum):
+    parve= "parve"
+    fleisch = "fleisch"
+    milchik = "milchik"
 
 def choose_random(meals, rank: bool = False, times: bool = False, last_made: bool = False, TA=None, k=1):
     '''
@@ -93,7 +99,7 @@ def reboot_time_timestamps(data="meal_list.csv",logfile="meal.log"):
             print("Data was reset and saved")
             return 0
 
-def filter_kosher(meal_list, kosher):
+def filter_kosher(meal_list, kosher: Kosher):
     '''
     Takes loaded meal_list DF and returns the filtered meals according to specified kosher
 
