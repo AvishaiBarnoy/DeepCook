@@ -12,21 +12,7 @@ except:
 
 def choose_random(meals, rank: bool = False, times: bool = False, last_made: bool = False, TA=None, k=1):
     '''
-    Changes to make:
-    1. test time stamping
-
-    makes either a fully (pseudo) random choice from all meal options
-        or a weighted choice based on rank.
-    Future:
-        1. Adjust weights according to times made.
-        2. Make choice by ease
-        3. Give k-choices ranked by ease and/or rank
-        4. make choice by kosher type
-        5. if last_made don't make choice made in last 5 days or if last_made==int then that amount of days
-    meals     ::: DataFrame with meal information
-    rank      ::: if True gives weights to meals based on rank
-    last_made ::: *NOT IMPLEMENTED* should take into account when last made, maybe combine with times?
-    TA        ::: True - choose only from takeawy, False - choose only from homecooking, None - anything may come
+    makes a random choice of a meal from a meal DB
     '''
     use_rank = None
     

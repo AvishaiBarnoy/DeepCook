@@ -20,37 +20,34 @@
 
 # Empty Functions:
 ## Auxillary
-	1. Adjust weights according to times made.
-    2. Make choice by ease
-    3. Give k-choices ranked by ease and/or rank
-    4. make choice by kosher type
-	5. if last_made don't make choice made in last 5 days or if last_made==int then that amount of days
-	6. export all flag options to filtering functions that can be make the relevant DB smaller for pd.sample.
-		6.1 OPTION: add and then remove a column of weights that get zeroed for filtering.
-			e.g., if milchik chosen, in temp_filter all fleischik will get a 0 and then when doing sample(weights=temp_filter)
-					the fleischik meals will be filtered out.
+1. Adjust weights according to times made.
+2. Make choice by ease
+3. Give k-choices ranked by ease and/or rank
+4. make choice by kosher type
+5. if last_made don't make choice made in last 5 days or if last_made==int then that amount of days
+6. export all flag options to filtering functions that can be make the relevant DB smaller for pd.sample.
+	6.1 OPTION: add and then remove a column of weights that get zeroed for filtering. e.g., if milchik chosen, in temp_filter all fleischik will get a 0 and then when doing sample(weights=temp_filter) the fleischik meals will be filtered out.
 
 ## Iodata
-	1. check_meal_input - check that every field in a new added meal is in the correct format
-	2. update_missing_data - goes over db and asks user to fill in empty data
+1. check_meal_input - check that every field in a new added meal is in the correct format
+2. update_missing_data - goes over db and asks user to fill in empty data
 
 ## main
-	1. suprise me flag?
+1. suprise me flag?
 
 # Things to Add to functions:
 
 ## Data organization:
 
 ## Features:
-	1. meal scaling factor - can be used for weekly meal planning
-	2. recipe suggestion - Krutit, Kitchencoach
+1. meal scaling factor - can be used for weekly meal planning
+2. recipe suggestion - Krutit, Kitchencoach
 
 ## Random choice:
-	1. Adjust weights according to times made - maybe timestamp and then weight adjustment
-			is only made if meal was prepared in the last n days.
-    2. make choice by kosher type
+1. Adjust weights according to times made - maybe timestamp and then weight adjustment is only made if meal was prepared in the last n days.
+2. make choice by kosher type
 
 ## Choose TA:
-	1. choice by type.
-	2. Time dilation - TA is only availabe in random if TA was not ordered in the past X days. 
+1. choice by type.
+2. Time dilation - TA is only availabe in random if TA was not ordered in the past X days. 
 
