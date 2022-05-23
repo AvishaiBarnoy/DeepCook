@@ -1,5 +1,11 @@
 
 ##################
+# LOG 23.05.2022 #
+##################
+1. moved meal logging logic out of choose_random and into a different function
+2. updated README to say there actually is a working main function
+
+##################
 # LOG 22.05.2022 #
 ##################
 1. edited TODO.md visually

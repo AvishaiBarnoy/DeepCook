@@ -28,17 +28,22 @@ no-flag: choose from everything including TA'''),
         False, help="Add a new meal to the meal DB, by questions to the audience"),
     kosher: aux.Kosher = typer.Option(aux.Kosher.fleisch, case_sensitive=False)
 ):
-    #typer.echo(f"Choosing meal from {kosher.value}")
-
+    
+    # load data
     meals_db = pd.read_csv(absolute_path, index_col=0)
 
-    meals_db = aux.filter_kosher(meals_db, kosher)
+    #meals_db = aux.filter_kosher(meals_db, kosher)
+    #filterd_meals = aux.filter_kosher(meals_db, kosher)
+
+    # adding new meal to db or randomly suggesting one
     if inp:
         new_meal = iod.meal_questions(meals_db)
         meals_db = iod.add_meal(meals_db, new_meal)
     else:
-        meals_db, chosen_one = aux.choose_random(meals_db, rank, TA)
+        filterd_meals = aux.filter_kosher(meals_db, kosher)
+        _, chosen_one, chosen_idx = aux.choose_random(meals_db, rank, TA)
         iod.write_to_log(chosen_one)
+        aux.make_this_meal(meals_db,chosen_idx)
 
     # save changes
     iod.save_data(meals_db, absolute_path)

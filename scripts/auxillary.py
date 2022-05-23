@@ -12,6 +12,9 @@ except:
     import iodata as iod
 
 class Kosher(str, Enum):
+    '''
+    This should be moved to the classes folder
+    '''
     parve= "parve"
     fleisch = "fleisch"
     milchik = "milchik"
@@ -48,20 +51,40 @@ def choose_random(meals, rank: bool = False, times: bool = False, last_made: boo
 
     # check if user wants to make meal and if yes log the meal.
     print(choice["Name"].iloc[0])
+    #make_it = input("Are you going to make this meal? (y/n)")
+    #while True:
+    #    if make_it.lower() == "y":
+    #        meals.loc[choice.index[0],"times_made"] += 1
+    #        meals.loc[choice.index[0],"Timestamp"] = pd.Timestamp.now().date()
+    #        print("meal logged.")
+    #        break
+    #    elif make_it.lower() == "n":
+    #        print("meal not logged.")
+    #        break
+    #    else:
+    #        print("Please enter a valid answer.")
+    #        make_it = input("Are you going to make this meal? (y/n)")
+    
+    return meals, choice["Name"].iloc[0], choice.index[0]
+
+def make_this_meal(meals,choice):
+    '''
+    Asks user if he will make the meal, if yes meal is logged.
+    returns True/False
+    '''
     make_it = input("Are you going to make this meal? (y/n)")
     while True:
         if make_it.lower() == "y":
-            meals.loc[choice.index[0],"times_made"] += 1
-            meals.loc[choice.index[0],"Timestamp"] = pd.Timestamp.now().date()
+            meals.loc[choice,"times_made"] += 1
+            meals.loc[choice,"Timestamp"] = pd.Timestamp.now().date()
             print("meal logged.")
-            break
+            return True
         elif make_it.lower() == "n":
             print("meal not logged.")
-            break
+            return False
         else:
             print("Please enter a valid answer.")
             make_it = input("Are you going to make this meal? (y/n)")
-    return meals, choice["Name"].iloc[0]
 
 def is_too_late_to_cook(cutoff: int = 20):
     '''

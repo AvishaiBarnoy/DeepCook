@@ -23,7 +23,7 @@ Currently ranking is only based on my own preferences for meals, but in the futu
 
 # Getting Started
 ## Dependencies
-Python3.8 was used for development, I believe that any Python3 version will be compatible.
+Python3.9 was used for development, I believe that any Python3 version will be compatible.
 
 See the [`requirements.txt`](./requirements.txt) for the dependencies.
 
@@ -35,8 +35,6 @@ pip install -r requirements.txt
 
 ## Executing Program
 Initially one should run the `reboot_timestamps.py` script to reset all the timestamp in the folder. 
-
-Currently there is no working "main" function, but one will be implemented to run with command line arguments.
 
 To generate a random meal idea run:
 
