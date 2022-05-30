@@ -1,22 +1,19 @@
 
 # To Do: 
-1. add a function to ask if user wants to make meal, take the logic out of choose_random()
-	1.1 make --mock option work in CLI
-2. add a field-format text file
-3. change add_meal_questions():
+1. add a field-format text file
+2. change add_meal_questions():
 	1.1 add description printed before everything to explain what's going on.
 	1.2 create a "def check_input(inp)" function to test if the input is correct
 	1.3 option to look for specific koshertype - milchik/fleisch
-4. check convention for column naming with pandas. Choose one - camel, snake_eye, pascal
-5. add enumerative classes
-6. recipe suggestions
-7. add scaling factor - define 3 main functions: linear, sub-linear, superlinear
-8. look by kosher/diet:
+3. check convention for column naming with pandas. Choose one - camel, snake_eye, pascal
+4. recipe suggestions
+5. add scaling factor - define 3 main functions: linear, sub-linear, superlinear
+6. look by kosher/diet:
 	7.1 kosher - vegan, vegeterian, parve, milchik, fleisch
 		7.1.1 change kosher type to parve, milchik, fleisch in meal_list 
 	7.2 Diet - vegan, glutenfree, vegeterian, keto
-9. add logic function for input mode: choices: (1) new meal, (2) update values, etc.
-10. last_prepared - should not suggest meal if was prepared in past 3-4 days
+7. add logic function for input mode: choices: (1) new meal, (2) update values, etc.
+8. last_prepared - should not suggest meal if was prepared in past 3-4 days
 
 # Empty Functions:
 ## Auxillary

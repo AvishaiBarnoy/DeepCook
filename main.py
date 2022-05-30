@@ -8,6 +8,7 @@ import scripts.iodata as iod
 import typer
 import os
 from pathlib import Path
+from classes.classes import KosherType
 
 # default absolute pathway
 MEAL_LIST = "data/meal_list.csv"
@@ -26,7 +27,9 @@ False: from everythin except TA,
 no-flag: choose from everything including TA'''),
     inp: bool = typer.Option(
         False, help="Add a new meal to the meal DB, by questions to the audience"),
-    kosher: aux.Kosher = typer.Option(aux.Kosher.fleisch, case_sensitive=False)
+    kosher: KosherType = typer.Option(KosherType.fleisch, case_sensitive=False, help="NOT YET IMPLEMENTED."),
+    #mock: bool = typer.Option("Mock try for testing and developing, will not prompt for saving.", case_sensitive=False)
+    mock: bool = typer.Option(False, help="Mock try for testing and developing, will not prompt for saving.")
 ):
     
     # load data
@@ -42,12 +45,13 @@ no-flag: choose from everything including TA'''),
     else:
         filterd_meals = aux.filter_kosher(meals_db, kosher)
         _, chosen_one, chosen_idx = aux.choose_random(meals_db, rank, TA)
-        iod.write_to_log(chosen_one)
-        aux.make_this_meal(meals_db,chosen_idx)
+        if mock == False:
+            iod.write_to_log(chosen_one)
+            aux.make_this_meal(meals_db,chosen_idx)
 
     # save changes
-    iod.save_data(meals_db, absolute_path)
-
+    if mock == False:
+        iod.save_data(meals_db, absolute_path)
 
 if __name__ == "__main__":
     typer.run(main)

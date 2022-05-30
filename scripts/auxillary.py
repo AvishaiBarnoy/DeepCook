@@ -6,14 +6,22 @@ from enum import Enum
 import pandas as pd
 import os
 from pathlib import Path
+
 try:
     import scripts.iodata as iod
+    from classes.classes import KosherType
 except:
     import iodata as iod
+    import classes.classes
+    #from ../classes/classes.py import KosherType
+    #class_path = Path(__file__).parent / "../classes/"
+    #print(class_path)
+    #import class_path.classes
 
 class Kosher(str, Enum):
     '''
-    This should be moved to the classes folder
+    DEPRACTED
+    still here to make sure nothing depends on this, this will be removed later
     '''
     parve= "parve"
     fleisch = "fleisch"
@@ -22,6 +30,8 @@ class Kosher(str, Enum):
 def choose_random(meals, rank: bool = False, times: bool = False, last_made: bool = False, TA=None, k=1):
     '''
     makes a random choice of a meal from a meal DB
+
+    IMPORTANT: this returns too many arguments, either needs to be truncated or used by other functions 
     '''
     use_rank = None
     
@@ -49,28 +59,13 @@ def choose_random(meals, rank: bool = False, times: bool = False, last_made: boo
 
     choice = meals_copy.sample(n=k, weights=use_rank)
 
-    # check if user wants to make meal and if yes log the meal.
     print(choice["Name"].iloc[0])
-    #make_it = input("Are you going to make this meal? (y/n)")
-    #while True:
-    #    if make_it.lower() == "y":
-    #        meals.loc[choice.index[0],"times_made"] += 1
-    #        meals.loc[choice.index[0],"Timestamp"] = pd.Timestamp.now().date()
-    #        print("meal logged.")
-    #        break
-    #    elif make_it.lower() == "n":
-    #        print("meal not logged.")
-    #        break
-    #    else:
-    #        print("Please enter a valid answer.")
-    #        make_it = input("Are you going to make this meal? (y/n)")
-    
     return meals, choice["Name"].iloc[0], choice.index[0]
 
-def make_this_meal(meals,choice):
+def make_this_meal(meals, choice):
     '''
     Asks user if he will make the meal, if yes meal is logged.
-    returns True/False
+    doesn't return anythin, just changes the state of the meals DB
     '''
     make_it = input("Are you going to make this meal? (y/n)")
     while True:
@@ -122,7 +117,7 @@ def reboot_time_timestamps(data="meal_list.csv",logfile="meal.log"):
             print("Data was reset and saved")
             return 0
 
-def filter_kosher(meal_list, kosher: Kosher):
+def filter_kosher(meal_list, kosher: KosherType):
     '''
     Takes loaded meal_list DF and returns the filtered meals according to specified kosher
 

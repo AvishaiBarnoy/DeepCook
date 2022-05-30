@@ -1,9 +1,24 @@
 
 ##################
+# LOG 30.05.2022 #
+##################
+1. moved Kosher class out of auxillary and into classes/classes
+2. added mock option, this will just generate a meal idea without any logging
+
+##################
+# LOG 26.05.2022 #
+##################
+1. added some ideas to the csv files (not meals_list) in the data/ folderg
+2. fixed typo in readme
+3. added missing column description in metadata
+4. added another thing to roadmap
+ 
+##################
 # LOG 23.05.2022 #
 ##################
 1. moved meal logging logic out of choose_random and into a different function
 2. updated README to say there actually is a working main function
+3. deleted initialize_data script as it is both obsolete with the amount meal features and it not needed.
 
 ##################
 # LOG 22.05.2022 #

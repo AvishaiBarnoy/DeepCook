@@ -13,4 +13,3 @@ class KosherType(str, Enum):
     milchik = "milchik"
     fleisch = "fleisch"
     nonkosher = "nonkosher"
-    #kosher      ::: kosher type [parve|milchik|fleisch]

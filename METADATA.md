@@ -13,5 +13,6 @@ This document will describe the structure of the data
 8. Scaling ::: (NOT IMPLEMENTED YET!) how easy is it to make a lot from this specific meal
 9. TA ::: Is it take-away food
 10. times_made ::: how many times the meal has been made, after each suggestion (unless in mock mode) the user is prompted with a question "are you going to make this?" and then this field updates.
-11. recipe_suggestion ::: (NOT IMPLEMENTED YET!) will have either a url to a vetted recipe or an indication that it does not need one as it is the simplest meal
-12. Name_HE ::: meal name in Hebrew
+11. Timestamp ::: the time of the last time this meal was prepared, this only updates once a user replys to the engine that he will prepare the meal.
+12. recipe_suggestion ::: (NOT IMPLEMENTED YET!) will have either a url to a vetted recipe or an indication that it does not need one as it is the simplest meal
+13. Name_HE ::: meal name in Hebrew
