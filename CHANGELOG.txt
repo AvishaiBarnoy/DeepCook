@@ -1,5 +1,11 @@
 
 ##################
+# LOG 02.06.2022 #
+##################
+1. built simple app with no configuration to generate random meal suggestions
+2. deployed app
+
+##################
 # LOG 30.05.2022 #
 ##################
 1. moved Kosher class out of auxillary and into classes/classes
