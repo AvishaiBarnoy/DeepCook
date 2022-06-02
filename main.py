@@ -6,13 +6,11 @@ import pandas as pd
 import scripts.auxillary as aux
 import scripts.iodata as iod
 import typer
-import os
 from pathlib import Path
 from classes.classes import KosherType
 
 # default absolute pathway
 MEAL_LIST = "data/meal_list.csv"
-#absolute_path = os.path.join(os.path.dirname(__file__), f"../data/{MEAL_LIST}")
 absolute_path = Path(__file__).parent / MEAL_LIST
 
 

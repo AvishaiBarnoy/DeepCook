@@ -4,7 +4,6 @@ this is called auxiallary as it is supposed to support the main main.py file
 '''
 from enum import Enum
 import pandas as pd
-import os
 from pathlib import Path
 
 try:
@@ -128,7 +127,6 @@ def filter_kosher(meal_list, kosher: KosherType):
 
 if __name__ == "__main__":
     FILENAME = "../data/meal_list.csv"
-    #PATH = os.path.join(os.path.dirname(__file__), f"../data/{FILENAME}")
     PATH = Path(__file__).parent / FILENAME
     data = pd.read_csv(PATH, index_col=0)
     #reboot_time_timestamps(data)
