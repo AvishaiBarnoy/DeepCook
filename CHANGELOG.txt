@@ -1,5 +1,10 @@
 
 ##################
+# LOG 03.06.2022 #
+##################
+1. updated requirements to include streamlit
+
+##################
 # LOG 02.06.2022 #
 ##################
 1. built simple app with no configuration to generate random meal suggestions

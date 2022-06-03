@@ -14,9 +14,20 @@ st.write('Just press the button and DeepCook will give you a meal suggestion!')
 MEAL_LIST = "data/meal_list.csv"
 absolute_path = Path(__file__).parent / MEAL_LIST
 meals_db = pd.read_csv(absolute_path, index_col=0)
+COUNTER_PATH = "data/counter.txt"
+counter_file = Path(__file__).parent / COUNTER_PATH
+
+# initiate counter
+with open(counter_file, "r") as f:
+    counter = f.readline()
+    counter = 0 if counter == "" else int(counter)
 
 if st.button('Random meal idea!'):
+    counter += 1
     _, chosen_one, chosen_idx = aux.choose_random(meals_db, rank=False, TA=None)
     st.write('Your random meal is: ', chosen_one)
-
+    with open(counter_file, "w") as f:
+        f.truncate()
+        f.write(f"{counter}")
+    st.write(f"People that pressed on the button: {counter}")
 
