@@ -1,8 +1,17 @@
 
 ##################
+# LOG 06.06.2022 #
+##################
+1. made counter to alawys appear.
+2. added update_missing_data in iodata
+3. added some recipe ideas
+4. app print recipe suggestion to both app and cli
+
+##################
 # LOG 03.06.2022 #
 ##################
 1. updated requirements to include streamlit
+2. added counter to web app
 
 ##################
 # LOG 02.06.2022 #

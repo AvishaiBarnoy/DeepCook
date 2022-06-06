@@ -26,8 +26,17 @@ if st.button('Random meal idea!'):
     counter += 1
     _, chosen_one, chosen_idx = aux.choose_random(meals_db, rank=False, TA=None)
     st.write('Your random meal is: ', chosen_one)
+    
+    # print recipe suggestion if one exists
+    suggestion = meals_db.iloc[chosen_idx].iloc[11]
+    if isinstance(suggestion, str):
+        st.write(f'Recipe suggestion: {suggestion}')
+    elif isinstance(suggestion, float):
+        st.write("No recipe suggestion exists in the database.")
+
     with open(counter_file, "w") as f:
         f.truncate()
         f.write(f"{counter}")
-    st.write(f"People that pressed on the button: {counter}")
+
+st.write(f"People that pressed on the button: {counter}")
 

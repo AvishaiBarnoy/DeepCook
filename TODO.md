@@ -1,5 +1,5 @@
 
-# To Do: 
+# To Do General: 
 1. add a field-format text file
 2. change add_meal_questions():
 	1.1 add description printed before everything to explain what's going on.
@@ -14,6 +14,9 @@
 	7.2 Diet - vegan, glutenfree, vegeterian, keto
 7. add logic function for input mode: choices: (1) new meal, (2) update values, etc.
 8. last_prepared - should not suggest meal if was prepared in past 3-4 days
+
+# To Do Web App:
+1. don't print recipe suggestion if one does not exist
 
 # Empty Functions:
 ## Auxillary

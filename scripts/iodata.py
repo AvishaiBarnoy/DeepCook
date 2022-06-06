@@ -55,7 +55,7 @@ def write_to_log(choice,logfile="meal.log"):
     with open(f"data/{logfile}","a") as f:
         f.writelines(log)
 
-def update_column(data,column):
+def update_column(data, column):
     '''
     data    ::: df to update
     column  ::: str, column name to update
@@ -63,12 +63,17 @@ def update_column(data,column):
     for idx,row in data.iterrows():
         print(idx,row.iloc[0],column)
         data.loc[idx,column] = input("Enter new value: ")
+    return data
 
 def update_missing_data(data, column):
     '''
     same as update_column() but won't update rows with values
     '''
-    pass
+    for idx,row in data.iterrows():
+        print(idx,row.iloc[0],column)
+        if data.loc[idx,column] == "NaN":
+            data.loc[idx,column] = input("Enter new value: ")
+    return data
 
 def update_values_meal():
     '''

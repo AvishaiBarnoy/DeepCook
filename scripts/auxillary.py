@@ -59,6 +59,13 @@ def choose_random(meals, rank: bool = False, times: bool = False, last_made: boo
     choice = meals_copy.sample(n=k, weights=use_rank)
 
     print(choice["Name"].iloc[0])
+    
+    suggestion = meals.iloc[choice.index[0]].iloc[11]
+    if isinstance(suggestion,str):
+        print(f'Recipe suggestion: {suggestion}')
+    elif isinstance(suggestion,float):
+        print("No recipe suggestion exists in the database.")
+
     return meals, choice["Name"].iloc[0], choice.index[0]
 
 def make_this_meal(meals, choice):
