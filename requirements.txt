@@ -4,6 +4,7 @@ argon2-cffi-bindings==21.2.0
 asttokens==2.0.5
 attrs==21.4.0
 backcall==0.2.0
+backports.zoneinfo==0.2.1
 beautifulsoup4==4.11.1
 bleach==5.0.0
 blinker==1.4
@@ -24,6 +25,7 @@ gitdb==4.0.9
 GitPython==3.1.27
 idna==3.3
 importlib-metadata==4.11.4
+importlib-resources==5.8.0
 ipykernel==6.13.0
 ipython==8.4.0
 ipython-genutils==0.2.0

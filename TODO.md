@@ -1,3 +1,7 @@
+1. desgin pages structure - kids, grownups, suggestions
+2. restructure home.py for streamlit web-app to have an intro, sidebar for pages,
+    relevant button
+3. translate to Hebrew
 
 # To Do General: 
 1. add a field-format text file

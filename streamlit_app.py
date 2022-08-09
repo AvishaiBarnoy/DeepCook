@@ -40,3 +40,5 @@ if st.button('Random meal idea!'):
 
 st.write(f"People that pressed on the button: {counter}")
 
+#st.sidebar.success("success sidebar")
+#st.sidebar.selectbox("Navigation Pane")
