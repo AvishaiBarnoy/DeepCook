@@ -1,0 +1,2 @@
+# right to left
+https://discuss.streamlit.io/t/text-input-widget-r2l/2471
