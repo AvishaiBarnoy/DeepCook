@@ -1,2 +1,5 @@
 # right to left
 https://discuss.streamlit.io/t/text-input-widget-r2l/2471
+
+https://towardsdatascience.com/how-to-extract-data-from-the-twitter-api-using-python-b6fbd7129a33
+
