@@ -47,6 +47,9 @@ def choose_random(meals, rank: bool = False, check_time: bool = False,
     # check time
     # TODO: revisit this idea, I can just "print" in the suggestion the prep time of the meal,
     #           also take into account cooking time.
+    #   filter ideas not at suggestion function but before at data loading
+    #       add flag at Streamlit so that when the data is loaded it already be filtered:
+    #       data = data[data["Prep_Time" < 2] or so
     if check_time == True:
         is_late = is_too_late_to_cook()
         translate_time = {"short":0, "medium":1, "long": 2}
@@ -58,15 +61,17 @@ def choose_random(meals, rank: bool = False, check_time: bool = False,
     choice = meals.sample(n=k, weights=use_rank)
     
     choice_name = choice["Name"].iloc[0]
-    
-    suggestion = meals.iloc[choice.index[0]].iloc[11]
+    #print(choice_name)
+    #print(meals.iloc[choice.index[0]])
+    #suggestion = meals.iloc[choice.index[0]].iloc[11]
 
-    if isinstance(suggestion,str):
+    """if isinstance(suggestion,str):
         print(f'Recipe suggestion: {suggestion}')
     elif isinstance(suggestion,float):
-        print("No recipe suggestion exists in the database.")
-
-    return choice["Name"].iloc[0]
+        print("No recipe suggestion exists in the database.")"""
+    #print(choice)
+    return choice
+    #return choice["Name"].iloc[0],choice["recipe_suggestion"].iloc[0]
 
 def make_this_meal(meals, choice):
     '''
@@ -136,6 +141,7 @@ if __name__ == "__main__":
     FILENAME = "../data/meal_list.csv"
     PATH = Path(__file__).parent / FILENAME
     data = pd.read_csv(PATH, index_col=0)
+    #print(data)
     suggestion = choose_random(data,rank=False,check_time=False,times=False,last_made=False,TA=False,k=1)
     print(suggestion)
     #reboot_time_timestamps(data)
