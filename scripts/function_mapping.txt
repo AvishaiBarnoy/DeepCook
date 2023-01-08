@@ -1,0 +1,22 @@
+list of functions:
+1. choose_random
+2. filter_long
+3. cook_the_dish 
+4. reboot_time_stamp - obsolete, should work with logs
+5. filter_kosher 
+6. read_file
+
+functions should work like this:
+1. read_file
+2. main function has flags
+3. according to flags use filter functions
+4. filtered data goes through choose_random
+5. will you make this meal, with call is outside choose_random
+6. store in different logs -> 1 log for yes, 1 log for no -> statistics
+
+TO DO:
+1. write read_file function -> probably already in io_data
+2. make list of filtering options
+3. write function for each filter
+4. make choose_random as thin as possible
+5. make log function for both

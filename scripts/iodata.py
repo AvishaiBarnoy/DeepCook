@@ -92,7 +92,7 @@ def save_data(data, filename):
 
 if __name__ == "__main__":
     FILENAME = "../data/meal_list.csv"
-    PATH = os.path.join(os.path.dirname(__file__), f"../data/{FILENAME}")
+#    PATH = os.path.join(os.path.dirname(__file__), f"../data/{FILENAME}")
     PATH = Path(__file__).parent / FILENAME
     data = pd.read_csv(PATH, index_col=0)
     #data.insert(2, "Diet", "NaN", True)

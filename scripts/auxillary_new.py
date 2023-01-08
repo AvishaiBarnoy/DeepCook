@@ -1,10 +1,15 @@
 '''
-main random meal choice function and its tiny helpers
+random meal choice function and its tiny helpers
 this is called auxiallary as it is supposed to support the main main.py file
 '''
 from enum import Enum
 import pandas as pd
 from pathlib import Path
+
+
+# TODO:
+# Think how each function talks with another
+# what is the relationships between the objects passed around
 
 try:
     import scripts.iodata as iod
@@ -17,8 +22,7 @@ except:
     #print(class_path)
     #import class_path.classes
 
-def choose_random(meals, rank: bool = False, check_time: bool = False,
-        times: bool = False, last_made: bool = False, TA=False, k=1):
+def choose_random(meals, rank: bool = False, times: bool = False, last_made: bool = False, TA=False, k=1):
     '''
     meals ::: pandas DataFrame, meals data
     TA    ::: bool, should choose random from take-away options
@@ -32,8 +36,6 @@ def choose_random(meals, rank: bool = False, check_time: bool = False,
     '''
     use_rank = None
            
-    meals_copy = meals.copy()
-     
     # filter meals prepared in the past 4 days
     # NOT IMPLEMENTED YET #
 
@@ -41,40 +43,47 @@ def choose_random(meals, rank: bool = False, check_time: bool = False,
     if rank == True:
         use_rank = choice["Rank"]
     
-    # filter for take-away:
+    # filter for take-away, TA is boolean:
     meals = meals[meals["TA"] == TA]
 
-    # check time
-    # TODO: revisit this idea, I can just "print" in the suggestion the prep time of the meal,
-    #           also take into account cooking time.
-    #   filter ideas not at suggestion function but before at data loading
-    #       add flag at Streamlit so that when the data is loaded it already be filtered:
-    #       data = data[data["Prep_Time" < 2] or so
-    if check_time == True:
-        is_late = is_too_late_to_cook()
-        translate_time = {"short":0, "medium":1, "long": 2}
-        if is_late == True:
-            meals.replace({"Prep_Time":translate_time,"Cook_Time":translate_time},inplace=True)
-            meals = meals_copy[meals_copy["Prep_Time"] < 2]
-            meals = meals_copy[meals_copy["Cook_Time"] < 2]
+    ################################
+    # REFACTORED TO LOCAL FUNCTION #
+    #       filter_long            #
+    ################################
+    #if check_time == True:
+    #    is_late = is_too_late_to_cook()
+    #    translate_time = {"short":0, "medium":1, "long": 2}
+    #    if is_late == True:
+    #        meals.replace({"Prep_Time":translate_time,"Cook_Time":translate_time},inplace=True)
+    #        meals = meals_copy[meals_copy["Prep_Time"] < 2]
+    #        meals = meals_copy[meals_copy["Cook_Time"] < 2]
 
     choice = meals.sample(n=k, weights=use_rank)
     
     choice_name = choice["Name"].iloc[0]
-    #print(choice_name)
-    #print(meals.iloc[choice.index[0]])
-    #suggestion = meals.iloc[choice.index[0]].iloc[11]
 
-    """if isinstance(suggestion,str):
-        print(f'Recipe suggestion: {suggestion}')
-    elif isinstance(suggestion,float):
-        print("No recipe suggestion exists in the database.")"""
-    #print(choice)
     return choice
-    #return choice["Name"].iloc[0],choice["recipe_suggestion"].iloc[0]
+
+def filter_long(meals):
+    """
+    converts Prep_Time and Cook_Time to numerical value and filters out
+    all meals that take too long to prepare
+    """
+
+    translate_time = {"short":0, "medium":1, "long": 2}
+    meals.replace({"Prep_Time":translate_time,"Cook_Time":translate_time},inplace=True)
+    meals["Total_Time"] = meals["Prep_Time"] + meals["Cook_Time"]
+    meals = meals[meals["Total_Time"] < 3]
+
+    choice = choose_random(meals)
+    return choice
 
 def make_this_meal(meals, choice):
     '''
+    ################################
+    # DOES NOT WORK WITH STREAMLIT #
+    ################################
+
     Asks user if he will make the meal, if yes meal is logged.
     doesn't return anythin, just changes the state of the meals DB
     '''
@@ -91,24 +100,6 @@ def make_this_meal(meals, choice):
         else:
             print("Please enter a valid answer.")
             make_it = input("Are you going to make this meal? (y/n)")
-
-def is_too_late_to_cook(cutoff: int = 20):
-    '''
-    Checks actual time and returns if choose_random should skip ideas with long preparation time.
-        After 20:00 only short and medium durations will be considered.
-    1. Needs cooking duration feature implemnted.
-    2. Option: ask user how long does he plan to prepare the meal
-    
-    IMPORTANT 1: should be relevant to Cook_Time and Prep_Time, so if any of them is above medium then meal shouldn't be suggested.
-    IMPORTANT 2: only takes into account that the time is less than 20:00, if you start cooking after midnight this function will fail to work properly.
-    '''
-    hour = pd.Timestamp.now().hour
-    if hour < cutoff:
-        return False
-    elif hour < 5: # Don't cook in the middle of the night
-        return True
-    else:
-        return True
 
 def reboot_time_timestamps(data="meal_list.csv",logfile="meal.log"):
     '''
@@ -128,21 +119,22 @@ def reboot_time_timestamps(data="meal_list.csv",logfile="meal.log"):
             print("Data was reset and saved")
             return 0
 
-"""def filter_kosher(meal_list, kosher: KosherType):
+def filter_kosher(meal_list, kosher):# KosherType):
     '''
     Takes loaded meal_list DF and returns the filtered meals according to specified kosher
 
     meal_list   ::: pandas DataFrame with meals
     kosher      ::: kosher type [parve|milchik|fleisch]
     '''
-    return meal_list"""
+    return meal_list
 
 if __name__ == "__main__":
     FILENAME = "../data/meal_list.csv"
     PATH = Path(__file__).parent / FILENAME
     data = pd.read_csv(PATH, index_col=0)
     #print(data)
-    suggestion = choose_random(data,rank=False,check_time=False,times=False,last_made=False,TA=False,k=1)
+    suggestion = choose_random(data,rank=False,times=False,last_made=False,TA=False,k=1)
     print(suggestion)
+    #print(filter_long(data))
     #reboot_time_timestamps(data)
 
