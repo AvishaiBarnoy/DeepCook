@@ -1,5 +1,5 @@
 ,Name,KosherType,Diet,Prep_Ease,Prep_Time,Cook_Time,Rank,Scaling,TA,times_made,Timestamp,recipe_suggestion,Name_HE
-0,Pasta Rose,milchik,,2,medium,medium,4,,0,0.0,,https://www.thekitchencoach.co.il/%D7%A4%D7%A1%D7%98%D7%94-%D7%91%D7%A8%D7%95%D7%98%D7%91-%D7%A8%D7%95%D7%96%D7%94/,פסטה רוזה
+0,Pasta with rose,milchik,,2,medium,medium,4,,0,0.0,,https://www.thekitchencoach.co.il/%D7%A4%D7%A1%D7%98%D7%94-%D7%91%D7%A8%D7%95%D7%98%D7%91-%D7%A8%D7%95%D7%96%D7%94/,פסטה רוזה
 1,Stir Fried Vegetables,parve,,6,medium,short,8,,0,0.0,,,ירקות מוקפצים
 2,Hot Salad,parve,,7,medium,short,8,,0,1.0,2022-05-11,,סלט חם
 3,Hamburger and Fries,fleisch,,4,medium,medium,7,,0,1.0,2022-05-09,,המבורגר וצ'יפס
@@ -8,8 +8,8 @@
 6,Shushi TA,fleisch,,0,short,short,8,,1,0.0,,,סושי משלוח
 7,Fried Eggs,parve,,2,short,short,6,,0,0.0,,,ביצי עין
 8,Shakshuka,parve,,4,medium,short,5,,0,0.0,,,שקשוקה
-9,Pasta tomato,parve,,4,medium,short,3,,0,0.0,,,פסטה ברוטב עגבניות
-10,Stir Fried Veggies Frozen Bag,parve,,4,medium,short,7,,0,1.0,2022-05-23,,ירקות מוקפצים מיקס קפוא
+9,Pasta with tomato,parve,,4,medium,short,3,,0,0.0,,,פסטה ברוטב עגבניות
+10,Stir Fried Veggies,parve,,4,medium,short,7,,0,1.0,2022-05-23,,ירקות מוקפצים מיקס קפוא
 11,toasts,milchik,,3,short,short,4,,0,0.0,,,טוסטים
 12,Eggs Benedict,milchik,,10,long,medium,9,,0,0.0,,https://www.krutit.co.il/%D7%94-%D7%9E%D7%AA%D7%9B%D7%95%D7%9F-%D7%9C%D7%90%D7%92%D7%96-%D7%91%D7%A0%D7%93%D7%99%D7%A7%D7%98/,אגז בנדיקט
 13,Nachos,parve,,6,medium,short,7,,0,0.0,,https://www.foodisgood.co.il/general/best-home-made-nachos/,נאצ'וס
@@ -19,7 +19,7 @@
 17,Ramen,fleisch,,8,long,long,7,,0,0.0,,,ראמן
 18,Grilled Cheese,milchik,,3,short,short,6,,0,0.0,,,לחם מטוגן
 19,Salami Sandwich,fleisch,,2,short,short,5,,0,1.0,2022-05-10,,כריך סלאמי
-20,Pasta mashroom cream sauce,milchik,,3,medium,medium,7,,0,1.0,2022-05-09,,פסטה ברוטב שמנת פטריות
+20,Pasta with mushroom cream sauce,milchik,,3,medium,medium,7,,0,1.0,2022-05-09,,פסטה ברוטב שמנת פטריות
 21,Pasta Bolognese,fleisch,,6,medium,medium,7,,0,0.0,,https://www.thekitchencoach.co.il/%D7%A8%D7%95%D7%98%D7%91-%D7%91%D7%95%D7%9C%D7%95%D7%A0%D7%96-%D7%A4%D7%A1%D7%98%D7%94-%D7%9E%D7%AA%D7%9B%D7%95%D7%9F/,ספגטי בולונז
 22,Pasta Cacio e Pepe,milchik,,3,medium,medium,5,,0,0.0,,https://www.thekitchencoach.co.il/%D7%A4%D7%A1%D7%98%D7%94-%D7%A7%D7%A6%D7%95-%D7%90%D7%94-%D7%A4%D7%A4%D7%94-%D7%92%D7%91%D7%99%D7%A0%D7%94-%D7%95%D7%A4%D7%9C%D7%A4%D7%9C/,פסטה קצ'ו אה פפה
 23,Pasta Broccoli and Almonds,parve,,6,medium,medium,7,,0,0.0,,https://www.thekitchencoach.co.il/%D7%A4%D7%A1%D7%98%D7%94-%D7%91%D7%A8%D7%95%D7%98%D7%91-%D7%91%D7%A8%D7%95%D7%A7%D7%95%D7%9C%D7%99/,פסטה ברוטב ברוקולי ושקדים
@@ -31,7 +31,7 @@
 29,Pasta Oli Olio,parve,,6,medium,medium,9,,0,0.0,,https://www.krutit.co.il/%D7%A1%D7%A4%D7%92%D7%98%D7%99-%D7%90%D7%9C%D7%99%D7%95-%D7%90%D7%95%D7%9C%D7%99%D7%95/,פסטה אליו אוליו
 30,Bagels,parve,,7,long,medium,8,,0,0.0,,https://www.krutit.co.il/%D7%91%D7%99%D7%99%D7%92%D7%9C-%D7%90%D7%9E%D7%A8%D7%99%D7%A7%D7%90%D7%99-%D7%A9%D7%9B%D7%91%D7%A9-%D7%90%D7%AA-%D7%94%D7%A8%D7%A9%D7%AA/,בייגל אמריקאי
 31,Cornflakes,parve,,0,short,short,1,,0,0.0,,,קורנפלקס
-32,Pasta Sweetpotato cream sauce,milchik,,5,medium,medium,5,,0,0.0,,,פסטה ברוטב שמנת בטטה
+32,Pasta with Sweetpotato cream sauce,milchik,,5,medium,medium,5,,0,0.0,,,פסטה ברוטב שמנת בטטה
 33,Bruschetta tomato basil,parve,,5,medium,short,7,,0,0.0,,,ברוסקטות עם עגבניות ובזיליקום
 34,Diced baked potato and sweet potato,parve,,4,medium,medium,5,,0,0.0,,,תפוחי אדמה ובטטות אפויים
 35,Antipasto,parve,,4,medium,medium,4,,0,1.0,2022-05-11,,אנטיפסטי

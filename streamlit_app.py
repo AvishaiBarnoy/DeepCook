@@ -4,6 +4,7 @@ from pathlib import Path
 
 import scripts.auxillary as aux
 import scripts.iodata as iod
+from image_loader import render_image, get_image_from_pexel, download_image
 
 # Simple App
 
@@ -26,7 +27,12 @@ if st.button('Random meal idea!'):
     counter += 1
     _, chosen_one, chosen_idx = aux.choose_random(meals_db, rank=False, TA=None)
     st.write('Your random meal is: ', chosen_one)
-    
+
+    image_save_as = 'last_meal_img.jpg'
+    image_data = get_image_from_pexel(chosen_one)
+    image = download_image(image_data['url'], save_as=image_save_as)
+    render_image(image_save_as)
+
     # print recipe suggestion if one exists
     suggestion = meals_db.iloc[chosen_idx].iloc[11]
     if isinstance(suggestion, str):

@@ -19,3 +19,8 @@ venv/
 
 # ignore self-tutorial folders
 *_tutorial/
+
+secrets.toml
+
+# ignore images saved from Pexels
+last_meal_img.jpg
