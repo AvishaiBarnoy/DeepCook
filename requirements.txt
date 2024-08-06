@@ -17,12 +17,15 @@ mdurl==0.1.2
 numpy==2.0.1
 packaging==24.1
 pandas==2.2.2
+pexels-api==1.0.1
+pexels-api-py==0.0.5
 pillow==10.4.0
 protobuf==5.27.3
 pyarrow==17.0.0
 pydeck==0.9.1
 Pygments==2.18.0
 python-dateutil==2.9.0.post0
+python-dotenv==1.0.1
 pytz==2024.1
 referencing==0.35.1
 requests==2.32.3
