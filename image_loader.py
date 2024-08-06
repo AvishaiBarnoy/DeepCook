@@ -22,7 +22,6 @@ def get_image_from_pexel(prompt: str):
 
     load_dotenv()
     # Type your Pexels API
-    # PEXELS_API_KEY = os.environ['PEXEL_API_KEY']
     PEXELS_API_KEY = st.secrets['PEXEL_API_KEY']
 
     # Create API object
@@ -30,21 +29,16 @@ def get_image_from_pexel(prompt: str):
 
     # Search five 'kitten' photos
     api.search(prompt, page=1, results_per_page=1)
-
     # Get photo entries
     photos = api.get_entries()
 
     for photo in photos:
         # Print photographer
         # print('Photographer: ', photo.photographer)
-        print("\n##########################")
         # Print url
-        print('Photo url: ', photo.url)
+        # print('Photo url: ', photo.url)
         # Print original size url
-        print('Photo original size: ', photo.original)
-        print(photo.small)
-        print("##########################\n")
-        url = photo.original
+        # print('Photo original size: ', photo.original)
 
         image_data = {'url':photo.medium, 'photographer':photo.photographer}
 

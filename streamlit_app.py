@@ -32,7 +32,7 @@ if st.button('Random meal idea!'):
     image_data = get_image_from_pexel(chosen_one)
     image = download_image(image_data['url'], save_as=image_save_as)
     render_image(image_save_as)
-
+    st.write(f'Photographer: {image_data["photographer"]}.\n')
     # print recipe suggestion if one exists
     suggestion = meals_db.iloc[chosen_idx].iloc[11]
     if isinstance(suggestion, str):
