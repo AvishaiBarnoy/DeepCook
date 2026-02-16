@@ -8,7 +8,7 @@ from pathlib import Path
 
 try:
     import scripts.iodata as iod
-    from classes.classes import KosherType
+    from classes.classes import KosherType, DietType
 except:
     import iodata as iod
     import classes.classes
@@ -26,18 +26,42 @@ class Kosher(str, Enum):
     fleisch = "fleisch"
     milchik = "milchik"
 
-def choose_random(meals, rank: bool = False, times: bool = False, last_made: bool = False, TA=None, k=1):
+def choose_random(meals, rank: bool = False, times: bool = False, last_made: int = 0, TA=None, k=1):
     '''
     makes a random choice of a meal from a meal DB
-
-    IMPORTANT: this returns too many arguments, either needs to be truncated or used by other functions 
+    
+    Parameters:
+        meals: DataFrame with meal data
+        rank: bool, use weighted choice by rank
+        times: bool, (not implemented)
+        last_made: int, exclude meals made in the past N days. 0 = no filtering
+        TA: bool or None, filter take-away options
+        k: int, number of choices to return
+    
+    Returns:
+        tuple: (meals, chosen_name, chosen_idx)
     '''
     use_rank = None
     
     meals_copy = meals.copy()
     
-    # filter meals prepared in the past 4 days
-    # NOT IMPLEMENTED YET #
+    # filter meals prepared in the past N days
+    if last_made > 0:
+        today = pd.Timestamp.now().date()
+        # Convert Timestamp column to datetime, handling NaN/NaT values
+        meals_copy['Timestamp'] = pd.to_datetime(meals_copy['Timestamp'], errors='coerce')
+        
+        # Filter out meals made within the last_made days
+        # Keep meals where: timestamp is NaT (never made) OR timestamp is older than last_made days
+        cutoff_date = today - pd.Timedelta(days=last_made)
+        meals_copy = meals_copy[
+            (meals_copy['Timestamp'].isna()) | 
+            (meals_copy['Timestamp'].dt.date < cutoff_date)
+        ]
+        
+        if len(meals_copy) == 0:
+            print(f"Warning: All meals were made in the past {last_made} days. Ignoring filter.")
+            meals_copy = meals.copy()
 
     # use a weighted choice, by rank
     if rank == True:
@@ -47,7 +71,7 @@ def choose_random(meals, rank: bool = False, times: bool = False, last_made: boo
     if TA == False:
         meals_copy = meals_copy[meals_copy["TA"] == 0]
     elif TA == True:
-        meals = meals_copy[meals_copy["TA"] == 1]
+        meals_copy = meals_copy[meals_copy["TA"] == 1]
     
     is_late = is_too_late_to_cook()
     translate_time = {"short":0, "medium":1, "long": 2}
@@ -91,19 +115,22 @@ def is_too_late_to_cook(cutoff: int = 20):
     '''
     Checks actual time and returns if choose_random should skip ideas with long preparation time.
         After 20:00 only short and medium durations will be considered.
-    1. Needs cooking duration feature implemnted.
-    2. Option: ask user how long does he plan to prepare the meal
+        Between midnight and 5:00 AM, also returns True (too late to cook).
     
-    IMPORTANT 1: should be relevant to Cook_Time and Prep_Time, so if any of them is above medium then meal shouldn't be suggested.
-    IMPORTANT 2: only takes into account that the time is less than 20:00, if you start cooking after midnight this function will fail to work properly.
+    Returns:
+        bool: True if too late to cook (filter out long meals), False otherwise
     '''
     hour = pd.Timestamp.now().hour
+    
+    # Check early morning hours first (midnight to 5 AM)
+    if hour < 5:
+        return True  # Don't cook in the middle of the night
+    
+    # Then check if after cutoff time
     if hour < cutoff:
-        return False
-    elif hour < 5: # Don't cook in the middle of the night
-        return True
+        return False  # Before cutoff, not too late
     else:
-        return True
+        return True  # After cutoff, too late
 
 def reboot_time_timestamps(data="meal_list.csv",logfile="meal.log"):
     '''
@@ -125,12 +152,77 @@ def reboot_time_timestamps(data="meal_list.csv",logfile="meal.log"):
 
 def filter_kosher(meal_list, kosher: KosherType):
     '''
-    Takes loaded meal_list DF and returns the filtered meals according to specified kosher
-
-    meal_list   ::: pandas DataFrame with meals
-    kosher      ::: kosher type [parve|milchik|fleisch]
+    Takes loaded meal_list DF and returns the filtered meals according to specified kosher type.
+    
+    Kosher filtering rules:
+    - parve: can eat parve and nonkosher meals
+    - milchik: can eat milchik, parve, and nonkosher meals
+    - fleisch: can eat fleisch, parve, and nonkosher meals  
+    - nonkosher: can eat anything
+    
+    Parameters:
+        meal_list: pandas DataFrame with meals
+        kosher: KosherType enum [parve|milchik|fleisch|nonkosher]
+    
+    Returns:
+        pandas DataFrame with filtered meals
     '''
+    if kosher == KosherType.nonkosher:
+        # Nonkosher can eat anything
+        return meal_list
+    elif kosher == KosherType.parve:
+        # Parve can eat parve and nonkosher
+        return meal_list[meal_list['Kosher'].isin(['parve', 'nonkosher'])]
+    elif kosher == KosherType.milchik:
+        # Milchik can eat milchik, parve, and nonkosher (no fleisch)
+        return meal_list[meal_list['Kosher'].isin(['milchik', 'parve', 'nonkosher'])]
+    elif kosher == KosherType.fleisch:
+        # Fleisch can eat fleisch, parve, and nonkosher (no milchik)
+        return meal_list[meal_list['Kosher'].isin(['fleisch', 'parve', 'nonkosher'])]
+    
     return meal_list
+
+
+def filter_diet(meal_list, diet: DietType):
+    '''
+    Filters meals according to dietary preferences.
+    
+    Diet filtering rules:
+    - any: no filtering
+    - vegan: only vegan meals
+    - vegetarian: vegan + vegetarian meals
+    - glutenfree: meals marked as gluten-free
+    - keto: meals marked as keto-friendly
+    
+    Parameters:
+        meal_list: pandas DataFrame with meals
+        diet: DietType enum [any|vegan|vegetarian|glutenfree|keto]
+    
+    Returns:
+        pandas DataFrame with filtered meals
+    
+    Note: Requires 'Diet' column in the DataFrame. If column doesn't exist,
+          returns original list with a warning.
+    '''
+    # Check if Diet column exists
+    if 'Diet' not in meal_list.columns:
+        print("Warning: 'Diet' column not found in meal database. Skipping diet filter.")
+        return meal_list
+    
+    if diet == DietType.any:
+        return meal_list
+    elif diet == DietType.vegan:
+        return meal_list[meal_list['Diet'].str.contains('vegan', case=False, na=False)]
+    elif diet == DietType.vegetarian:
+        # Vegetarian includes vegan
+        return meal_list[meal_list['Diet'].str.contains('vegan|vegetarian', case=False, na=False)]
+    elif diet == DietType.glutenfree:
+        return meal_list[meal_list['Diet'].str.contains('glutenfree', case=False, na=False)]
+    elif diet == DietType.keto:
+        return meal_list[meal_list['Diet'].str.contains('keto', case=False, na=False)]
+    
+    return meal_list
+
 
 if __name__ == "__main__":
     FILENAME = "../data/meal_list.csv"

@@ -7,7 +7,7 @@ import scripts.auxillary as aux
 import scripts.iodata as iod
 import typer
 from pathlib import Path
-from classes.classes import KosherType
+from classes.classes import KosherType, DietType
 
 # default absolute pathway
 MEAL_LIST = "data/meal_list.csv"
@@ -23,9 +23,12 @@ def main(
         help='''True: chooses only from takeaway,
 False: from everythin except TA,
 no-flag: choose from everything including TA'''),
+    last_made: int = typer.Option(
+        0, help="exclude meals made in the past N days (0 = no filtering, recommended: 3-5)"),
     inp: bool = typer.Option(
         False, help="Add a new meal to the meal DB, by questions to the audience"),
-    kosher: KosherType = typer.Option(KosherType.fleisch, case_sensitive=False, help="NOT YET IMPLEMENTED."),
+    kosher: KosherType = typer.Option(KosherType.nonkosher, case_sensitive=False, help="Filter by kosher type: parve, milch ik, fleisch, nonkosher"),
+    diet: DietType = typer.Option(DietType.any, case_sensitive=False, help="Filter by diet: any, vegan, vegetarian, glutenfree, keto"),
     #mock: bool = typer.Option("Mock try for testing and developing, will not prompt for saving.", case_sensitive=False)
     mock: bool = typer.Option(False, help="Mock try for testing and developing, will not prompt for saving.")
 ):
@@ -41,11 +44,14 @@ no-flag: choose from everything including TA'''),
         new_meal = iod.meal_questions(meals_db)
         meals_db = iod.add_meal(meals_db, new_meal)
     else:
-        filterd_meals = aux.filter_kosher(meals_db, kosher)
-        _, chosen_one, chosen_idx = aux.choose_random(meals_db, rank, TA)
+        # Apply filters
+        filtered_meals = aux.filter_kosher(meals_db, kosher)
+        filtered_meals = aux.filter_diet(filtered_meals, diet)
+        
+        _, chosen_one, chosen_idx = aux.choose_random(filtered_meals, rank=rank, last_made=last_made, TA=TA)
         if mock == False:
             iod.write_to_log(chosen_one)
-            aux.make_this_meal(meals_db,chosen_idx)
+            aux.make_this_meal(meals_db, chosen_idx)
 
     # save changes
     if mock == False:

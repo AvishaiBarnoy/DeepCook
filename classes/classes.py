@@ -13,3 +13,11 @@ class KosherType(str, Enum):
     milchik = "milchik"
     fleisch = "fleisch"
     nonkosher = "nonkosher"
+
+
+class DietType(str, Enum):
+    any = "any"
+    vegan = "vegan"
+    vegetarian = "vegetarian"
+    glutenfree = "glutenfree"
+    keto = "keto"
