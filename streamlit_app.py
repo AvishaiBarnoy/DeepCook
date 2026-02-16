@@ -12,6 +12,16 @@ st.title('DeepCook Web App')
 
 st.write('Just press the button and DeepCook will give you a meal suggestion!')
 
+# Options
+with st.expander("⚙️ Filter Options"):
+    last_made_days = st.slider(
+        "Exclude meals made in the past N days",
+        min_value=0,
+        max_value=7,
+        value=0,
+        help="Set to 0 to include all meals, or choose 3-5 to avoid recent meals"
+    )
+
 MEAL_LIST = "data/meal_list.csv"
 absolute_path = Path(__file__).parent / MEAL_LIST
 meals_db = pd.read_csv(absolute_path, index_col=0)
@@ -25,7 +35,7 @@ with open(counter_file, "r") as f:
 
 if st.button('Random meal idea!'):
     counter += 1
-    _, chosen_one, chosen_idx = aux.choose_random(meals_db, rank=False, TA=None)
+    _, chosen_one, chosen_idx = aux.choose_random(meals_db, rank=False, last_made=last_made_days, TA=None)
     st.write('Your random meal is: ', chosen_one)
 
     image_save_as = 'last_meal_img.jpg'
