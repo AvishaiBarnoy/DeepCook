@@ -1,5 +1,51 @@
 
 ##################
+# LOG 15.02.2026 #
+##################
+1. Implemented recently-made filtering feature (--last-made flag)
+   - Added CLI option to exclude meals made in the past N days
+   - Updated choose_random() to filter based on Timestamp column
+   - Added slider to Streamlit web app for filtering (0-7 days)
+   - Handles NaN/NaT timestamps gracefully
+   - Falls back to all meals if filter is too restrictive
+2. Improved choose_random() function documentation
+3. Updated README.md with feature list
+4. Marked completed tasks in TODO.md
+5. Added comprehensive test suite using pytest
+   - Created tests/test_auxillary.py with 16 tests for core selection logic
+   - Created tests/test_iodata.py with 10 tests for I/O operations
+   - Added pytest and pytest-mock to requirements.txt
+   - Created pytest.ini configuration file
+   - All 26 tests passing
+6. Fixed bug in TA filter (line 74) where meals was assigned instead of meals_copy
+7. Added pytest to requirements.txt
+
+##################
+# LOG 16.02.2026 #
+##################
+1. Fixed midnight cooking bug in is_too_late_to_cook()
+   - Now correctly checks early morning hours (0-4 AM) before cutoff time
+   - Prevents suggesting complex meals in the middle of the night
+   - Updated test to verify correct behavior
+2. Implemented kosher filtering (filter_kosher)
+   - Respects kosher dietary laws: parve, milchik, fleisch, nonkosher
+   - Each type correctly filters compatible meal categories
+3. Implemented diet filtering (filter_diet) 
+   - Supports: vegan, vegetarian, gluten-free, keto, any
+   - Gracefully handles missing Diet column with warning
+4. Added DietType enum to classes/classes.py
+5. Wired up filters in main.py
+   - Added --kosher and --diet CLI options (now functional!)
+   - Removed "NOT YET IMPLEMENTED" note from --kosher
+   - Filters are applied before meal selection
+6. Added comprehensive test suite for filters (test_filters.py)
+   - 4 tests for kosher filtering
+   - 6 tests for diet filtering  
+   - 3 tests for combined filters
+   - All 13 tests passing
+7. Total test count: 39 tests (all passing)
+
+##################
 # LOG 06.06.2022 #
 ##################
 1. made counter to alawys appear.

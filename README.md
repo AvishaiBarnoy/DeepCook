@@ -15,7 +15,17 @@ I created a meal database (saved in the `data/meal_list.csv` file) and added som
 Fun fact: I am a crazy person who develops in vim...
 
 ## Features
-Currently, the main enegine will randomly choose a meal from `data/meals_list.csv`. There are already several option implemented accessible by running `main --help`.*< describe the different options implemented and how the choice is done, too_late() etc. >*
+Currently, the main engine will randomly choose a meal from `data/meals_list.csv`. There are several options implemented accessible by running `main --help`:
+
+- **Weighted Selection** (`--rank`): Use preference rankings to weight random selection
+- **Take-away Filtering** (`--ta/--no-ta`): Include/exclude or only show take-away options
+- **Recently Made Filter** (`--last-made N`): Exclude meals prepared in the past N days (recommended: 3-5)
+- **Kosher Filtering** (`--kosher`): Filter by kosher type (parve, milchik, fleisch, nonkosher)
+- **Diet Filtering** (`--diet`): Filter by dietary preference (vegan, vegetarian, glutenfree, keto, any)
+- **Time-aware Selection**: After 8 PM, automatically filters out meals with long preparation times
+- **Midnight Protection**: Prevents complex meal suggestions between midnight and 5 AM
+- **Meal Addition** (`--inp`): Interactively add new meals to the database
+- **Mock Mode** (`--mock`): Test the app without logging to the database
 
 Currently ranking is only based on my own preferences for meals, but in the future a quick reranking option will be added, also an easy meal insertion to the db will be implemented.
 
@@ -41,7 +51,19 @@ To generate a random meal idea run:
 ```bash
 python main.py
 ```
-This will prompt the user with a suggestion and asking if he will make it, if the user answers `y` then the meal is logged.
+
+## Running Tests
+The project now includes a comprehensive test suite using pytest:
+
+```bash
+# Run all tests
+pytest tests/
+
+# Run with verbose output
+pytest tests/ -v
+```
+
+See [`tests/README.md`](./tests/README.md) for detailed information about the test suite.
 
 ## Help
 In order to read the help section run (which is a fun bonus of implementing a cli), this will also give you current CLI methods implemented.
@@ -49,8 +71,6 @@ In order to read the help section run (which is a fun bonus of implementing a cl
 ```bash
 python main.py --help
 ```
-
-There are no known issues, but the program is not really in any mature phase, and testing was done on-the-fly as I was writing the code. This is a terrible practice and should not be dont by anyone. Since I am not a programmer, just a computational chemsit / theoretical biophysicist no one holds me accountable for anything related to code.
  
 ## Contributions
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. Also, don't forget to update the changes in the [`CHANGELOG.md`](./CHANGELOG.md) file.

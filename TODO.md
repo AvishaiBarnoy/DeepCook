@@ -12,13 +12,12 @@
 	1.3 option to look for specific koshertype - milchik/fleisch
 4. check convention for column naming with pandas. Choose one - camel, snake_eye, pascal
 5. recipe suggestions
-6. add scaling factor - define 3 main functions: linear, sub-linear, superlinear
-7. look by kosher/diet:
-	7.1 kosher - vegan, vegeterian, parve, milchik, fleisch
-		7.1.1 change kosher type to parve, milchik, fleisch in meal_list 
-	7.2 Diet - vegan, glutenfree, vegeterian, keto
-7. add logic function for input mode: choices: (1) new meal, (2) update values, etc.
-8. last_prepared - should not suggest meal if was prepared in past 3-4 days
+7. ~~look by kosher/diet~~ ✅ COMPLETED:
+	~~7.1 kosher - vegan, vegeterian, parve, milchik, fleisch~~ ✅
+		~~7.1.1 change kosher type to parve, milchik, fleisch in meal_list~~ ✅
+	~~7.2 Diet - vegan, glutenfree, vegeterian, keto~~ ✅
+8. add logic function for input mode: choices: (1) new meal, (2) update values, etc.
+9. ~~last_prepared - should not suggest meal if was prepared in past 3-4 days~~ ✅ COMPLETED
 
 # To Do Web App:
 1. don't print recipe suggestion if one does not exist
@@ -28,8 +27,8 @@
 1. Adjust weights according to times made.
 2. Make choice by ease
 3. Give k-choices ranked by ease and/or rank
-4. make choice by kosher type
-5. if last_made don't make choice made in last 5 days or if last_made==int then that amount of days
+4. ~~make choice by kosher type~~ ✅ COMPLETED
+5. ~~if last_made don't make choice made in last 5 days or if last_made==int then that amount of days~~ ✅ COMPLETED
 6. export all flag options to filtering functions that can be make the relevant DB smaller for pd.sample.
 	6.1 OPTION: add and then remove a column of weights that get zeroed for filtering. e.g., if milchik chosen, in temp_filter all fleischik will get a 0 and then when doing sample(weights=temp_filter) the fleischik meals will be filtered out.
 
