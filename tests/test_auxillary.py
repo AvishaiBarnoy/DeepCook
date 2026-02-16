@@ -228,7 +228,7 @@ class TestMakeThisMeal:
         
         assert result is True
         assert sample_meals_for_logging.loc[0, 'times_made'] == initial_times + 1
-        assert sample_meals_for_logging.loc[0, 'Timestamp'] == pd.Timestamp.now().date()
+        assert sample_meals_for_logging.loc[0, 'Timestamp'].date() == pd.Timestamp.now().date()
     
     def test_make_meal_no(self, sample_meals_for_logging, monkeypatch):
         """Test not logging a meal when user says no."""

@@ -15,6 +15,14 @@ st.write('Just press the button and DeepCook will give you a meal suggestion!')
 
 # Filter Options
 with st.expander("⚙️ Filter Options"):
+    last_made_days = st.slider(
+        "Exclude meals made in the past N days",
+        min_value=0,
+        max_value=7,
+        value=0,
+        help="Set to 0 to include all meals, or choose 3-5 to avoid recent meals"
+    )
+    
     col1, col2 = st.columns(2)
     
     with col1:
@@ -55,7 +63,12 @@ if st.button('Random meal idea!'):
     if len(filtered_meals) == 0:
         st.warning("⚠️ No meals match your filter criteria. Try relaxing your filters.")
     else:
-        _, chosen_one, chosen_idx = aux.choose_random(filtered_meals, rank=False, TA=None)
+        _, chosen_one, chosen_idx = aux.choose_random(
+            filtered_meals, 
+            rank=False, 
+            last_made=last_made_days, 
+            TA=None
+        )
         st.write('Your random meal is: ', chosen_one)
 
         image_save_as = 'last_meal_img.jpg'
