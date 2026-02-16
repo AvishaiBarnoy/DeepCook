@@ -101,7 +101,7 @@ def make_this_meal(meals, choice):
     while True:
         if make_it.lower() == "y":
             meals.loc[choice,"times_made"] += 1
-            meals.loc[choice,"Timestamp"] = pd.Timestamp.now().date()
+            meals.loc[choice,"Timestamp"] =pd.to_datetime(pd.Timestamp.now().date())
             print("meal logged.")
             return True
         elif make_it.lower() == "n":
