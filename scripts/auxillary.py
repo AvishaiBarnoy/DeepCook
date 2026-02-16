@@ -152,9 +152,9 @@ def reboot_time_timestamps(data="meal_list.csv",logfile="meal.log"):
 
 def filter_kosher(meal_list, kosher: KosherType):
     '''
-    Takes loaded meal_list DF and returns the filtered meals according to specified kosher type.
+    Filters meals according to kosher requirements.
     
-    Kosher filtering rules:
+    Kosher rules:
     - parve: can eat parve and nonkosher meals
     - milchik: can eat milchik, parve, and nonkosher meals
     - fleisch: can eat fleisch, parve, and nonkosher meals  
@@ -167,18 +167,29 @@ def filter_kosher(meal_list, kosher: KosherType):
     Returns:
         pandas DataFrame with filtered meals
     '''
+    # Check for kosher column (support both 'KosherType' and 'Kosher')
+    col_name = None
+    if 'KosherType' in meal_list.columns:
+        col_name = 'KosherType'
+    elif 'Kosher' in meal_list.columns:
+        col_name = 'Kosher'
+    
+    if col_name is None:
+        print("Warning: Kosher column not found in meal database. Skipping kosher filter.")
+        return meal_list
+
     if kosher == KosherType.nonkosher:
         # Nonkosher can eat anything
         return meal_list
     elif kosher == KosherType.parve:
         # Parve can eat parve and nonkosher
-        return meal_list[meal_list['Kosher'].isin(['parve', 'nonkosher'])]
+        return meal_list[meal_list[col_name].isin(['parve', 'nonkosher'])]
     elif kosher == KosherType.milchik:
         # Milchik can eat milchik, parve, and nonkosher (no fleisch)
-        return meal_list[meal_list['Kosher'].isin(['milchik', 'parve', 'nonkosher'])]
+        return meal_list[meal_list[col_name].isin(['milchik', 'parve', 'nonkosher'])]
     elif kosher == KosherType.fleisch:
         # Fleisch can eat fleisch, parve, and nonkosher (no milchik)
-        return meal_list[meal_list['Kosher'].isin(['fleisch', 'parve', 'nonkosher'])]
+        return meal_list[meal_list[col_name].isin(['fleisch', 'parve', 'nonkosher'])]
     
     return meal_list
 
