@@ -264,15 +264,133 @@ When users ask for features, check:
 - Does it require database schema changes?
 
 ### 2. Making Changes
-Standard workflow:
-1. Load and explore relevant code files
-2. Check `CHANGELOG.txt` for historical context
-3. Make minimal, focused changes
-4. Test with `--mock` flag
-5. Update `TODO.md` if completing tasks
-6. Update `CHANGELOG.txt` with changes
 
-### 3. Common Tasks
+**IMPORTANT: Use Feature Branches for New Development**
+
+Always create a new branch for feature development:
+
+```bash
+# 1. Create and checkout a feature branch
+git checkout -b feature/descriptive-name
+
+# Examples:
+# git checkout -b feature/kosher-filtering
+# git checkout -b fix/midnight-cooking-bug
+# git checkout -b docs/update-readme
+```
+
+Standard workflow:
+1. **Create feature branch** from main
+2. Load and explore relevant code files
+3. Check `CHANGELOG.txt` for historical context
+4. Make focused, incremental commits
+5. Test with `--mock` flag and/or pytest
+6. Update `TODO.md` if completing tasks
+7. Update `CHANGELOG.txt` with changes
+8. **Commit with descriptive messages**
+9. **Push branch and create Pull Request**
+10. **After merge, delete the feature branch**
+
+### 3. Git Workflow Details
+
+#### Branch Naming Conventions
+
+Use descriptive, kebab-case branch names with prefixes:
+
+- `feature/` - New features (e.g., `feature/diet-filtering`)
+- `fix/` - Bug fixes (e.g., `fix/midnight-cooking-logic`)
+- `refactor/` - Code refactoring (e.g., `refactor/extract-filters`)
+- `docs/` - Documentation only (e.g., `docs/add-api-guide`)
+- `test/` - Test additions (e.g., `test/add-filter-tests`)
+
+#### Commit Message Guidelines
+
+Write clear, descriptive commit messages:
+
+```bash
+# Good commit messages:
+git commit -m "Add kosher filtering with parve/milchik/fleisch support"
+git commit -m "Fix midnight cooking bug in is_too_late_to_cook()"
+git commit -m "Add comprehensive test suite with 39 tests"
+
+# Include details in multi-line commits:
+git commit -m "Implement diet filtering system
+
+- Added DietType enum (vegan, vegetarian, glutenfree, keto)
+- Created filter_diet() function with graceful fallback
+- Wired up --diet CLI option
+- Added 6 tests for diet filtering
+All tests passing"
+```
+
+#### Pull Request Workflow
+
+After completing work on a feature branch:
+
+```bash
+# 1. Ensure all tests pass
+pytest tests/ -v
+
+# 2. Commit all changes
+git add .
+git commit -m "Descriptive message"
+
+# 3. Push feature branch to remote
+git push -u origin feature/your-feature-name
+
+# 4. Create Pull Request on GitHub
+# - Add descriptive title and description
+# - Reference any related issues
+# - Request review if needed
+
+# 5. After PR is merged, delete the branch
+git checkout main
+git pull origin main
+git branch -d feature/your-feature-name        # Delete local
+git push origin --delete feature/your-feature-name  # Delete remote
+```
+
+#### Clean Up Old Branches
+
+Periodically clean up merged branches:
+
+```bash
+# List all branches
+git branch -a
+
+# Delete local branches that are merged
+git branch --merged main | grep -v "^\* main" | xargs -n 1 git branch -d
+
+# Prune remote-tracking branches
+git fetch --prune
+
+# Delete specific remote branch
+git push origin --delete feature/old-branch-name
+```
+
+#### Emergency Hotfixes
+
+For critical bugs in production:
+
+```bash
+# Create hotfix branch from main
+git checkout main
+git checkout -b hotfix/critical-bug-description
+
+# Make fix and test
+# ... edits ...
+pytest tests/
+
+# Fast-track merge
+git checkout main
+git merge hotfix/critical-bug-description
+git push origin main
+
+# Clean up
+git branch -d hotfix/critical-bug-description
+```
+
+### 4. Common Tasks
 
 **Adding a new meal attribute**:
 1. Add column to `data/meal_list.csv`
@@ -297,5 +415,6 @@ Standard workflow:
 
 ---
 
-**Last Updated**: 2026-02-15  
-**Guide Version**: 1.0
+**Last Updated**: 2026-02-16  
+**Guide Version**: 2.0
+
