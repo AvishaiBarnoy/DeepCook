@@ -88,6 +88,5 @@ if st.button('Random meal idea!'):
             f.write(f"{counter}")
 
 st.write(f"People that pressed on the button: {counter}")
-
-#st.sidebar.success("success sidebar")
-#st.sidebar.selectbox("Navigation Pane")
+st.markdown("---")
+st.caption("DeepCook v1.1.1 - Filtering Fix Active")
