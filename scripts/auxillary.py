@@ -19,40 +19,73 @@ except:
 
 class Kosher(str, Enum):
     '''
-    DEPRACTED
+    DEPRECATED
     still here to make sure nothing depends on this, this will be removed later
     '''
-    parve= "parve"
+    parve = "parve"
     fleisch = "fleisch"
     milchik = "milchik"
 
-def choose_random(meals, rank: bool = False, times: bool = False, last_made: int = 0, TA=None, k=1):
+def choose_random(
+    meals, 
+    rank: bool = False, 
+    times: bool = False, 
+    last_made: int = 0, 
+    TA=None, 
+    k=1, 
+    kosher: KosherType = KosherType.nonkosher, 
+    diet: DietType = DietType.any,
+    ease_cutoff: int | None = None,
+    kids: bool | None = None
+):
     '''
     makes a random choice of a meal from a meal DB
     
     Parameters:
         meals: DataFrame with meal data
         rank: bool, use weighted choice by rank
-        times: bool, (not implemented)
+        times: bool, if True, adjust weights based on times_made (penalize frequently made)
         last_made: int, exclude meals made in the past N days. 0 = no filtering
         TA: bool or None, filter take-away options
         k: int, number of choices to return
+        kosher: KosherType enum, filter by kosher requirements
+        diet: DietType enum, filter by dietary preferences
+        ease_cutoff: int, if set, only show meals with Prep_Ease <= ease_cutoff
+        kids: bool or None, filter for kids-friendly meals (1=kids, 0=not kids)
     
     Returns:
         tuple: (meals, chosen_name, chosen_idx)
     '''
     use_rank = None
     
-    meals_copy = meals.copy()
+    # 1. Apply Kosher filter
+    meals_copy = filter_kosher(meals, kosher)
     
-    # filter meals prepared in the past N days
+    # 2. Apply Diet filter
+    meals_copy = filter_diet(meals_copy, diet)
+    
+    # 3. Filter by Ease
+    if ease_cutoff is not None and 'Prep_Ease' in meals_copy.columns:
+        # Assuming Prep_Ease 1 is easiest, 10 is hardest
+        meals_copy = meals_copy[meals_copy['Prep_Ease'].astype(float) <= float(ease_cutoff)]
+        if len(meals_copy) == 0:
+            print(f"Warning: No meals found with ease <= {ease_cutoff}. Ignoring ease filter.")
+            meals_copy = filter_diet(filter_kosher(meals, kosher), diet)
+
+    # 4. Filter by Kids
+    if kids is not None and 'Kids' in meals_copy.columns:
+        val = 1 if kids else 0
+        meals_copy = meals_copy[meals_copy['Kids'].astype(float) == float(val)]
+        if len(meals_copy) == 0:
+            print(f"Warning: No meals found for kids={kids}. Ignoring kids filter.")
+            meals_copy = filter_diet(filter_kosher(meals, kosher), diet)
+            if ease_cutoff is not None and 'Prep_Ease' in meals_copy.columns:
+                meals_copy = meals_copy[meals_copy['Prep_Ease'].astype(float) <= float(ease_cutoff)]
+
+    # 4. Filter meals prepared in the past N days
     if last_made > 0:
         today = pd.Timestamp.now().date()
-        # Convert Timestamp column to datetime, handling NaN/NaT values
         meals_copy['Timestamp'] = pd.to_datetime(meals_copy['Timestamp'], errors='coerce')
-        
-        # Filter out meals made within the last_made days
-        # Keep meals where: timestamp is NaT (never made) OR timestamp is older than last_made days
         cutoff_date = today - pd.Timedelta(days=last_made)
         meals_copy = meals_copy[
             (meals_copy['Timestamp'].isna()) | 
@@ -60,36 +93,67 @@ def choose_random(meals, rank: bool = False, times: bool = False, last_made: int
         ]
         
         if len(meals_copy) == 0:
-            print(f"Warning: All meals were made in the past {last_made} days. Ignoring filter.")
-            meals_copy = meals.copy()
+            print(f"Warning: All meals matching other filters were made in the past {last_made} days. Ignoring age filter.")
+            # Fallback to state before age filter
+            state_before = filter_diet(filter_kosher(meals, kosher), diet)
+            if ease_cutoff is not None and 'Prep_Ease' in state_before.columns:
+                state_before = state_before[state_before['Prep_Ease'].astype(float) <= float(ease_cutoff)]
+            meals_copy = state_before
 
-    # use a weighted choice, by rank
-    if rank == True:
-        use_rank = choice["Rank"]
-    
-    # include or choose only take-away, default is to random from everythin
+    # 5. Filter Take-Away
     if TA == False:
         meals_copy = meals_copy[meals_copy["TA"] == 0]
     elif TA == True:
         meals_copy = meals_copy[meals_copy["TA"] == 1]
     
+    # Check if we have any meals left after filtering
+    if len(meals_copy) == 0:
+        print("Warning: No meals found after applying filters.")
+        return meals, None, None
+
+    # 6. Check for late-night cooking
     is_late = is_too_late_to_cook()
     translate_time = {"short":0, "medium":1, "long": 2}
     if is_late == True:
-        meals_copy.replace({"Prep_Time":translate_time,"Cook_Time":translate_time},inplace=True)
-        meals_copy = meals_copy[meals_copy["Prep_Time"] < 2]
-        meals_copy = meals_copy[meals_copy["Cook_Time"] < 2]
+        if 'Prep_Time' in meals_copy.columns and 'Cook_Time' in meals_copy.columns:
+            meals_subset = meals_copy.copy()
+            meals_subset.replace({"Prep_Time":translate_time,"Cook_Time":translate_time},inplace=True)
+            meals_subset = meals_subset[meals_subset["Prep_Time"] < 2]
+            meals_subset = meals_subset[meals_subset["Cook_Time"] < 2]
+            if len(meals_subset) > 0:
+                meals_copy = meals_subset
+            else:
+                print("Warning: It's late but only 'long' prep meals remain. Suggesting a meal anyway.")
 
-    choice = meals_copy.sample(n=k, weights=use_rank)
+    # 7. Calculate weights
+    weights = pd.Series(1.0, index=meals_copy.index)
+    
+    if rank == True and "Rank" in meals_copy.columns:
+        weights = meals_copy["Rank"].astype(float)
+    
+    if times == True and "times_made" in meals_copy.columns:
+        # Smarter weighting: weight = rank / (1 + times_made)
+        # This penalizes meals that have been made many times.
+        # Handle cases where times_made might be NaN
+        times_made = meals_copy["times_made"].fillna(0).astype(float)
+        weights = weights / (1.0 + times_made)
+    
+    # Normalize weights to avoid issues
+    if weights.sum() == 0:
+        weights = None
+    
+    choice = meals_copy.sample(n=k, weights=weights)
 
     print(choice["Name"].iloc[0])
     
-    suggestion = meals.iloc[choice.index[0]].iloc[11]
-    if isinstance(suggestion,str):
-        print(f'Recipe suggestion: {suggestion}')
-    elif isinstance(suggestion,float):
-        print("No recipe suggestion exists in the database.")
-
+    # Try to find recipe suggestion URL (column 11 is recipe_suggestion in standard schema)
+    if len(meals_copy.columns) > 11:
+        suggestion = meals.iloc[choice.index[0]].iloc[11]
+        if isinstance(suggestion, str) and suggestion.startswith("http"):
+            print(f'Recipe suggestion: {suggestion}')
+        else:
+            print("No recipe suggestion exists in the database.")
+    
     return meals, choice["Name"].iloc[0], choice.index[0]
 
 def make_this_meal(meals, choice):

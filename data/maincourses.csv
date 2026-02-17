@@ -1,1 +1,5 @@
-,Name,KosherType,Prep_Ease,Prep_Time,Cook_Time,Rank,Scaling,TA,times_made,Timestamp,recipe_suggestion,Name_HE
+,Name,KosherType,Prep_Ease,Prep_Time,Cook_Time,Rank,Scaling,TA,times_made,Timestamp,recipe_suggestion,Name_HE,Kids
+0,Chicken Schnitzel,fleisch,5,medium,short,8,1,0,0,2022-01-01,,שניצל,1
+1,Pasta Bolognese,fleisch,4,medium,medium,7,1,0,0,2022-01-01,,פסטה בולונז,1
+2,Grilled Salmon,parve,3,short,short,9,1,0,0,2022-01-01,,סלמון בגריל,1
+3,Shakshuka,parve,4,medium,short,7,1,0,0,2022-01-01,,שקשוקה,1

@@ -27,9 +27,10 @@ no-flag: choose from everything including TA'''),
         0, help="exclude meals made in the past N days (0 = no filtering, recommended: 3-5)"),
     inp: bool = typer.Option(
         False, help="Add a new meal to the meal DB, by questions to the audience"),
-    kosher: KosherType = typer.Option(KosherType.nonkosher, case_sensitive=False, help="Filter by kosher type: parve, milch ik, fleisch, nonkosher"),
+    kosher: KosherType = typer.Option(KosherType.nonkosher, case_sensitive=False, help="Filter by kosher type: parve, milchik, fleisch, nonkosher"),
     diet: DietType = typer.Option(DietType.any, case_sensitive=False, help="Filter by diet: any, vegan, vegetarian, glutenfree, keto"),
-    #mock: bool = typer.Option("Mock try for testing and developing, will not prompt for saving.", case_sensitive=False)
+    ease: int = typer.Option(None, help="Filter by preparation ease (1-10, lower is easier)"),
+    times: bool = typer.Option(False, "--smarter-weighting", help="Penalize meals prepared frequently"),
     mock: bool = typer.Option(False, help="Mock try for testing and developing, will not prompt for saving.")
 ):
     
@@ -42,16 +43,26 @@ no-flag: choose from everything including TA'''),
     # adding new meal to db or randomly suggesting one
     if inp:
         new_meal = iod.meal_questions(meals_db)
-        meals_db = iod.add_meal(meals_db, new_meal)
+        if new_meal is not None:
+            meals_db = iod.add_meal(meals_db, new_meal)
     else:
-        # Apply filters
-        filtered_meals = aux.filter_kosher(meals_db, kosher)
-        filtered_meals = aux.filter_diet(filtered_meals, diet)
+        # Apply filters via choose_random
+        _, chosen_one, chosen_idx = aux.choose_random(
+            meals_db, 
+            rank=rank, 
+            last_made=last_made, 
+            TA=TA, 
+            kosher=kosher, 
+            diet=diet,
+            ease_cutoff=ease,
+            times=times
+        )
         
-        _, chosen_one, chosen_idx = aux.choose_random(filtered_meals, rank=rank, last_made=last_made, TA=TA)
-        if mock == False:
+        if chosen_one is not None and mock == False:
             iod.write_to_log(chosen_one)
             aux.make_this_meal(meals_db, chosen_idx)
+        elif chosen_one is None:
+            print("No meal found with current filters.")
 
     # save changes
     if mock == False:

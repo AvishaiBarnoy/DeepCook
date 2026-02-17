@@ -1,1 +1,5 @@
-,Name,KosherType,Prep_Ease,Prep_Time,Cook_Time,Rank,Scaling,TA,times_made,Timestamp,recipe_suggestion,Name_HE
+,Name,KosherType,Prep_Ease,Prep_Time,Cook_Time,Rank,Scaling,TA,times_made,Timestamp,recipe_suggestion,Name_HE,Kids
+0,Rice,parve,2,short,medium,7,1,0,0,2022-01-01,,אורז,1
+1,Roasted Potatoes,parve,3,medium,medium,8,1,0,0,2022-01-01,,תפוחי אדמה אפויים,1
+2,Couscous,parve,2,short,short,6,1,0,0,2022-01-01,,קוסקוס,1
+3,Mashed Potatoes,milchik,4,medium,medium,8,1,0,0,2022-01-01,,פירה,1

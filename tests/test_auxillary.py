@@ -263,8 +263,9 @@ class TestEdgeCases:
             'prep_ease', 'scaling', 'TA', 'Timestamp', 'times_made', 'recipe_suggestion'
         ])
         
-        with pytest.raises(ValueError):
-            choose_random(empty_db, k=1)
+        _, chosen_name, chosen_idx = choose_random(empty_db, k=1)
+        assert chosen_name is None
+        assert chosen_idx is None
     
     def test_single_meal(self):
         """Test with database containing only one meal."""
