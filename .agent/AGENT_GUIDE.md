@@ -251,8 +251,8 @@ DeepCook/
 ├── backup_and_templates/        # Backup files
 ├── full_meal_rnd/              # Experimental directory
 ├── .streamlit/                 # Streamlit config
-└── .agent/
-    └── AGENT_GUIDE.md          # This file
+├── .agent/
+│   └── AGENT_GUIDE.md          # This file
 ```
 
 ## Quick Start for Agents
@@ -280,15 +280,15 @@ git checkout -b feature/descriptive-name
 ```
 
 Standard workflow:
-1. **Create feature branch** from main
-2. Load and explore relevant code files
-3. Check `CHANGELOG.txt` for historical context
-4. Make focused, incremental commits
-5. Test with `--mock` flag and/or pytest
-6. Update `TODO.md` if completing tasks
-7. Update `CHANGELOG.txt` with changes
-8. **Commit with descriptive messages**
-9. **Push branch and create Pull Request**
+1.  **Create feature branch** from main
+2.  Load and explore relevant code files
+3.  Check `CHANGELOG.txt` for historical context
+4.  Make focused, incremental commits
+5.  Test with `--mock` flag and/or pytest
+6.  Update `TODO.md` if completing tasks
+7.  Update `CHANGELOG.txt` with changes
+8.  **Commit with descriptive messages**
+9.  **Push branch and create Pull Request**
 10. **After merge, delete the feature branch**
 
 ### 3. Git Workflow Details
@@ -393,18 +393,18 @@ git branch -d hotfix/critical-bug-description
 ### 4. Common Tasks
 
 **Adding a new meal attribute**:
-1. Add column to `data/meal_list.csv`
-2. Update `meal_questions()` in `scripts/iodata.py`
-3. Update `METADATA.md` documentation
+1.  Add column to `data/meal_list.csv`
+2.  Update `meal_questions()` in `scripts/iodata.py`
+3.  Update `METADATA.md` documentation
 
 **Adding CLI filtering**:
-1. Add parameter to `main()` in `main.py`
-2. Add filtering logic to `choose_random()` in `scripts/auxillary.py`
-3. Update README with new flag
+1.  Add parameter to `main()` in `main.py`
+2.  Add filtering logic to `choose_random()` in `scripts/auxillary.py`
+3.  Update README with new flag
 
 **Adding web app feature**:
-1. Modify `streamlit_app.py` or add page to `pages/`
-2. Test locally with `streamlit run streamlit_app.py`
+1.  Modify `streamlit_app.py` or add page to `pages/`
+2.  Test locally with `streamlit run streamlit_app.py`
 
 ## Contact & Contribution
 
@@ -417,4 +417,3 @@ git branch -d hotfix/critical-bug-description
 
 **Last Updated**: 2026-02-16  
 **Guide Version**: 2.0
-

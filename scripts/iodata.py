@@ -16,35 +16,87 @@ def add_meal(data, new_data):
 
 def meal_questions(meal_data):
     '''
-    Ask user to enter information about meal, then stores in the data model,  
+    Ask user to enter information about meal, then stores in the data model.
+    Includes input validation.
     '''
-    # Here add a description of all relevant data
+    print("\n" + "="*30)
+    print("ADDING NEW MEAL TO DATABASE")
+    print("="*30)
+    print("Please follow the prompts to add a new meal.")
+    print("Enter 'q' at any time to cancel.\n")
+
     data = meal_data
-    inp = {key:"NaN" for key in data}
-    # loop over keys, skip times_made, timestamp
-    inp_inst = {}
-    cols = ["Timestamp", "times_made"]
-    print("Enter meal data:")
-    instructions_dict = {} # here have instructions for each meal feature 
-    for i in data.loc[:, ~data.columns.isin(cols)]:
-        # uncomment once instructions_dict is implemented
-        #print(f"Input instructions for {i}:")
-        #print(instructions_dict[i])
-        inp[i] = input(f"Enter value for {i}: ")
-    inp["Timestamp"] = "NaN"
-    inp["times_made"] = "NaN"
-    print(inp)
-
-    #while check_values(inp) == False:
-        #break
+    inp = {key: "NaN" for key in data.columns}
+    cols_to_skip = ["Timestamp", "times_made"]
     
-    return pd.DataFrame(inp,index=[0])
+    # Define valid options for specific columns
+    valid_options = {
+        "KosherType": ["parve", "milchik", "fleisch", "nonkosher"],
+        "Kosher": ["parve", "milchik", "fleisch", "nonkosher"],
+        "Prep_Time": ["short", "medium", "long"],
+        "Cook_Time": ["short", "medium", "long"],
+        "TA": ["0", "1"],
+        "Kids": ["0", "1"],
+        "Rank": [str(i) for i in range(1, 11)]
+    }
 
-def check_meal_inp(inp):
+    for col in data.columns:
+        if col in cols_to_skip:
+            inp[col] = "NaN" if col == "Timestamp" else 0
+            continue
+            
+        while True:
+            prompt = f"Enter value for {col}"
+            if col in valid_options:
+                prompt += f" ({'/'.join(valid_options[col])})"
+            
+            val = input(f"{prompt}: ").strip()
+            
+            if val.lower() == 'q':
+                print("Operation cancelled.")
+                return None
+            
+            # Basic validation
+            is_valid, msg = check_meal_inp(col, val, valid_options)
+            if is_valid:
+                inp[col] = val
+                break
+            else:
+                print(f"❌ Invalid input: {msg}. Please try again.")
+
+    print("\nNew meal summary:")
+    for k, v in inp.items():
+        if k not in cols_to_skip:
+            print(f"  {k}: {v}")
+    
+    confirm = input("\nSave this meal? (y/n): ").lower()
+    if confirm == 'y':
+        return pd.DataFrame([inp])
+    else:
+        print("Meal not saved.")
+        return None
+
+def check_meal_inp(col, val, valid_options):
     '''
-    Check meal input if values are correct
+    Check if a value is valid for a given column.
+    Returns (bool, message)
     '''
-    pass
+    if not val:
+        return False, "Value cannot be empty"
+        
+    if col in valid_options:
+        if val not in valid_options[col]:
+            return False, f"Must be one of: {', '.join(valid_options[col])}"
+            
+    if col == "Rank":
+        try:
+            r = int(val)
+            if not 1 <= r <= 10:
+                return False, "Rank must be between 1 and 10"
+        except ValueError:
+            return False, "Rank must be an integer"
+            
+    return True, "OK"
 
 def write_to_log(choice,logfile="meal.log"):
     '''

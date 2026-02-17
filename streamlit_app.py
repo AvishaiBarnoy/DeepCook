@@ -7,38 +7,79 @@ import scripts.iodata as iod
 from image_loader import render_image, get_image_from_pexel, download_image
 from classes.classes import KosherType, DietType
 
-# Simple App
+st.set_page_config(page_title="DeepCook", page_icon="🍳", layout="centered")
 
-st.title('DeepCook Web App')
+# Language Toggle
+if 'lang' not in st.session_state:
+    st.session_state.lang = 'EN'
 
-st.write('Just press the button and DeepCook will give you a meal suggestion!')
+col_title, col_lang = st.columns([0.8, 0.2])
+with col_lang:
+    if st.button("🌐 " + ("Hebrew" if st.session_state.lang == 'EN' else "English")):
+        st.session_state.lang = 'HE' if st.session_state.lang == 'EN' else 'EN'
+        st.rerun()
+
+# Translations
+TRANS = {
+    'title': {'EN': '🍳 DeepCook: Your Smart Meal Guide', 'HE': '🍳 דיפ-קוק: מדריך הארוחות החכם שלך'},
+    'intro': {
+        'EN': "Welcome to DeepCook! We help you decide what to eat based on your preferences, dietary laws, and what you haven't made lately.",
+        'HE': "ברוכים הבאים לדיפ-קוק! אנחנו נעזור לכם להחליט מה לאכול על סמך ההעדפות שלכם, הכשרות, ומה שלא הכנתם לאחרונה."
+    },
+    'button': {'EN': '🎲 Get a Random Meal!', 'HE': '🎲 קבל הצעה לארוחה!'},
+    'filters': {'EN': '⚙️ Filter Options', 'HE': '⚙️ אפשרויות סינון'},
+    'last_made': {'EN': 'Exclude meals made in the past N days', 'HE': 'אל תציע ארוחות שהוכנו ב-N הימים האחרונים'},
+    'kosher': {'EN': 'Kosher Type', 'HE': 'כשרות'},
+    'diet': {'EN': 'Diet Type', 'HE': 'סוג דיאטה'},
+    'ease': {'EN': 'Max Preparation Difficulty', 'HE': 'קושי הכנה מקסימלי'},
+    'smarter': {'EN': 'Smarter Weighting', 'HE': 'שקלול חכם (גוון)'},
+    'suggestion_prefix': {'EN': 'Your random meal is: ', 'HE': 'ההצעה שלך היא: '},
+    'no_meal': {'EN': '⚠️ No meals match your filter criteria.', 'HE': '⚠️ אין ארוחות שמתאימות לסינון הנבחר.'},
+    'recipe': {'EN': 'Recipe suggestion: ', 'HE': 'הצעת מתכון: '},
+    'no_recipe': {'EN': 'No recipe suggestion exists.', 'HE': 'אין הצעת מתכון במאגר.'},
+    'people_count': {'EN': 'People that pressed the button: ', 'HE': 'אנשים שלחצו על הכפתור: '}
+}
+
+l = st.session_state.lang
+
+st.title(TRANS['title'][l])
+st.write(TRANS['intro'][l])
 
 # Filter Options
-with st.expander("⚙️ Filter Options"):
+with st.expander(TRANS['filters'][l]):
     last_made_days = st.slider(
-        "Exclude meals made in the past N days",
+        TRANS['last_made'][l],
         min_value=0,
         max_value=7,
-        value=0,
-        help="Set to 0 to include all meals, or choose 3-5 to avoid recent meals"
+        value=0
     )
     
     col1, col2 = st.columns(2)
     
     with col1:
         kosher_type = st.selectbox(
-            "Kosher Type",
+            TRANS['kosher'][l],
             options=["nonkosher", "parve", "milchik", "fleisch"],
-            index=0,
-            help="Filter by kosher dietary laws"
+            index=0
+        )
+        
+        ease_value = st.slider(
+            TRANS['ease'][l],
+            min_value=1,
+            max_value=10,
+            value=10
         )
     
     with col2:
         diet_type = st.selectbox(
-            "Diet Type",
+            TRANS['diet'][l],
             options=["any", "vegan", "vegetarian", "glutenfree", "keto"],
-            index=0,
-            help="Filter by dietary preference"
+            index=0
+        )
+        
+        smarter_weighting = st.checkbox(
+            TRANS['smarter'][l],
+            value=False
         )
 
 MEAL_LIST = "data/meal_list.csv"
@@ -49,44 +90,53 @@ counter_file = Path(__file__).parent / COUNTER_PATH
 
 # initiate counter
 with open(counter_file, "r") as f:
-    counter = f.readline()
-    counter = 0 if counter == "" else int(counter)
+    counter_data = f.readline()
+    counter = 0 if counter_data == "" else int(counter_data)
 
-if st.button('Random meal idea!'):
+if st.button(TRANS['button'][l], use_container_width=True, type="primary"):
     counter += 1
     
-    # Apply filters sequentially
-    filtered_meals = aux.filter_kosher(meals_db, KosherType[kosher_type])
-    filtered_meals = aux.filter_diet(filtered_meals, DietType[diet_type])
+    # Use centralized filtering
+    _, chosen_one, chosen_idx = aux.choose_random(
+        meals_db, 
+        rank=False, 
+        last_made=last_made_days, 
+        TA=None,
+        kosher=KosherType[kosher_type],
+        diet=DietType[diet_type],
+        ease_cutoff=ease_value,
+        times=smarter_weighting
+    )
     
-    # Check if any meals match the filters
-    if len(filtered_meals) == 0:
-        st.warning("⚠️ No meals match your filter criteria. Try relaxing your filters.")
+    if chosen_one is None:
+        st.warning(TRANS['no_meal'][l])
     else:
-        _, chosen_one, chosen_idx = aux.choose_random(
-            filtered_meals, 
-            rank=False, 
-            last_made=last_made_days, 
-            TA=None
-        )
-        st.write('Your random meal is: ', chosen_one)
+        meal_row = meals_db.loc[chosen_idx]
+        display_name = meal_row['Name_HE'] if l == 'HE' and isinstance(meal_row.get('Name_HE'), str) else chosen_one
+        
+        st.header(TRANS['suggestion_prefix'][l] + f"**{display_name}**")
 
-        image_save_as = 'last_meal_img.jpg'
-        image_data = get_image_from_pexel(chosen_one)
-        image = download_image(image_data['url'], save_as=image_save_as)
-        render_image(image_save_as)
-        st.write(f'Photographer: {image_data["photographer"]}.\n')
-        # print recipe suggestion if one exists
-        suggestion = filtered_meals.iloc[chosen_idx].iloc[11]
-        if isinstance(suggestion, str):
-            st.write(f'Recipe suggestion: {suggestion}')
-        elif isinstance(suggestion, float):
-            st.write("No recipe suggestion exists in the database.")
+        # Visuals
+        try:
+            image_save_as = 'last_meal_img.jpg'
+            image_data = get_image_from_pexel(chosen_one)
+            image = download_image(image_data['url'], save_as=image_save_as)
+            st.image(image_save_as, use_container_width=True)
+            st.caption(f'Photographer: {image_data["photographer"]}')
+        except Exception:
+            st.info("📷 Image preview unavailable")
+        
+        # Recipe
+        suggestion = meal_row.get('recipe_suggestion', None)
+        if isinstance(suggestion, str) and suggestion.startswith("http"):
+            st.info(f"🔗 {TRANS['recipe'][l]} [Click here]({suggestion})")
+        else:
+            st.caption(TRANS['no_recipe'][l])
 
         with open(counter_file, "w") as f:
             f.truncate()
             f.write(f"{counter}")
 
-st.write(f"People that pressed on the button: {counter}")
-st.markdown("---")
-st.caption("DeepCook v1.1.1 - Filtering Fix Active")
+st.divider()
+st.write(f"{TRANS['people_count'][l]} {counter}")
+st.caption("DeepCook v1.2.0 - Internationalized Edition")

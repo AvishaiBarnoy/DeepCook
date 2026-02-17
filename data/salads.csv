@@ -1,8 +1,8 @@
-,Name,KosherType,Prep_Ease,Prep_Time,Cook_Time,Rank,Scaling,TA,times_made,Timestamp,recipe_suggestion,Name_HE
-0,vegetables,,,,,,,,,,,
-1,lettuce cherry tomatoes mushrooms,,,,,,,,,,,
-2,lettuce summer fruits,,,,,,,,,,,
-3,cabbage mushrooms tomatoes,,,,,,,,,,,
-4,cabbage sour,,,,,,,,,,,
-5,cherry tomatoes olives,,,,,,,,,,,
-6,mushrooms scallions,,,,,,,,,,,
+,Name,KosherType,Prep_Ease,Prep_Time,Cook_Time,Rank,Scaling,TA,times_made,Timestamp,recipe_suggestion,Name_HE,Kids
+0,vegetables,,,,,,,,,,,,1
+1,lettuce cherry tomatoes mushrooms,,,,,,,,,,,,1
+2,lettuce summer fruits,,,,,,,,,,,,1
+3,cabbage mushrooms tomatoes,,,,,,,,,,,,1
+4,cabbage sour,,,,,,,,,,,,1
+5,cherry tomatoes olives,,,,,,,,,,,,1
+6,mushrooms scallions,,,,,,,,,,,,1
