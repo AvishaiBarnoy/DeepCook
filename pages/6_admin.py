@@ -47,33 +47,57 @@ if absolute_path.exists():
     tab1, tab2 = st.tabs(["📊 Missing Data", "🔍 Full Database"])
     
     with tab1:
-        st.subheader("Missing Diet/Scaling Info")
+        st.subheader("Missing or Default Info")
         
-        # Find missing values
-        # Diet is missing if it's NaN or empty string
-        # Scaling is missing if it's NaN
-        missing_diet = df['Diet'].isna() | (df['Diet'] == "")
-        missing_scaling = df['Scaling'].isna()
+        # Define missing/default criteria
+        # Diet: empty/null
+        # Scaling: null
+        # Rank: null or exactly 5.0 (system default)
+        # Prep_Ease: null or exactly 5.0 (system default)
+        # Kids: null
         
-        to_fix = df[missing_diet | missing_scaling]
+        # Ensure columns exist to avoid KeyErrors
+        cols = df.columns
+        missing_diet = (df['Diet'].isna() | (df['Diet'].astype(str) == "")) if 'Diet' in cols else pd.Series(False, index=df.index)
+        missing_scaling = df['Scaling'].isna() if 'Scaling' in cols else pd.Series(False, index=df.index)
+        missing_rank = (df['Rank'].isna() | (df['Rank'] == 5.0)) if 'Rank' in cols else pd.Series(False, index=df.index)
+        missing_ease = (df['Prep_Ease'].isna() | (df['Prep_Ease'] == 5.0)) if 'Prep_Ease' in cols else pd.Series(False, index=df.index)
+        missing_kids = df['Kids'].isna() if 'Kids' in cols else pd.Series(False, index=df.index)
+        
+        to_fix = df[missing_diet | missing_scaling | missing_rank | missing_ease | missing_kids]
         
         if to_fix.empty:
-            st.success("All caught up! No missing Diet or Scaling data.")
+            st.success("✨ Everything looks perfect! No missing or default data to fix.")
         else:
-            st.warning(f"Found {len(to_fix)} meals needing attention.")
+            st.warning(f"Found {len(to_fix)} meals that might need more details.")
+            st.write("Double-click cells to edit. Values are saved locally to `meal_list.csv`.")
             
-            # Use data editor for quick fixes
-            st.write("Double-click to edit. Diet options: vegan, vegetarian, glutenfree, keto. Scaling: 1.0 (good), 0.0 (bad)")
-            edited_df = st.data_editor(to_fix[['Name', 'Name_HE', 'Diet', 'Scaling']])
+            # Focused editor
+            all_edit_cols = ['Name', 'Name_HE', 'Diet', 'Scaling', 'Rank', 'Prep_Ease', 'Kids']
+            available_edit_cols = [c for c in all_edit_cols if c in df.columns]
             
-            if st.button("Save Changes to Missing Only"):
-                # Update the main dataframe
+            edited_df = st.data_editor(
+                to_fix[available_edit_cols],
+                column_config={
+                    "Diet": st.column_config.TextColumn("Diet (vegan, vegetarian, ...)"),
+                    "Scaling": st.column_config.NumberColumn("Scaling (1=Large, 0=Small)", min_value=0, max_value=1),
+                    "Rank": st.column_config.NumberColumn("Rank (1-10)", min_value=1, max_value=10),
+                    "Prep_Ease": st.column_config.NumberColumn("Ease (1=Easy, 10=Hard)", min_value=1, max_value=10),
+                    "Kids": st.column_config.NumberColumn("Kids (1=Yes, 0=No)", min_value=0, max_value=1),
+                },
+                use_container_width=True,
+                num_rows="fixed",
+                key="maintenance_editor"
+            )
+            
+            if st.button("Save Maintenance Updates"):
+                # Update main dataframe with edited values
                 for idx, row in edited_df.iterrows():
-                    df.at[idx, 'Diet'] = row['Diet']
-                    df.at[idx, 'Scaling'] = row['Scaling']
+                    for col in available_edit_cols:
+                        df.at[idx, col] = row[col]
                 
                 df.to_csv(absolute_path)
-                st.success("Database updated!")
+                st.success("✅ Database updated!")
                 st.rerun()
 
     with tab2:

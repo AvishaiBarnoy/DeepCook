@@ -146,9 +146,9 @@ if st.button(TRANS['button'][l], use_container_width=True, type="primary"):
             st.info("Please check your PEXEL_API_KEY in .streamlit/secrets.toml")
         
         # Recipe
-        suggestion = meal_row.get('recipe_suggestion', None)
-        if isinstance(suggestion, str) and suggestion.startswith("http"):
-            st.info(f"🔗 {TRANS['recipe'][l]} [Click here]({suggestion})")
+        recipe_url = aux.get_recipe_link(meal_row)
+        if recipe_url:
+            st.info(f"🔗 {TRANS['recipe'][l]} [Click here]({recipe_url})")
         else:
             st.caption(TRANS['no_recipe'][l])
 

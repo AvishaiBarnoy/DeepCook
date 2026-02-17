@@ -100,12 +100,12 @@ def choose_random(
 
     # 4. Filter meals prepared in the past N days
     if last_made > 0:
-        today = pd.Timestamp.now().date()
+        today = pd.Timestamp.now().normalize()
         meals_copy['Timestamp'] = pd.to_datetime(meals_copy['Timestamp'], errors='coerce')
         cutoff_date = today - pd.Timedelta(days=last_made)
         meals_copy = meals_copy[
             (meals_copy['Timestamp'].isna()) | 
-            (meals_copy['Timestamp'].dt.date < cutoff_date)
+            (meals_copy['Timestamp'] < cutoff_date)
         ]
         
         if len(meals_copy) == 0:
@@ -247,6 +247,7 @@ def reboot_time_timestamps(data="meal_list.csv",logfile="meal.log"):
 def filter_kosher(meal_list, kosher: KosherType):
     '''
     Filters meals according to kosher requirements.
+    Standardized to use 'KosherType' column.
     
     Kosher rules:
     - parve: can eat parve and nonkosher meals
@@ -261,32 +262,103 @@ def filter_kosher(meal_list, kosher: KosherType):
     Returns:
         pandas DataFrame with filtered meals
     '''
-    # Check for kosher column (support both 'KosherType' and 'Kosher')
-    col_name = None
-    if 'KosherType' in meal_list.columns:
-        col_name = 'KosherType'
-    elif 'Kosher' in meal_list.columns:
-        col_name = 'Kosher'
-    
-    if col_name is None:
-        print("Warning: Kosher column not found in meal database. Skipping kosher filter.")
+    if 'KosherType' not in meal_list.columns:
+        print("Warning: 'KosherType' column not found in database. Skipping kosher filter.")
         return meal_list
 
     if kosher == KosherType.nonkosher:
-        # Nonkosher can eat anything
         return meal_list
     elif kosher == KosherType.parve:
-        # Parve can eat parve and nonkosher
-        return meal_list[meal_list[col_name].isin(['parve', 'nonkosher'])]
+        return meal_list[meal_list['KosherType'].isin(['parve', 'nonkosher'])]
     elif kosher == KosherType.milchik:
-        # Milchik can eat milchik, parve, and nonkosher (no fleisch)
-        return meal_list[meal_list[col_name].isin(['milchik', 'parve', 'nonkosher'])]
+        return meal_list[meal_list['KosherType'].isin(['milchik', 'parve', 'nonkosher'])]
     elif kosher == KosherType.fleisch:
-        # Fleisch can eat fleisch, parve, and nonkosher (no milchik)
-        return meal_list[meal_list[col_name].isin(['fleisch', 'parve', 'nonkosher'])]
+        return meal_list[meal_list['KosherType'].isin(['fleisch', 'parve', 'nonkosher'])]
     
     return meal_list
 
+def choose_batch(meals, k=7, **kwargs):
+    '''
+    Selects a batch of k unique meals using provided filters.
+    A wrapper around choose_random logic for multiple selections.
+    '''
+    results = []
+    temp_db = meals.copy()
+    
+    for _ in range(k):
+        # We call choose_random with k=1 each time to handle weights correctly for individual pics
+        # but we need to remove the chosen one from temp_db to ensure uniqueness
+        _, name, idx = choose_random(temp_db, k=1, **kwargs)
+        
+        if name is None:
+            # If we run out of meals matching criteria
+            results.append((None, None))
+            continue
+            
+        results.append((name, idx))
+        temp_db = temp_db.drop(index=idx)
+        
+def get_meal_for_day(db, kosher: KosherType, diet: DietType, prev_main=None, leftover_mode=False):
+    '''
+    Suggests a meal for a specific day, considering leftover logic.
+    '''
+    # 1. Leftover logic: If leftover mode is on and previous main scales well, reuse it
+    if leftover_mode and prev_main is not None:
+        # Check if Scaling is 1.0 (float or int)
+        scaling_val = prev_main.get('Scaling', 0)
+        try:
+             if float(scaling_val) == 1.0:
+                 return prev_main
+        except (ValueError, TypeError):
+             pass
+            
+    # 2. Otherwise pick a random one
+    # last_made=3 to ensure some variety from recent history if available
+    _, name, idx = choose_random(db, kosher=kosher, diet=diet, last_made=3, times=True)
+    
+    if name:
+        return db.loc[idx].to_dict()
+    return None
+
+
+def get_recipe_link(meal_row, preferred_site=None):
+    '''
+    Returns a recipe link for a meal.
+    If 'recipe_suggestion' is a valid URL, it's used.
+    Otherwise, generates a search link for popular Israeli recipe sites.
+    
+    Parameters:
+        meal_row: dict or Series, the meal data
+        preferred_site: str, optional ('krutit', 'kitchencoach', 'nikib', 'mako')
+    '''
+    # 1. Use existing suggestion if valid
+    suggestion = meal_row.get('recipe_suggestion')
+    if isinstance(suggestion, str) and suggestion.startswith("http"):
+        return suggestion
+        
+    # 2. Generate Search Link
+    # Prefer Hebrew name for searching Israeli sites
+    name_he = meal_row.get('Name_HE')
+    name_en = meal_row.get('Name')
+    query = name_he if isinstance(name_he, str) and name_he != "" else name_en
+    
+    if not query:
+        return None
+        
+    # Search Templates
+    templates = {
+        'krutit': f"https://www.krutit.co.il/?s={query}",
+        'kitchencoach': f"https://www.kitchencoach.co.il/?s={query}",
+        'nikib': f"https://nikib.co.il/?s={query}",
+        'mako': f"https://www.mako.co.il/search-results?q={query}",
+        'google': f"https://www.google.com/search?q={query}+מתכון"
+    }
+    
+    if preferred_site in templates:
+        return templates[preferred_site]
+        
+    # Default to Google Search (Hebrew) or Krutit
+    return templates['krutit']
 
 def filter_diet(meal_list, diet: DietType):
     '''

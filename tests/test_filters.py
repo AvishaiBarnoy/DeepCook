@@ -66,12 +66,6 @@ class TestFilterKosher:
         assert set(result['Name']) == {'Pasta Salad', 'Steak', 'Chicken Soup', 'Bacon', 'Hummus'}
         assert 'Cheeseburger' not in result['Name'].values  # milchik excluded
 
-    def test_filter_kosher_fallback_legacy(self, meals_with_kosher_legacy):
-        """Test that filter_kosher supports legacy 'Kosher' column name."""
-        result = filter_kosher(meals_with_kosher_legacy, KosherType.parve)
-        assert len(result) == 1
-        assert result.iloc[0]['Name'] == 'Pasta Salad'
-        
     def test_filter_kosher_missing_column(self):
         """Test that filter_kosher handles missing column gracefully."""
         df = pd.DataFrame({'Name': ['Test']})
@@ -134,7 +128,7 @@ class TestFilterDiet:
         """Reuse from TestFilterKosher for missing column test."""
         data = {
             'Name': ['Pasta Salad', 'Cheeseburger'],
-            'Kosher': ['parve', 'milchik'],
+            'KosherType': ['parve', 'milchik'],
             'Rank': [7, 8],
         }
         return pd.DataFrame(data)
@@ -148,7 +142,7 @@ class TestFilterCombination:
         """Create meals with both kosher and diet info."""
         data = {
             'Name': ['Vegan Hummus', 'Vegetarian Cheese Pizza', 'Beef Steak', 'Tofu Scramble'],
-            'Kosher': ['parve', 'milchik', 'fleisch', 'parve'],
+            'KosherType': ['parve', 'milchik', 'fleisch', 'parve'],
             'Diet': ['vegan', 'vegetarian', 'none', 'vegan'],
             'Rank': [8, 7, 9, 8],
         }

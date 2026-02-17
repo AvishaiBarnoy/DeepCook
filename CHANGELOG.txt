@@ -1,5 +1,25 @@
 
 ##################
+# LOG 16.02.2026 #
+##################
+1. Standardized Database Schema
+   - Unified all meal CSVs to use `KosherType` as the primary column
+   - Normalized values (parve, milchik, fleisch, nonkosher)
+   - Cleaned up numeric columns and removed duplicates
+2. Implemented Weekly Meal Planner
+   - Added `pages/7_weekly_planner.py` for 7-day interactive planning
+   - Implemented Locking system for individual days
+   - Added Leftover-Friendly mode (repeats large mains)
+   - Full Hebrew/English bilingual support
+3. Refactored Selection Logic
+   - Extracted `get_meal_for_day` and `choose_batch` to `auxillary.py`
+   - Fixed datetime comparison bug (dtype mismatch)
+   - Added 5 new unit tests for planner logic
+4. Updated Test Suite
+   - Removed legacy fallback tests
+   - All 45 tests passing
+
+##################
 # LOG 15.02.2026 #
 ##################
 1. Implemented recently-made filtering feature (--last-made flag)

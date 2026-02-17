@@ -10,7 +10,8 @@
 	1.1 add description printed before everything to explain what's going on.
 	1.2 create a "def check_input(inp)" function to test if the input is correct
 	1.3 option to look for specific koshertype - milchik/fleisch
-4. check convention for column naming with pandas. Choose one - camel, snake_eye, pascal
+4. suprise me flag ✅ COMPLETED
+5. check convention for column naming with pandas. ✅ COMPLETED: Unified to PascalCase/SnakeCase mix but standardized to single source of truth.
 5. recipe suggestions
 7. ~~look by kosher/diet~~ ✅ COMPLETED:
 	~~7.1 kosher - vegan, vegeterian, parve, milchik, fleisch~~ ✅
@@ -28,8 +29,9 @@
 2. Make choice by ease
 3. Give k-choices ranked by ease and/or rank
 4. ~~make choice by kosher type~~ ✅ COMPLETED
-5. ~~if last_made don't make choice made in last 5 days or if last_made==int then that amount of days~~ ✅ COMPLETED
-6. export all flag options to filtering functions that can be make the relevant DB smaller for pd.sample.
+5. ~~if last_made don't make choice made in last 5 days~~ ✅ COMPLETED
+6. suprise me flag? ✅ COMPLETED
+7. Weekly Meal Planner ✅ COMPLETED
 	6.1 OPTION: add and then remove a column of weights that get zeroed for filtering. e.g., if milchik chosen, in temp_filter all fleischik will get a 0 and then when doing sample(weights=temp_filter) the fleischik meals will be filtered out.
 
 ## Iodata
@@ -44,7 +46,7 @@
 ## Data organization:
 
 ## Features:
-1. meal scaling factor - can be used for weekly meal planning
+1. ~~meal scaling factor~~ ✅ COMPLETED: Used for weekly meal planning leftovers.
 2. recipe suggestion - Krutit, Kitchencoach
 3. take-away category suggestion - look from at categories at 10bis, wolt, mishloha
 
