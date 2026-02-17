@@ -70,50 +70,74 @@ if st.button(TRANS['button'][l], type="primary"):
             diet=DietType[diet_type]
         )
         if main_name:
-            row = main_df.loc[main_idx]
-            main_name = row['Name_HE'] if l == 'HE' and isinstance(row.get('Name_HE'), str) else main_name
+            main_row = main_df.loc[main_idx]
+            main_kosher = main_row.get('KosherType', 'nonkosher')
+            main_display_name = main_row['Name_HE'] if l == 'HE' and isinstance(main_row.get('Name_HE'), str) else main_name
+        else:
+            main_kosher = 'nonkosher'
+            main_display_name = TRANS['no_main'][l]
     else:
         main_name = TRANS['no_main'][l]
+        main_display_name = main_name
+        main_kosher = 'nonkosher'
         
+    # Determine secondary filter based on main's kosher type
+    # Fleisch main -> Side/Salad can only be Parve or Fleisch
+    # Milchik main -> Side/Salad can only be Parve or Milchik
+    # Parve main -> No additional restriction (uses user's selectbox)
+    
+    side_kosher_limit = KosherType[kosher_type]
+    if main_name and main_name != TRANS['no_main'][l]:
+        if main_kosher == 'fleisch':
+            side_kosher_limit = KosherType.fleisch # aux.choose_random handles the logic that fleisch allows parve+fleisch
+        elif main_kosher == 'milchik':
+            side_kosher_limit = KosherType.milchik # aux.choose_random handles the logic that milchik allows parve+milchik
+
     # 2. Choose Side
     if not side_df.empty:
         _, side_name, side_idx = aux.choose_random(
             side_df, 
-            kosher=KosherType[kosher_type], 
+            kosher=side_kosher_limit, 
             diet=DietType[diet_type]
         )
         if side_name:
             row = side_df.loc[side_idx]
-            side_name = row['Name_HE'] if l == 'HE' and isinstance(row.get('Name_HE'), str) else side_name
+            side_display_name = row['Name_HE'] if l == 'HE' and isinstance(row.get('Name_HE'), str) else side_name
+        else:
+            side_display_name = TRANS['no_side'][l]
     else:
         side_name = TRANS['no_side'][l]
+        side_display_name = side_name
         
     # 3. Choose Salad
     if not salad_df.empty:
         _, salad_name, salad_idx = aux.choose_random(
             salad_df, 
-            kosher=KosherType[kosher_type], 
+            kosher=side_kosher_limit, 
             diet=DietType[diet_type]
         )
         if salad_name:
             row = salad_df.loc[salad_idx]
-            salad_name = row['Name_HE'] if l == 'HE' and isinstance(row.get('Name_HE'), str) else salad_name
+            salad_display_name = row['Name_HE'] if l == 'HE' and isinstance(row.get('Name_HE'), str) else salad_name
+        else:
+            salad_display_name = TRANS['no_salad'][l]
     else:
         salad_name = TRANS['no_salad'][l]
+        salad_display_name = salad_name
         
     with cols[0]:
         st.subheader(TRANS['main'][l])
-        st.info(main_name)
+        st.info(main_display_name)
     
     with cols[1]:
         st.subheader(TRANS['side'][l])
-        st.info(side_name)
+        st.info(side_display_name)
         
     with cols[2]:
         st.subheader(TRANS['salad'][l])
-        st.info(salad_name)
+        st.info(salad_display_name)
     
-    st.success(f"{TRANS['result_prefix'][l]} {main_name} {TRANS['with'][l]} {side_name} {TRANS['and'][l]} {salad_name}")
+    st.success(f"{TRANS['result_prefix'][l]} {main_display_name} {TRANS['with'][l]} {side_display_name} {TRANS['and'][l]} {salad_display_name}")
 
 st.markdown("---")
 st.info(TRANS['tip'][l])
