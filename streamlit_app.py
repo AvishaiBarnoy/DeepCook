@@ -140,10 +140,15 @@ if st.button(TRANS['button'][l], use_container_width=True, type="primary"):
                 st.image(image_save_as, use_container_width=True)
                 st.caption(f'Photographer: {image_data["photographer"]}')
             else:
-                st.info(f"📷 No image found for '{chosen_one}'")
+                error_msg = image_data.get('error', 'Unknown error')
+                if 'API key' in error_msg:
+                    st.warning("📷 Pexels API key missing! Please add PEXELS_API_KEY to your secrets.")
+                elif 'No images' in error_msg:
+                    st.info(f"📷 No images found for '{chosen_one}'")
+                else:
+                    st.error(f"📷 Pexels Error: {error_msg}")
         except Exception as e:
-            st.error(f"📷 Image error: {str(e)}")
-            st.info("Please check your PEXEL_API_KEY in .streamlit/secrets.toml")
+            st.error(f"📷 Image loading failed: {str(e)}")
         
         # Recipe
         recipe_url = aux.get_recipe_link(meal_row)

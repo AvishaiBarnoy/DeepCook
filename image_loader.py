@@ -19,33 +19,42 @@ def get_image_from_pexel(prompt: str):
     """
     gets image url from pexel through pexel api
     """
-
     load_dotenv()
     
-    # Try to get API key from secrets, fallback to environment
+    # Try multiple common key names for robustness
+    PEXELS_API_KEY = None
     try:
-        PEXELS_API_KEY = st.secrets.get('PEXEL_API_KEY')
+        if 'PEXELS_API_KEY' in st.secrets:
+            PEXELS_API_KEY = st.secrets['PEXELS_API_KEY']
+        elif 'PEXEL_API_KEY' in st.secrets:
+            PEXELS_API_KEY = st.secrets['PEXEL_API_KEY']
     except Exception:
-        PEXELS_API_KEY = os.getenv('PEXEL_API_KEY')
+        pass
         
     if not PEXELS_API_KEY:
-        return {'url': None, 'photographer': 'Unknown'}
+        PEXELS_API_KEY = os.getenv('PEXELS_API_KEY') or os.getenv('PEXEL_API_KEY')
+        
+    if not PEXELS_API_KEY:
+        return {'url': None, 'photographer': 'Unknown', 'error': 'API key missing'}
 
-    # Create API object
-    api = API(PEXELS_API_KEY)
+    try:
+        # Create API object
+        api = API(PEXELS_API_KEY)
 
-    # Search
-    api.search(prompt, page=1, results_per_page=1)
-    # Get photo entries
-    photos = api.get_entries()
+        # Search
+        api.search(prompt, page=1, results_per_page=1)
+        # Get photo entries
+        photos = api.get_entries()
 
-    if not photos:
-        return {'url': None, 'photographer': 'Unknown'}
+        if not photos:
+            return {'url': None, 'photographer': 'Unknown', 'error': 'No images found'}
 
-    photo = photos[0]
-    image_data = {'url': photo.medium, 'photographer': photo.photographer}
-
-    return image_data
+        photo = photos[0]
+        image_data = {'url': photo.medium, 'photographer': photo.photographer}
+        return image_data
+        
+    except Exception as e:
+        return {'url': None, 'photographer': 'Unknown', 'error': str(e)}
 
 import urllib.request
 import requests
