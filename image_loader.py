@@ -8,7 +8,7 @@ def render_image(filepath: str):
     """
     filepath: path to the image. Must have a valid file extension.
     """
-    mime_type = filepath.split('.')[-1:][0].lower()
+    mime_type = filepath.split('.')[-1].lower()
     with open(filepath, "rb") as f:
        content_bytes = f.read()
     content_b64encoded = base64.b64encode(content_bytes).decode()
@@ -21,26 +21,29 @@ def get_image_from_pexel(prompt: str):
     """
 
     load_dotenv()
-    # Type your Pexels API
-    PEXELS_API_KEY = st.secrets['PEXEL_API_KEY']
+    
+    # Try to get API key from secrets, fallback to environment
+    try:
+        PEXELS_API_KEY = st.secrets.get('PEXEL_API_KEY')
+    except Exception:
+        PEXELS_API_KEY = os.getenv('PEXEL_API_KEY')
+        
+    if not PEXELS_API_KEY:
+        return {'url': None, 'photographer': 'Unknown'}
 
     # Create API object
     api = API(PEXELS_API_KEY)
 
-    # Search five 'kitten' photos
+    # Search
     api.search(prompt, page=1, results_per_page=1)
     # Get photo entries
     photos = api.get_entries()
 
-    for photo in photos:
-        # Print photographer
-        # print('Photographer: ', photo.photographer)
-        # Print url
-        # print('Photo url: ', photo.url)
-        # Print original size url
-        # print('Photo original size: ', photo.original)
+    if not photos:
+        return {'url': None, 'photographer': 'Unknown'}
 
-        image_data = {'url':photo.medium, 'photographer':photo.photographer}
+    photo = photos[0]
+    image_data = {'url': photo.medium, 'photographer': photo.photographer}
 
     return image_data
 
