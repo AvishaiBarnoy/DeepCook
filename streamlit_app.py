@@ -38,7 +38,8 @@ TRANS = {
     'recipe': {'EN': 'Recipe suggestion: ', 'HE': 'הצעת מתכון: '},
     'no_recipe': {'EN': 'No recipe suggestion exists.', 'HE': 'אין הצעת מתכון במאגר.'},
     'people_count': {'EN': 'People that pressed the button: ', 'HE': 'אנשים שלחצו על הכפתור: '},
-    'crowd': {'EN': 'Cooking for a crowd? (High scaling)', 'HE': 'מבשלים להרבה אנשים? (יכולת הגדלה)'}
+    'crowd': {'EN': 'Cooking for a crowd? (High scaling)', 'HE': 'מבשלים להרבה אנשים? (יכולת הגדלה)'},
+    'surprise_toggle': {'EN': 'Surprise Me! (New/Rare meals)', 'HE': 'הפתעות! (דברים חדשים/נדירים)'}
 }
 
 l = st.session_state.lang
@@ -87,6 +88,11 @@ with st.expander(TRANS['filters'][l]):
             TRANS['crowd'][l],
             value=False
         )
+        
+        surprise_me = st.checkbox(
+            TRANS['surprise_toggle'][l],
+            value=False
+        )
 
 MEAL_LIST = "data/meal_list.csv"
 absolute_path = Path(__file__).parent / MEAL_LIST
@@ -112,7 +118,8 @@ if st.button(TRANS['button'][l], use_container_width=True, type="primary"):
         diet=DietType[diet_type],
         ease_cutoff=ease_value,
         times=smarter_weighting,
-        scaling_only=scaling_only
+        scaling_only=scaling_only,
+        surprise_me=surprise_me
     )
     
     if chosen_one is None:

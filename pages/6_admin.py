@@ -12,6 +12,32 @@ l = st.session_state.lang
 st.title("🛠️ Maintenance Dashboard")
 st.write("Keep the meal database healthy by filling in missing information.")
 
+# --- Sidebar Documentation ---
+with st.sidebar:
+    st.header("📖 Schema Guide")
+    st.markdown("""
+    ### 🍽️ Meal Info
+    - **Name**: English name of the meal.
+    - **Name_HE**: Hebrew name of the meal.
+    
+    ### 🥬 Dietary & Physics
+    - **KosherType**: `parve`, `milchik`, `fleisch`, or `nonkosher`.
+    - **Diet**: String tag (`vegan`, `vegetarian`, `glutenfree`, `keto`). Leave empty if none.
+    - **Rank**: Quality score from **1** (poor) to **10** (excellent).
+    
+    ### ⚙️ Toggle Fields (0 or 1)
+    - **Scaling**: `1` = Good for crowds (large batches), `0` = Hard to scale.
+    - **Kids**: `1` = Kid-friendly, `0` = Grownups mostly.
+    - **TA**: `1` = Takeaway option, `0` = Home cooked.
+    
+    ### ⏱️ Difficulty & Time
+    - **Prep_Ease**: Difficulty from **1** (Easiest) to **10** (Hardest).
+    - **Prep_Time / Cook_Time**: Relative duration (`short`, `medium`, `long`).
+    """)
+    st.divider()
+    st.caption("DeepCook Admin v1.1.0")
+
+
 MEAL_LIST = "data/meal_list.csv"
 absolute_path = Path(__file__).parent.parent / MEAL_LIST
 

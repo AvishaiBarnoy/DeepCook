@@ -44,7 +44,9 @@ if absolute_path.exists():
             kosher=KosherType[kosher_type],
             diet=DietType[diet_type],
             ease_cutoff=max_ease,
-            kids=True
+            kids=True,
+            times=True,
+            surprise_me=True
         )
         
         if chosen_one:

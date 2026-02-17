@@ -30,7 +30,9 @@ no-flag: choose from everything including TA'''),
     kosher: KosherType = typer.Option(KosherType.nonkosher, case_sensitive=False, help="Filter by kosher type: parve, milchik, fleisch, nonkosher"),
     diet: DietType = typer.Option(DietType.any, case_sensitive=False, help="Filter by diet: any, vegan, vegetarian, glutenfree, keto"),
     ease: int = typer.Option(None, help="Filter by preparation ease (1-10, lower is easier)"),
-    times: bool = typer.Option(False, "--smarter-weighting", help="Penalize meals prepared frequently"),
+    times: bool = typer.Option(False, "--smarter-weighting", help="Penalize meals prepared frequently and recently"),
+    surprise: bool = typer.Option(False, "--surprise-me", help="Prioritize meals never made or low-frequency"),
+    crowd: bool = typer.Option(False, "--crowd", help="Filter for meals that scale well"),
     mock: bool = typer.Option(False, help="Mock try for testing and developing, will not prompt for saving.")
 ):
     
@@ -55,7 +57,9 @@ no-flag: choose from everything including TA'''),
             kosher=kosher, 
             diet=diet,
             ease_cutoff=ease,
-            times=times
+            times=times,
+            surprise_me=surprise,
+            scaling_only=crowd
         )
         
         if chosen_one is not None and mock == False:
