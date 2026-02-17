@@ -49,7 +49,8 @@ if absolute_path.exists():
             diet=DietType[diet_type],
             rank=True,
             times=smarter,
-            kids=False # Filter for non-kids specific meals if possible
+            kids=False, # Filter for non-kids specific meals
+            surprise_me=True
         )
         
         if chosen_one:

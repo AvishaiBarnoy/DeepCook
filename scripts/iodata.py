@@ -37,7 +37,9 @@ def meal_questions(meal_data):
         "Cook_Time": ["short", "medium", "long"],
         "TA": ["0", "1"],
         "Kids": ["0", "1"],
-        "Rank": [str(i) for i in range(1, 11)]
+        "Scaling": ["0.0", "1.0", "0", "1"],
+        "Rank": [str(i) for i in range(1, 11)],
+        "Prep_Ease": [str(i) for i in range(1, 11)]
     }
 
     for col in data.columns:
@@ -81,21 +83,31 @@ def check_meal_inp(col, val, valid_options):
     Check if a value is valid for a given column.
     Returns (bool, message)
     '''
-    if not val:
+    # Allow empty only for Diet or optional fields if we decide so, 
+    # but for now let's be strict except for specific ones.
+    if not val and col not in ["Diet", "recipe_suggestion", "Name_HE"]:
         return False, "Value cannot be empty"
         
     if col in valid_options:
         if val not in valid_options[col]:
             return False, f"Must be one of: {', '.join(valid_options[col])}"
             
-    if col == "Rank":
+    if col in ["Rank", "Prep_Ease"]:
         try:
-            r = int(val)
+            r = int(float(val))
             if not 1 <= r <= 10:
-                return False, "Rank must be between 1 and 10"
+                return False, f"{col} must be between 1 and 10"
         except ValueError:
-            return False, "Rank must be an integer"
+            return False, f"{col} must be an integer"
             
+    if col == "Diet":
+        # Check if tags are valid
+        valid_tags = ["vegan", "vegetarian", "glutenfree", "keto"]
+        tags = [t.strip().lower() for t in val.split(',') if t.strip()]
+        for tag in tags:
+            if tag not in valid_tags:
+                return False, f"Unknown diet tag '{tag}'. Valid: {', '.join(valid_tags)}"
+
     return True, "OK"
 
 def write_to_log(choice,logfile="meal.log"):

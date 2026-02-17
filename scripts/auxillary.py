@@ -4,6 +4,7 @@ this is called auxiallary as it is supposed to support the main main.py file
 '''
 from enum import Enum
 import pandas as pd
+import numpy as np
 from pathlib import Path
 
 try:
@@ -37,7 +38,8 @@ def choose_random(
     diet: DietType = DietType.any,
     ease_cutoff: int | None = None,
     kids: bool | None = None,
-    scaling_only: bool = False
+    scaling_only: bool = False,
+    surprise_me: bool = False
 ):
     '''
     makes a random choice of a meal from a meal DB
@@ -45,14 +47,16 @@ def choose_random(
     Parameters:
         meals: DataFrame with meal data
         rank: bool, use weighted choice by rank
-        times: bool, if True, adjust weights based on times_made (penalize frequently made)
+        times: bool, if True, adjust weights based on times_made and timestamp (penalty for recent/frequent)
         last_made: int, exclude meals made in the past N days. 0 = no filtering
         TA: bool or None, filter take-away options
         k: int, number of choices to return
         kosher: KosherType enum, filter by kosher requirements
         diet: DietType enum, filter by dietary preferences
         ease_cutoff: int, if set, only show meals with Prep_Ease <= ease_cutoff
-        kids: bool or None, filter for kids-friendly meals (1=kids, 0=not kids)
+        kids: bool or None, filter for kids-friendly meals
+        scaling_only: bool, only show meals that scale well
+        surprise_me: bool, prioritize meals never made or low-frequency
     
     Returns:
         tuple: (meals, chosen_name, chosen_idx)
@@ -141,14 +145,28 @@ def choose_random(
     weights = pd.Series(1.0, index=meals_copy.index)
     
     if rank == True and "Rank" in meals_copy.columns:
-        weights = meals_copy["Rank"].astype(float)
+        weights = meals_copy["Rank"].astype(float).fillna(5.0)
     
     if times == True and "times_made" in meals_copy.columns:
-        # Smarter weighting: weight = rank / (1 + times_made)
-        # This penalizes meals that have been made many times.
-        # Handle cases where times_made might be NaN
+        # Frequency penalty
         times_made = meals_copy["times_made"].fillna(0).astype(float)
-        weights = weights / (1.0 + times_made)
+        weights = weights / (1.0 + 0.5 * times_made)
+        
+        # Time decay penalty (if timestamp available)
+        if "Timestamp" in meals_copy.columns:
+            ts = pd.to_datetime(meals_copy['Timestamp'], errors='coerce')
+            days_since = (pd.Timestamp.now() - ts).dt.days.fillna(365)
+            # Decaying factor: lower weight for more recent
+            decay = 1.0 - np.exp(-days_since / 14.0)
+            weights = weights * (decay + 0.05)
+
+    if surprise_me:
+        # Prioritize 0 times_made or very low frequency
+        if "times_made" in meals_copy.columns:
+            times_made = meals_copy["times_made"].fillna(0).astype(float)
+            # Inverse of frequency gives high weight to 0 or 1
+            surprise_weights = 1.0 / (1.0 + times_made)
+            weights = weights * (surprise_weights * 10.0) 
     
     # Normalize weights to avoid issues
     if weights.sum() == 0:
