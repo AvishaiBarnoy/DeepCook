@@ -32,7 +32,6 @@ def meal_questions(meal_data):
     # Define valid options for specific columns
     valid_options = {
         "KosherType": ["parve", "milchik", "fleisch", "nonkosher"],
-        "Kosher": ["parve", "milchik", "fleisch", "nonkosher"],
         "Prep_Time": ["short", "medium", "long"],
         "Cook_Time": ["short", "medium", "long"],
         "TA": ["0", "1"],
@@ -119,32 +118,82 @@ def write_to_log(choice,logfile="meal.log"):
     with open(f"data/{logfile}","a") as f:
         f.writelines(log)
 
-def update_column(data, column):
+def maintenance_wizard(data, file_path=None):
     '''
-    data    ::: df to update
-    column  ::: str, column name to update
+    A CLI-based wizard to fill in missing or default data.
     '''
-    for idx,row in data.iterrows():
-        print(idx,row.iloc[0],column)
-        data.loc[idx,column] = input("Enter new value: ")
-    return data
+    print("\n" + "🧙" * 15)
+    print("DATABASE MAINTENANCE WIZARD")
+    print("🧙" * 15)
+    
+    valid_options = {
+        "KosherType": ["parve", "milchik", "fleisch", "nonkosher"],
+        "Prep_Time": ["short", "medium", "long"],
+        "Cook_Time": ["short", "medium", "long"],
+        "TA": ["0", "1", 0, 1],
+        "Kids": ["0", "1", 0, 1],
+        "Scaling": ["0.0", "1.0", "0", "1", 0.0, 1.0, 0, 1],
+        "Rank": [str(i) for i in range(1, 11)] + list(range(1, 11)),
+        "Prep_Ease": [str(i) for i in range(1, 11)] + list(range(1, 11))
+    }
 
-def update_missing_data(data, column):
-    '''
-    same as update_column() but won't update rows with values
-    '''
-    for idx,row in data.iterrows():
-        print(idx,row.iloc[0],column)
-        if data.loc[idx,column] == "NaN":
-            data.loc[idx,column] = input("Enter new value: ")
+    modified = False
+    
+    for idx, row in data.iterrows():
+        meal_name = row.get('Name_HE', row.get('Name', 'Unknown'))
+        needs_attention = False
+        
+        # Check for missing or placeholder values in key columns
+        # We define "placeholders" as things that might have been auto-filled
+        check_cols = ["Diet", "Scaling", "Prep_Ease", "Rank", "Kids"]
+        
+        for col in check_cols:
+            if col not in data.columns: continue
+            
+            val = row[col]
+            is_placeholder = False
+            
+            if pd.isna(val) or val == "" or val == "NaN" or val == "nan":
+                is_placeholder = True
+            elif col == "Rank" and float(val) == 5.0: # Default rank 5
+                is_placeholder = True
+            elif col == "Prep_Ease" and float(val) == 5.0: # Default ease 5
+                is_placeholder = True
+                
+            if is_placeholder:
+                print(f"\n🍴 Meal: {meal_name}")
+                print(f"❓ Field '{col}' is missing or default ({val}).")
+                
+                while True:
+                    prompt = f"Enter value for {col}"
+                    if col in valid_options:
+                        # Show options for clarity
+                        clean_opts = [str(o) for o in valid_options[col] if isinstance(o, str)]
+                        prompt += f" ({'/'.join(clean_opts[:4])}...)"
+                    
+                    new_val = input(f"{prompt} (or Enter to skip, 'q' to quit): ").strip()
+                    
+                    if new_val.lower() == 'q':
+                        return data if not modified else data # Exit immediately
+                    
+                    if not new_val:
+                        break # Skip this field
+                        
+                    is_valid, msg = check_meal_inp(col, new_val, valid_options)
+                    if is_valid:
+                        data.at[idx, col] = new_val
+                        modified = True
+                        break
+                    else:
+                        print(f"❌ {msg}")
+                        
+    if modified and file_path:
+        confirm = input("\n💾 Save changes to file? (y/n): ").lower()
+        if confirm == 'y':
+            data.to_csv(file_path)
+            print("Successfully saved!")
+            
     return data
-
-def update_values_meal():
-    '''
-    modification of specific meal's attributes
-    maybe print all meal names, ask for user numeric input by also showing their index.
-    '''
-    pass
 
 def save_data(data, filename):
     '''

@@ -25,6 +25,44 @@ TRANS = {
 }
 
 st.title(TRANS['title'][l])
+
+# Playful Theme CSS
+st.markdown("""
+<style>
+    .stApp {
+        background-color: #FFF5F5;
+    }
+    .main {
+        background: linear-gradient(135deg, #FFF5F5 0%, #FFF0F6 100%);
+    }
+    h1 {
+        color: #FF6B6B !important;
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+        text-shadow: 2px 2px #FFE3E3;
+    }
+    .stButton>button {
+        background-color: #4DABF7 !important;
+        color: white !important;
+        border-radius: 20px !important;
+        border: 2px solid #339AF0 !important;
+        font-weight: bold !important;
+        transition: transform 0.2s;
+    }
+    .stButton>button:hover {
+        transform: scale(1.05) rotate(-1deg);
+        background-color: #339AF0 !important;
+    }
+    .kids-card {
+        background-color: white;
+        padding: 20px;
+        border-radius: 25px;
+        border: 4px dashed #FFD43B;
+        text-align: center;
+        margin: 10px 0;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 st.write(TRANS['intro'][l])
 
 MEAL_LIST = "data/meal_list.csv"
@@ -53,10 +91,21 @@ if absolute_path.exists():
             meal_row = meals_db.loc[chosen_idx]
             display_name = meal_row['Name_HE'] if l == 'HE' and isinstance(meal_row.get('Name_HE'), str) else chosen_one
             
-            st.success(f"{TRANS['success'][l]} **{display_name}**?")
+            st.markdown(f"""
+            <div class="kids-card">
+                <h2 style="margin:0;">Yay!</h2>
+                <p style="font-size: 1.5rem; color: #4DABF7;">{TRANS['success'][l]}</p>
+                <p style="font-size: 2.5rem; font-weight: bold; color: #FF6B6B;">{display_name}</p>
+            </div>
+            """, unsafe_allow_html=True)
             
-            if l == 'EN' and 'Name_HE' in meal_row and isinstance(meal_row['Name_HE'], str):
-                st.subheader(f"🇮🇱 {meal_row['Name_HE']}")
+            if l == 'EN' and 'Name_HE' in meal_row and isinstance(meal_row['Name_HE'], str) and meal_row['Name_HE'] != "":
+                st.markdown(f"<p style='text-align:center; font-size:1.5rem; color:#868E96;'>🇮🇱 {meal_row['Name_HE']}</p>", unsafe_allow_html=True)
+                
+            # Recipe Link for Kids
+            recipe_url = aux.get_recipe_link(meal_row, preferred_site='nikib') # NikiB is very kid-friendly
+            if recipe_url:
+                st.markdown(f"<div style='text-align:center;'><a href='{recipe_url}' target='_blank'>👩‍🍳 View Recipe for Parents</a></div>", unsafe_allow_html=True)
                 
             st.balloons()
         else:

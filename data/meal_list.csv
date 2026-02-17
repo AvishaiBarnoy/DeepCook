@@ -1,40 +1,40 @@
 ,Name,KosherType,Diet,Prep_Ease,Prep_Time,Cook_Time,Rank,Scaling,TA,times_made,Timestamp,recipe_suggestion,Name_HE,Kids
-0,Pasta with rose sauce,milchik,,2,medium,medium,4,,0,0.0,,https://www.thekitchencoach.co.il/%D7%A4%D7%A1%D7%98%D7%94-%D7%91%D7%A8%D7%95%D7%98%D7%91-%D7%A8%D7%95%D7%96%D7%94/,פסטה רוזה,1
-1,Stir Fried Vegetables,parve,,6,medium,short,8,,0,0.0,,,ירקות מוקפצים,1
-2,Hot Salad,parve,,7,medium,short,8,,0,1.0,2022-05-11,,סלט חם,1
-3,Hamburger and Fries,fleisch,,4,medium,medium,7,,0,1.0,2022-05-09,,המבורגר וצ'יפס,1
-4,Pizza,milchik,,5,long,medium,7,,0,0.0,2022-05-02,https://nikib.co.il/pastry/25132/,פיצה,1
-5,Sushi,parve,,10,long,medium,7,,0,0.0,,,סושי,1
-6,Shushi TA,fleisch,,0,short,short,8,,1,0.0,,,סושי משלוח,1
-7,Fried Eggs,parve,,2,short,short,6,,0,0.0,,,ביצי עין,1
-8,Shakshuka,parve,,4,medium,short,5,,0,0.0,,,שקשוקה,1
-9,Pasta with tomato,parve,,4,medium,short,3,,0,0.0,,,פסטה ברוטב עגבניות,1
-10,Stir Fried Veggies,parve,,4,medium,short,7,,0,1.0,2022-05-23,,ירקות מוקפצים מיקס קפוא,1
-11,toasts,milchik,,3,short,short,4,,0,0.0,,,טוסטים,1
-12,Eggs Benedict,milchik,,10,long,medium,9,,0,0.0,,https://www.krutit.co.il/%D7%94-%D7%9E%D7%AA%D7%9B%D7%95%D7%9F-%D7%9C%D7%90%D7%92%D7%96-%D7%91%D7%A0%D7%93%D7%99%D7%A7%D7%98/,אגז בנדיקט,1
-13,Nachos,parve,,6,medium,short,7,,0,0.0,,https://www.foodisgood.co.il/general/best-home-made-nachos/,נאצ'וס,1
-14,Gnochi,parve,,9,long,short,8,,0,0.0,,https://www.thekitchencoach.co.il/%D7%A0%D7%99%D7%95%D7%A7%D7%99-%D7%AA%D7%A4%D7%95%D7%97%D7%99-%D7%90%D7%93%D7%9E%D7%94/,ניוקי,1
-15,Broccoli and Cauliflower,parve,,0,medium,medium,5,,0,0.0,,,ברוקולי וכרובית,1
-16,Baguette,parve,,8,long,medium,7,,0,0.0,,,באגט,1
-17,Ramen,fleisch,,8,long,long,7,,0,0.0,,,ראמן,1
-18,Grilled Cheese,milchik,,3,short,short,6,,0,0.0,,,לחם מטוגן,1
-19,Salami Sandwich,fleisch,,2,short,short,5,,0,1.0,2022-05-10,,כריך סלאמי,1
-20,Pasta with mushroom cream sauce,milchik,,3,medium,medium,7,,0,1.0,2022-05-09,,פסטה ברוטב שמנת פטריות,1
-21,Pasta Bolognese,fleisch,,6,medium,medium,7,,0,0.0,,https://www.thekitchencoach.co.il/%D7%A8%D7%95%D7%98%D7%91-%D7%91%D7%95%D7%9C%D7%95%D7%A0%D7%96-%D7%A4%D7%A1%D7%98%D7%94-%D7%9E%D7%AA%D7%9B%D7%95%D7%9F/,ספגטי בולונז,1
-22,Pasta Cacio e Pepe,milchik,,3,medium,medium,5,,0,0.0,,https://www.thekitchencoach.co.il/%D7%A4%D7%A1%D7%98%D7%94-%D7%A7%D7%A6%D7%95-%D7%90%D7%94-%D7%A4%D7%A4%D7%94-%D7%92%D7%91%D7%99%D7%A0%D7%94-%D7%95%D7%A4%D7%9C%D7%A4%D7%9C/,פסטה קצ'ו אה פפה,1
-23,Pasta Broccoli and Almonds,parve,,6,medium,medium,7,,0,0.0,,https://www.thekitchencoach.co.il/%D7%A4%D7%A1%D7%98%D7%94-%D7%91%D7%A8%D7%95%D7%98%D7%91-%D7%91%D7%A8%D7%95%D7%A7%D7%95%D7%9C%D7%99/,פסטה ברוטב ברוקולי ושקדים,1
-24,Lasagna,milchik,,6,long,medium,8,,0,0.0,,,לזניה,1
-25,Hamburger TA,fleisch,,0,short,short,8,,1,0.0,,,המבורגר משלוח,1
-26,Pizza TA,milchik,,0,short,short,5,,1,1.0,2022-05-11,,פיצה משלוח,1
-27,Potatoes with cheese (myabe cottage),milchik,,4,medium,medium,4,,0,0.0,,,תפוחי אדמה וגבינהק,1
-28,Pancakes,parve,,6,medium,short,7,,0,1.0,2022-05-11,,פנקייקים,1
-29,Pasta Oli Olio,parve,,6,medium,medium,9,,0,0.0,,https://www.krutit.co.il/%D7%A1%D7%A4%D7%92%D7%98%D7%99-%D7%90%D7%9C%D7%99%D7%95-%D7%90%D7%95%D7%9C%D7%99%D7%95/,פסטה אליו אוליו,1
-30,Bagels,parve,,7,long,medium,8,,0,0.0,,https://www.krutit.co.il/%D7%91%D7%99%D7%99%D7%92%D7%9C-%D7%90%D7%9E%D7%A8%D7%99%D7%A7%D7%90%D7%99-%D7%A9%D7%9B%D7%91%D7%A9-%D7%90%D7%AA-%D7%94%D7%A8%D7%A9%D7%AA/,בייגל אמריקאי,1
-31,Cornflakes,parve,,0,short,short,1,,0,0.0,,,קורנפלקס,1
-32,Pasta with Sweetpotato cream sauce,milchik,,5,medium,medium,5,,0,0.0,,,פסטה ברוטב שמנת בטטה,1
-33,Bruschetta tomato basil,parve,,5,medium,short,7,,0,0.0,,,ברוסקטות עם עגבניות ובזיליקום,1
-34,Diced baked potato and sweet potato,parve,,4,medium,medium,5,,0,0.0,,,תפוחי אדמה ובטטות אפויים,1
-35,Antipasto,parve,,4,medium,medium,4,,0,1.0,2022-05-11,,אנטיפסטי,1
-36,Kitchen Coach sweet potato,parve,,4,medium,medium,6,,0,0.0,,https://www.thekitchencoach.co.il/%D7%91%D7%98%D7%98%D7%94-%D7%90%D7%A4%D7%95%D7%99%D7%99%D7%94/,בטטות של עז תלם,1
-37,Garlic bread,parve,,7,long,medium,9,,0,0.0,,https://gatherforbread.com/pull-apart-garlic-bread/,לחם שום,1
-38,Creamed Potatoes,milchik,,7,medium,medium,7,,0,1.0,2022-05-12,,תפוחי אדמה מוקרמים,1
+0,Pasta with rose sauce,milchik,,2,medium,medium,4,0.0,0,0.0,,https://www.thekitchencoach.co.il/%D7%A4%D7%A1%D7%98%D7%94-%D7%91%D7%A8%D7%95%D7%98%D7%91-%D7%A8%D7%95%D7%96%D7%94/,פסטה רוזה,1
+1,Stir Fried Vegetables,parve,,6,medium,short,8,0.0,0,0.0,,,ירקות מוקפצים,1
+2,Hot Salad,parve,,7,medium,short,8,0.0,0,1.0,2022-05-11,,סלט חם,1
+3,Hamburger and Fries,fleisch,,4,medium,medium,7,0.0,0,1.0,2022-05-09,,המבורגר וצ'יפס,1
+4,Pizza,milchik,,5,long,medium,7,0.0,0,0.0,2022-05-02,https://nikib.co.il/pastry/25132/,פיצה,1
+5,Sushi,parve,,10,long,medium,7,0.0,0,0.0,,,סושי,1
+6,Shushi TA,fleisch,,0,short,short,8,0.0,1,0.0,,,סושי משלוח,1
+7,Fried Eggs,parve,,2,short,short,6,0.0,0,0.0,,,ביצי עין,1
+8,Shakshuka,parve,,4,medium,short,5,0.0,0,0.0,,,שקשוקה,1
+9,Pasta with tomato,parve,,4,medium,short,3,0.0,0,0.0,,,פסטה ברוטב עגבניות,1
+10,Stir Fried Veggies,parve,,4,medium,short,7,0.0,0,1.0,2022-05-23,,ירקות מוקפצים מיקס קפוא,1
+11,toasts,milchik,,3,short,short,4,0.0,0,0.0,,,טוסטים,1
+12,Eggs Benedict,milchik,,10,long,medium,9,0.0,0,0.0,,https://www.krutit.co.il/%D7%94-%D7%9E%D7%AA%D7%9B%D7%95%D7%9F-%D7%9C%D7%90%D7%92%D7%96-%D7%91%D7%A0%D7%93%D7%99%D7%A7%D7%98/,אגז בנדיקט,1
+13,Nachos,parve,,6,medium,short,7,0.0,0,0.0,,https://www.foodisgood.co.il/general/best-home-made-nachos/,נאצ'וס,1
+14,Gnochi,parve,,9,long,short,8,0.0,0,0.0,,https://www.thekitchencoach.co.il/%D7%A0%D7%99%D7%95%D7%A7%D7%99-%D7%AA%D7%A4%D7%95%D7%97%D7%99-%D7%90%D7%93%D7%9E%D7%94/,ניוקי,1
+15,Broccoli and Cauliflower,parve,,0,medium,medium,5,0.0,0,0.0,,,ברוקולי וכרובית,1
+16,Baguette,parve,,8,long,medium,7,0.0,0,0.0,,,באגט,1
+17,Ramen,fleisch,,8,long,long,7,0.0,0,0.0,,,ראמן,1
+18,Grilled Cheese,milchik,,3,short,short,6,0.0,0,0.0,,,לחם מטוגן,1
+19,Salami Sandwich,fleisch,,2,short,short,5,0.0,0,1.0,2022-05-10,,כריך סלאמי,1
+20,Pasta with mushroom cream sauce,milchik,,3,medium,medium,7,0.0,0,1.0,2022-05-09,,פסטה ברוטב שמנת פטריות,1
+21,Pasta Bolognese,fleisch,,6,medium,medium,7,0.0,0,0.0,,https://www.thekitchencoach.co.il/%D7%A8%D7%95%D7%98%D7%91-%D7%91%D7%95%D7%9C%D7%95%D7%A0%D7%96-%D7%A4%D7%A1%D7%98%D7%94-%D7%9E%D7%AA%D7%9B%D7%95%D7%9F/,ספגטי בולונז,1
+22,Pasta Cacio e Pepe,milchik,,3,medium,medium,5,0.0,0,0.0,,https://www.thekitchencoach.co.il/%D7%A4%D7%A1%D7%98%D7%94-%D7%A7%D7%A6%D7%95-%D7%90%D7%94-%D7%A4%D7%A4%D7%94-%D7%92%D7%91%D7%99%D7%A0%D7%94-%D7%95%D7%A4%D7%9C%D7%A4%D7%9C/,פסטה קצ'ו אה פפה,1
+23,Pasta Broccoli and Almonds,parve,,6,medium,medium,7,0.0,0,0.0,,https://www.thekitchencoach.co.il/%D7%A4%D7%A1%D7%98%D7%94-%D7%91%D7%A8%D7%95%D7%98%D7%91-%D7%91%D7%A8%D7%95%D7%A7%D7%95%D7%9C%D7%99/,פסטה ברוטב ברוקולי ושקדים,1
+24,Lasagna,milchik,,6,long,medium,8,0.0,0,0.0,,,לזניה,1
+25,Hamburger TA,fleisch,,0,short,short,8,0.0,1,0.0,,,המבורגר משלוח,1
+26,Pizza TA,milchik,,0,short,short,5,0.0,1,1.0,2022-05-11,,פיצה משלוח,1
+27,Potatoes with cheese (myabe cottage),milchik,,4,medium,medium,4,0.0,0,0.0,,,תפוחי אדמה וגבינהק,1
+28,Pancakes,parve,,6,medium,short,7,0.0,0,1.0,2022-05-11,,פנקייקים,1
+29,Pasta Oli Olio,parve,,6,medium,medium,9,0.0,0,0.0,,https://www.krutit.co.il/%D7%A1%D7%A4%D7%92%D7%98%D7%99-%D7%90%D7%9C%D7%99%D7%95-%D7%90%D7%95%D7%9C%D7%99%D7%95/,פסטה אליו אוליו,1
+30,Bagels,parve,,7,long,medium,8,0.0,0,0.0,,https://www.krutit.co.il/%D7%91%D7%99%D7%99%D7%92%D7%9C-%D7%90%D7%9E%D7%A8%D7%99%D7%A7%D7%90%D7%99-%D7%A9%D7%9B%D7%91%D7%A9-%D7%90%D7%AA-%D7%94%D7%A8%D7%A9%D7%AA/,בייגל אמריקאי,1
+31,Cornflakes,parve,,0,short,short,1,0.0,0,0.0,,,קורנפלקס,1
+32,Pasta with Sweetpotato cream sauce,milchik,,5,medium,medium,5,0.0,0,0.0,,,פסטה ברוטב שמנת בטטה,1
+33,Bruschetta tomato basil,parve,,5,medium,short,7,0.0,0,0.0,,,ברוסקטות עם עגבניות ובזיליקום,1
+34,Diced baked potato and sweet potato,parve,,4,medium,medium,5,0.0,0,0.0,,,תפוחי אדמה ובטטות אפויים,1
+35,Antipasto,parve,,4,medium,medium,4,0.0,0,1.0,2022-05-11,,אנטיפסטי,1
+36,Kitchen Coach sweet potato,parve,,4,medium,medium,6,0.0,0,0.0,,https://www.thekitchencoach.co.il/%D7%91%D7%98%D7%98%D7%94-%D7%90%D7%A4%D7%95%D7%99%D7%99%D7%94/,בטטות של עז תלם,1
+37,Garlic bread,parve,,7,long,medium,9,0.0,0,0.0,,https://gatherforbread.com/pull-apart-garlic-bread/,לחם שום,1
+38,Creamed Potatoes,milchik,,7,medium,medium,7,0.0,0,1.0,2022-05-12,,תפוחי אדמה מוקרמים,1

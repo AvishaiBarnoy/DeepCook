@@ -1,11 +1,11 @@
-,Name,KosherType,Prep_Ease,Prep_Time,Cook_Time,Rank,Scaling,TA,times_made,Timestamp,recipe_suggestion,Name_HE
-0,penaut butter and jelly,,,,,,,,,,,
-1,omelette,,,,,,,,,,,
-2,bagel with omelette,,,,,,,,,,,
-3,toasts,,,,,,,,,,,
-4,cream cheese with tomatoes,,,,,,,,,,,
-5,chocolate,,,,,,,,,,,
-6,penaut butter,,,,,,,,,,,
-7,chocolate toast,,,,,,,,,,,
-8,pastrami,,,,,,,,,,,
-9,schnitzel,,,,,,,,,,,
+,Name,KosherType,Prep_Ease,Prep_Time,Cook_Time,Rank,Scaling,TA,times_made,Timestamp,recipe_suggestion,Name_HE,Kids
+0,penaut butter and jelly,nonkosher,5.0,,,5.0,0.0,0.0,0.0,,,,0.0
+1,omelette,nonkosher,5.0,,,5.0,0.0,0.0,0.0,,,,0.0
+2,bagel with omelette,nonkosher,5.0,,,5.0,0.0,0.0,0.0,,,,0.0
+3,toasts,nonkosher,5.0,,,5.0,0.0,0.0,0.0,,,,0.0
+4,cream cheese with tomatoes,nonkosher,5.0,,,5.0,0.0,0.0,0.0,,,,0.0
+5,chocolate,nonkosher,5.0,,,5.0,0.0,0.0,0.0,,,,0.0
+6,penaut butter,nonkosher,5.0,,,5.0,0.0,0.0,0.0,,,,0.0
+7,chocolate toast,nonkosher,5.0,,,5.0,0.0,0.0,0.0,,,,0.0
+8,pastrami,nonkosher,5.0,,,5.0,0.0,0.0,0.0,,,,0.0
+9,schnitzel,nonkosher,5.0,,,5.0,0.0,0.0,0.0,,,,0.0
