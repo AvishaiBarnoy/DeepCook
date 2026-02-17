@@ -36,7 +36,8 @@ def choose_random(
     kosher: KosherType = KosherType.nonkosher, 
     diet: DietType = DietType.any,
     ease_cutoff: int | None = None,
-    kids: bool | None = None
+    kids: bool | None = None,
+    scaling_only: bool = False
 ):
     '''
     makes a random choice of a meal from a meal DB
@@ -81,6 +82,17 @@ def choose_random(
             meals_copy = filter_diet(filter_kosher(meals, kosher), diet)
             if ease_cutoff is not None and 'Prep_Ease' in meals_copy.columns:
                 meals_copy = meals_copy[meals_copy['Prep_Ease'].astype(float) <= float(ease_cutoff)]
+
+    # 4.5 Filter by Scaling (Cooking for a crowd)
+    if scaling_only and 'Scaling' in meals_copy.columns:
+        # Assuming 1 is good for scaling, 0 is not. If empty, assume it doesn't scale well unless marked.
+        meals_copy = meals_copy[meals_copy['Scaling'].astype(float) == 1.0]
+        if len(meals_copy) == 0:
+            print("Warning: No high-scaling meals found. Ignoring scaling filter.")
+            # Fallback (don't reset everything, just this filter)
+            meals_copy = filter_diet(filter_kosher(meals, kosher), diet)
+            if kids is not None and 'Kids' in meals_copy.columns:
+                 meals_copy = meals_copy[meals_copy['Kids'].astype(float) == float(1 if kids else 0)]
 
     # 4. Filter meals prepared in the past N days
     if last_made > 0:
