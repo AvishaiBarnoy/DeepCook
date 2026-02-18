@@ -22,10 +22,19 @@ Currently, the main engine will randomly choose a meal from `data/meals_list.csv
 - **Recently Made Filter** (`--last-made N`): Exclude meals prepared in the past N days (recommended: 3-5)
 - **Kosher Filtering** (`--kosher`): Filter by kosher type (parve, milchik, fleisch, nonkosher)
 - **Diet Filtering** (`--diet`): Filter by dietary preference (vegan, vegetarian, glutenfree, keto, any)
-- **Time-aware Selection**: After 8 PM, automatically filters out meals with long preparation times
-- **Midnight Protection**: Prevents complex meal suggestions between midnight and 5 AM
-- **Meal Addition** (`--inp`): Interactively add new meals to the database
-- **Mock Mode** (`--mock`): Test the app without logging to the database
+- **Smart Time Awareness** (`too_late()`):
+    - **Late Night (8 PM - Midnight)**: Automatically filters out meals with `long` preparation times. Suggests only quick/medium options.
+    - **Sleep Protection (Midnight - 5 AM)**: Suggests no cooking at all during sleeping hours.
+- **Weighted Random Selection** (`choose_random`):
+    - **Rank Bias**: Higher ranked meals (1-10) are more likely to be chosen.
+    - **Frequency Penalty**: Meals made frequently get a weight penalty (`1 / (1 + 0.5 * times_made)`).
+    - **Recency Decay**: Meals made recently get a temporary weight reduction that fades over 14 days.
+    - **Surprise Factor**: "Surprise Me" mode heavily boosts never-made or rarely-made meals.
+- **Filtering Logic**:
+    - **Kosher**: Strict separation (Parve/Milchik/Fleisch). Parve is always included unless explicitly excluded.
+    - **Diet**: Supports multiple tags per meal (e.g., "vegan, glutenfree").
+    - **Leftover Mode**: Prioritizes repeat meals if the previous day had a large, scalable main dish.
+- **Weekly Planner**: Full 7-day planning with day-locking and shopping list export.
 
 Currently ranking is only based on my own preferences for meals, but in the future a quick reranking option will be added, also an easy meal insertion to the db will be implemented.
 
